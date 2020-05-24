@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/model/entry_list_model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:owmflutter/api/api.dart';
-import 'package:owmflutter/model/model.dart';
+import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/model/model.dart';
 import 'package:provider/provider.dart';
 
 class MikroblogScreen extends StatefulWidget {

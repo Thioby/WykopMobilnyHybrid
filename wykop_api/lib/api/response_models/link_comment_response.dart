@@ -1,0 +1,48 @@
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:wykop_api/api/api.dart';
+
+part 'link_comment_response.g.dart';
+
+abstract class LinkCommentResponse implements Built<LinkCommentResponse, LinkCommentResponseBuilder> {
+  factory LinkCommentResponse([updates(LinkCommentResponseBuilder b)]) = _$LinkCommentResponse;
+
+  int get id;
+
+  @BuiltValueField(wireName: "link_id")
+  String get link;
+
+  String get date;
+
+  @nullable
+  String get body;
+
+  @nullable
+  @BuiltValueField(wireName: "user_vote")
+  int get userVote;
+
+  @BuiltValueField(wireName: "vote_count")
+  int get voteCount;
+
+  @BuiltValueField(wireName: "vote_count_plus")
+  int get voteCountPlus;
+
+  @BuiltValueField(wireName: "parent_id")
+  int get parentId;
+
+  @BuiltValueField(wireName: "blocked")
+  bool get isBlocked;
+
+  AuthorResponse get author;
+
+  @nullable
+  EmbedResponse get embed;
+
+  @nullable
+  @BuiltValueField(wireName: "violation_url")
+  String get violationUrl;
+
+  LinkCommentResponse._();
+
+  static Serializer<LinkCommentResponse> get serializer => _$linkCommentResponseSerializer;
+}

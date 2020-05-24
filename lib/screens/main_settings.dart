@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:owmflutter/model/model.dart';
+import 'package:wykop_api/model/model.dart';
 import 'package:owmflutter/screens/profile.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/screens/settings/appearance.dart';
@@ -8,7 +8,7 @@ import 'package:owmflutter/screens/settings/profile_edit/profile_edit.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:owmflutter/models/models.dart';
-import 'package:owmflutter/api/api.dart';
+import 'package:wykop_api/api/api.dart';
 import 'package:owmflutter/main.dart';
 import 'package:provider/provider.dart';
 

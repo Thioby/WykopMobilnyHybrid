@@ -34,6 +34,8 @@ dependencies:
   flutter_custom_tabs: ^0.6.0
   community_material_icon: ^3.5.95
   vibration: ^1.2.4
+  wykop_api:
+    path: ./wykop_api
 
 dev_dependencies:
   flutter_test:

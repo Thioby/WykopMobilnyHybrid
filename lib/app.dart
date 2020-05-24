@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:owmflutter/model/model.dart';
+import 'package:wykop_api/model/model.dart';
 import 'package:owmflutter/widgets/notifications_handler.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:pref_gen_flutter/pref_gen_flutter.dart';

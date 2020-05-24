@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/model/model.dart';
+import 'package:wykop_api/model/model.dart';
 import 'package:owmflutter/models/models.dart';
 import 'package:owmflutter/screens/input.dart';
 import 'package:owmflutter/widgets/content_hidden.dart';

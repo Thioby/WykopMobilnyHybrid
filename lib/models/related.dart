@@ -1,6 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:owmflutter/models/models.dart';
-import 'package:owmflutter/api/api.dart';
+import 'package:wykop_api/api/api.dart';
 
 part 'related.g.dart';
 

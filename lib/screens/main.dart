@@ -3,13 +3,12 @@ import 'dart:async';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:owmflutter/app.dart';
-import 'package:owmflutter/model/notifications_count_model.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/keys.dart';
-import 'package:owmflutter/owm_glyphs.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/model/notifications_count_model.dart';
 
 class MainScreen extends StatefulWidget {
   final int defaultScreenIndex;

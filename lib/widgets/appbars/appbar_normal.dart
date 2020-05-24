@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/model/shadow_control_model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/model/model.dart';
 
 class AppbarNormalWidget extends StatefulWidget implements PreferredSizeWidget {
   final String title;
@@ -35,8 +35,7 @@ class AppbarNormalWidget extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize {
-    return Size.fromHeight(
-        bottom != null ? toolbarHeight + bottomHeight : toolbarHeight);
+    return Size.fromHeight(bottom != null ? toolbarHeight + bottomHeight : toolbarHeight);
   }
 
   _AppbarNormalWidgetState createState() => _AppbarNormalWidgetState();
@@ -54,8 +53,7 @@ class _AppbarNormalWidgetState extends State<AppbarNormalWidget> {
           animatedBackgroundColor: Theme.of(context).primaryColor,
         ),
         child: AppBar(
-          backgroundColor:
-              widget.animatedBackground ? Colors.transparent : null,
+          backgroundColor: widget.animatedBackground ? Colors.transparent : null,
           bottom: widget.bottom != null
               ? PreferredSize(
                   preferredSize: Size.fromHeight(widget.bottomHeight),

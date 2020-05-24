@@ -1,15 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:owmflutter/app.dart';
-import 'package:owmflutter/model/model.dart';
-import 'package:owmflutter/model/new_entry_model.dart';
-import 'package:owmflutter/screens/entry.dart';
-import 'package:owmflutter/utils/utils.dart';
-import 'package:owmflutter/widgets/widgets.dart';
-import 'package:owmflutter/models/models.dart';
-import 'package:owmflutter/widgets/input/selected_image.dart';
 import 'dart:async';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:owmflutter/app.dart';
+import 'package:owmflutter/models/models.dart';
+import 'package:owmflutter/screens/entry.dart';
+import 'package:owmflutter/utils/utils.dart';
+import 'package:owmflutter/widgets/input/selected_image.dart';
+import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/model/model.dart';
+import 'package:wykop_api/model/new_entry_model.dart';
 
 enum InputType { ENTRY, ENTRY_COMMENT, LINK_COMMENT, PRIVATE_MESSAGE }
 
@@ -47,12 +48,8 @@ class EditInputScreen extends StatelessWidget {
   final ValueChanged<LinkComment> linkCommentEdited;
 
   EditInputScreen(
-      {this.inputData,
-      this.id,
-      this.inputType,
-      this.commentEdited,
-      this.entryEdited,
-      this.linkCommentEdited});
+      {this.inputData, this.id, this.inputType, this.commentEdited, this.entryEdited, this.linkCommentEdited});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -137,8 +134,8 @@ class _InputScreenState extends State<InputScreen> {
             bottomNavigationBar: InputBarWidget(
               key: inputBarKey,
               existingInputData: widget.inputData,
-              externalController:
-                  textController, //TODO: nie zaznacza tekstu z przycisku, ukrywa klawiature
+              externalController: textController,
+              //TODO: nie zaznacza tekstu z przycisku, ukrywa klawiature
               imageStateChanged: (image) => setState(() => this.image = image),
             ),
             resizeToAvoidBottomPadding: false,
@@ -148,8 +145,7 @@ class _InputScreenState extends State<InputScreen> {
                 icon: Icons.close,
                 onTap: () async {
                   if (owmSettings.confirmExitWriting) {
-                    var res = await showConfirmDialog(context,
-                        "Wyjść z tego ekranu?\r\nZmiany zostaną utracone.");
+                    var res = await showConfirmDialog(context, "Wyjść z tego ekranu?\r\nZmiany zostaną utracone.");
                     if (!res) return;
                   }
                   Navigator.of(context).pop();
@@ -163,24 +159,19 @@ class _InputScreenState extends State<InputScreen> {
                   builder: (context) => RoundIconButtonWidget(
                     icon: Icons.check,
                     onTap: () async {
-                      if (this.textController.text.length >= 3 ||
-                          this.image != null) {
+                      if (this.textController.text.length >= 3 || this.image != null) {
                         if (owmSettings.confirmSend) {
-                          var res =
-                              await showConfirmDialog(context, inputHintDialog);
+                          var res = await showConfirmDialog(context, inputHintDialog);
                           if (!res) return;
                         }
 
-                        Provider.of<InputModel>(context, listen: false)
-                            .onInputSubmitted(InputData(
-                                body: (this.textController.text.length < 3 &&
-                                        this.image != null)
-                                    ? this.textController.text + "​​​​​"
-                                    : this.textController.text,
-                                file: this.image));
+                        Provider.of<InputModel>(context, listen: false).onInputSubmitted(InputData(
+                            body: (this.textController.text.length < 3 && this.image != null)
+                                ? this.textController.text + "​​​​​"
+                                : this.textController.text,
+                            file: this.image));
                       } else {
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text("Treść jest za krótka")));
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Treść jest za krótka")));
                       }
                     },
                     iconSize: 26.0,
@@ -194,8 +185,7 @@ class _InputScreenState extends State<InputScreen> {
                 Visibility(
                   visible: this.image != null,
                   child: Container(
-                    margin:
-                        EdgeInsets.only(left: 13.0, right: 14.0, bottom: 6.0),
+                    margin: EdgeInsets.only(left: 13.0, right: 14.0, bottom: 6.0),
                     child: SelectedImageWidget(
                       backgroundColor: Utils.backgroundGreyOpacity(context),
                       image: this.image,
@@ -207,14 +197,12 @@ class _InputScreenState extends State<InputScreen> {
                   child: Scrollbar(
                     child: SingleChildScrollView(
                       child: Container(
-                        margin: EdgeInsets.only(
-                            left: 18.0, right: 18.0, bottom: 6.0),
+                        margin: EdgeInsets.only(left: 18.0, right: 18.0, bottom: 6.0),
                         child: Consumer<SuggestionsModel>(
                           builder: (context, model, _) => TextField(
                             autofocus: true,
                             onChanged: (text) {
-                              model.loadSuggestions(inputBarKey.currentState
-                                  .extractSuggestions());
+                              model.loadSuggestions(inputBarKey.currentState.extractSuggestions());
                             },
                             style: DefaultTextStyle.of(context).style.merge(
                                   TextStyle(fontSize: 18.0),
@@ -251,8 +239,6 @@ class _SystemPadding extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return new AnimatedContainer(
-        padding: mediaQuery.viewInsets,
-        duration: const Duration(milliseconds: 150),
-        child: child);
+        padding: mediaQuery.viewInsets, duration: const Duration(milliseconds: 150), child: child);
   }
 }

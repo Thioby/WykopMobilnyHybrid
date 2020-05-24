@@ -1,11 +1,9 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/models/author.dart';
-import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import 'package:wykop_api/model/model.dart';
 
 class EntryScreen extends StatefulWidget {
   final EntryModel model;
@@ -16,8 +14,7 @@ class EntryScreen extends StatefulWidget {
   _EntryScreenState createState() => _EntryScreenState();
 }
 
-class _EntryScreenState extends State<EntryScreen>
-    with SingleTickerProviderStateMixin {
+class _EntryScreenState extends State<EntryScreen> with SingleTickerProviderStateMixin {
   EntryModel _entryModel;
   GlobalKey<RefreshIndicatorState> refreshIndicatorKey = GlobalKey();
 
@@ -39,8 +36,7 @@ class _EntryScreenState extends State<EntryScreen>
       child: ChangeNotifierProvider<ShadowControlModel>(
         create: (context) => ShadowControlModel(),
         child: Consumer<EntryModel>(
-          builder: (context, model, _) =>
-              ChangeNotifierProvider<InputModel>.value(
+          builder: (context, model, _) => ChangeNotifierProvider<InputModel>.value(
             value: model,
             child: model.isLoading && model.body == null
                 ? Center(child: CircularProgressIndicator())
@@ -60,14 +56,11 @@ class _EntryScreenState extends State<EntryScreen>
                             iconSize: 26.0,
                             onTap: () => Navigator.of(context).pop(),
                             padding: EdgeInsets.fromLTRB(8.0, 0.0, 16.0, 0.0),
-                            iconPadding:
-                                EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                            iconPadding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                           ),
                           center: Consumer<ShadowControlModel>(
-                            builder: (context, shadowControlModel, _) =>
-                                AnimatedOpacity(
-                              opacity:
-                                  shadowControlModel.showTopShadow ? 0.0 : 1.0,
+                            builder: (context, shadowControlModel, _) => AnimatedOpacity(
+                              opacity: shadowControlModel.showTopShadow ? 0.0 : 1.0,
                               duration: Duration(milliseconds: 300),
                               child: AuthorWidget(
                                 avatarSize: 36.0,
@@ -86,33 +79,25 @@ class _EntryScreenState extends State<EntryScreen>
                           padding: EdgeInsets.only(left: 8.0, right: 8.0),
                           actions: <Widget>[
                             RoundIconButtonWidget(
-                              icon: model.isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
+                              icon: model.isFavorite ? Icons.favorite : Icons.favorite_border,
                               iconColor: model.isFavorite ? Colors.red : null,
                               padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
-                              iconPadding:
-                                  EdgeInsets.fromLTRB(6.0, 7.0, 6.0, 5.0),
+                              iconPadding: EdgeInsets.fromLTRB(6.0, 7.0, 6.0, 5.0),
                               onTap: () => model.favoriteToggle(),
                             ),
                             RoundIconButtonWidget(
                               iconSize: 22.0,
                               icon: Icons.share,
                               padding: EdgeInsets.fromLTRB(4.0, 0.0, 4.0, 0.0),
-                              iconPadding:
-                                  EdgeInsets.fromLTRB(6.0, 7.0, 8.0, 7.0),
-                              onTap: () => Share.share(
-                                  "https://www.wykop.pl/wpis/" +
-                                      model.id.toString()),
+                              iconPadding: EdgeInsets.fromLTRB(6.0, 7.0, 8.0, 7.0),
+                              onTap: () => Share.share("https://www.wykop.pl/wpis/" + model.id.toString()),
                             ),
                             RoundIconButtonWidget(
                               iconSize: 26.0,
                               icon: Icons.refresh,
                               padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
-                              iconPadding:
-                                  EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                              onTap: () =>
-                                  refreshIndicatorKey.currentState.show(),
+                              iconPadding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                              onTap: () => refreshIndicatorKey.currentState.show(),
                             )
                           ],
                         ),
@@ -126,20 +111,14 @@ class _EntryScreenState extends State<EntryScreen>
                             behavior: NotSuddenJumpScrollBehavior(),
                             child: InfiniteList(
                               persistentHeaderBuilder: (context) => Column(
-                                children: <Widget>[
-                                  EntryOpenWidget(),
-                                  NoCommentsWidget(model.comments.length == 0)
-                                ],
+                                children: <Widget>[EntryOpenWidget(), NoCommentsWidget(model.comments.length == 0)],
                               ),
                               itemCount: model.comments.length,
-                              itemBuilder: (context, index) =>
-                                  ChangeNotifierProvider<
-                                      EntryCommentModel>.value(
+                              itemBuilder: (context, index) => ChangeNotifierProvider<EntryCommentModel>.value(
                                 value: model.comments[index],
                                 child: AuthorRelationBuilder(
                                   relationType: RelationType.ENTRY_COMMENTS,
-                                  builder: (context, relation) =>
-                                      EntryCommentWidget(
+                                  builder: (context, relation) => EntryCommentWidget(
                                     entryId: model.id,
                                     relation: relation,
                                   ),

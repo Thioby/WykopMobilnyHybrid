@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/model/profile_related_model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:share/share.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/model/model.dart';
 
 class ProfileRelatedWidget extends StatelessWidget {
   ProfileRelatedWidget();

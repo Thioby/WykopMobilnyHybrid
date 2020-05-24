@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:owmflutter/model/shadow_control_model.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/model/model.dart';
 
 class ShadowNotificationListener extends StatefulWidget {
   final Widget child;

@@ -3,8 +3,8 @@ import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/profile_related_list.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 
-import 'package:owmflutter/api/api.dart';
-import 'package:owmflutter/model/model.dart';
+import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/model/model.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 

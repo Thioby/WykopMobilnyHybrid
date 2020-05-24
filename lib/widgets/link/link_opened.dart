@@ -1,13 +1,14 @@
 import 'dart:ui';
+
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:owmflutter/api/api.dart';
-import 'package:owmflutter/model/link_model.dart';
-import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/model/model.dart';
+
 import 'vote_counter.dart';
 
 class LinkOpenedWidget extends StatefulWidget {
@@ -27,8 +28,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                onLongPress: () =>
-                    _showActionsDialog(context, model, authStateModel),
+                onLongPress: () => _showActionsDialog(context, model, authStateModel),
                 onTap: () => Utils.launchURL(model.sourceUrl, context),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -46,20 +46,14 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                             bottom: 110.0,
                             right: 0.0,
                             child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 12.0, vertical: 8.0),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 4.0),
+                              margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                               decoration: BoxDecoration(
-                                color: model.voteState == LinkVoteState.DIGGED
-                                    ? Color(0xff3b915f)
-                                    : Color(0xffc0392b),
+                                color: model.voteState == LinkVoteState.DIGGED ? Color(0xff3b915f) : Color(0xffc0392b),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Text(
-                                model.voteState == LinkVoteState.DIGGED
-                                    ? "Wykopane"
-                                    : "Zakopane",
+                                model.voteState == LinkVoteState.DIGGED ? "Wykopane" : "Zakopane",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 12.0,
@@ -74,8 +68,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                           bottom: 0.0,
                           child: _shadowHeaderWidget(
                             child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 18.0, vertical: 2.0),
+                              padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 2.0),
                               child: Stack(
                                 children: <Widget>[
                                   Row(
@@ -85,31 +78,26 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                                           author: model.author,
                                           date: model.date,
                                           fontSize: 15.0,
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 10.0),
+                                          padding: EdgeInsets.symmetric(vertical: 10.0),
                                         ),
                                       ),
                                       VoteCounterWidget(
                                         voteState: model.voteState,
                                         onTap: () {
-                                          if (model.voteState !=
-                                              LinkVoteState.NONE) {
+                                          if (model.voteState != LinkVoteState.NONE) {
                                             model.voteRemove();
                                           } else {
                                             model.voteUp();
                                           }
                                         },
                                         onLongPress: () {
-                                          if (model.voteState !=
-                                              LinkVoteState.NONE) {
+                                          if (model.voteState != LinkVoteState.NONE) {
                                             model.voteRemove();
                                           } else {
                                             showDialog(
                                               context: context,
-                                              builder: (context) =>
-                                                  BuryReasonDialog(
-                                                callback: (reason) =>
-                                                    model.voteDown(reason),
+                                              builder: (context) => BuryReasonDialog(
+                                                callback: (reason) => model.voteDown(reason),
                                               ),
                                             );
                                           }
@@ -117,8 +105,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                                         count: model.voteCount,
                                         size: 48.0,
                                         isHot: model.isHot,
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 12.0),
+                                        padding: EdgeInsets.symmetric(vertical: 12.0),
                                       ),
                                     ],
                                   ),
@@ -133,14 +120,12 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                 ),
               ),
               GestureDetector(
-                onLongPress: () =>
-                    _showActionsDialog(context, model, authStateModel),
+                onLongPress: () => _showActionsDialog(context, model, authStateModel),
                 onTap: () => Utils.launchURL(model.sourceUrl, context),
                 child: _drawTitle(model.title),
               ),
               GestureDetector(
-                onLongPress: () =>
-                    _showActionsDialog(context, model, authStateModel),
+                onLongPress: () => _showActionsDialog(context, model, authStateModel),
                 onTap: () => Utils.launchURL(model.sourceUrl, context),
                 child: _drawDescription(model.description),
               ),
@@ -276,10 +261,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
         ),
         link.relatedCount > 0
             ? Column(
-                children: link.relatedLinks
-                    .map((id) =>
-                        RelatedWidget(related: id, count: link.relatedCount))
-                    .toList(),
+                children: link.relatedLinks.map((id) => RelatedWidget(related: id, count: link.relatedCount)).toList(),
               )
             : Padding(
                 padding: EdgeInsets.fromLTRB(18.0, 0.0, 18.0, 4.0),
@@ -299,8 +281,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
           decoration: BoxDecoration(color: Utils.backgroundGrey(context)),
           child: Center(
             child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).iconTheme.color),
+              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).iconTheme.color),
               strokeWidth: 2.0,
             ),
           ),
@@ -314,9 +295,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
               image: DecorationImage(
                 image: preview != null
                     ? NetworkImage(
-                        settings.highResImageLink
-                            ? preview
-                            : preview.replaceAll(".jpg", ",w207h139.jpg"),
+                        settings.highResImageLink ? preview : preview.replaceAll(".jpg", ",w207h139.jpg"),
                       )
                     : AssetImage(
                         Theme.of(context).brightness == Brightness.light
@@ -369,8 +348,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                 shape: BoxShape.circle,
               ),
               child: Image(
-                image: NetworkImage(
-                    'http://s2.googleusercontent.com/s2/favicons?domain_url=$sourceUrl'),
+                image: NetworkImage('http://s2.googleusercontent.com/s2/favicons?domain_url=$sourceUrl'),
                 height: 10.0,
                 width: 10.0,
               ),
@@ -378,11 +356,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.0),
               child: Text(
-                sourceUrl
-                    .replaceAll('https://', '')
-                    .replaceAll('http://', '')
-                    .replaceAll('www.', '')
-                    .split('/')[0],
+                sourceUrl.replaceAll('https://', '').replaceAll('http://', '').replaceAll('www.', '').split('/')[0],
                 style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500),
               ),
             ),
@@ -424,10 +398,8 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                 .split(' ')
                 .map((String text) => ClickableTextSpan(
                       text: text + " ",
-                      onTap: () => Navigator.push(
-                          context,
-                          Utils.getPageSlideToUp(
-                              TagScreen(tag: text.replaceAll("#", "")))),
+                      onTap: () =>
+                          Navigator.push(context, Utils.getPageSlideToUp(TagScreen(tag: text.replaceAll("#", "")))),
                     ))
                 .toList(),
           ),
@@ -452,13 +424,11 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                 children: <Widget>[
                   Text(
                     "Dodaj powiązany link",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 20.0),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
                     decoration: BoxDecoration(
                       color: Utils.backgroundGreyOpacity(context),
                       borderRadius: BorderRadius.circular(20.0),
@@ -476,8 +446,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 10.0),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
                     decoration: BoxDecoration(
                       color: Utils.backgroundGreyOpacity(context),
                       borderRadius: BorderRadius.circular(20.0),
@@ -504,8 +473,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                         ),
                         Switch(
                           //TODO: 18+ related switch
-                          value: true,
-                          onChanged: (v) {},
+                          value: true, onChanged: (v) {},
                         ),
                       ],
                     ),
@@ -516,16 +484,13 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                       onTap: () {}, //TODO: akcja dodania powiazanych
                       child: Container(
                         constraints: BoxConstraints(minWidth: double.infinity),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 18.0, vertical: 12.0),
+                        padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
                         decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
-                            borderRadius: BorderRadius.circular(20)),
+                            color: Theme.of(context).accentColor, borderRadius: BorderRadius.circular(20)),
                         child: Text(
                           "Dodaj link",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -559,8 +524,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
                     child: Text(
                       "Sortuj komentarze",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Column(
@@ -597,9 +561,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
               Padding(
                 padding: EdgeInsets.only(bottom: 1.0, right: 10.0),
                 child: Icon(
-                  isSelected
-                      ? CommunityMaterialIcons.radiobox_marked
-                      : CommunityMaterialIcons.radiobox_blank,
+                  isSelected ? CommunityMaterialIcons.radiobox_marked : CommunityMaterialIcons.radiobox_blank,
                   size: 20.0,
                 ),
               ),
@@ -625,8 +587,7 @@ class _LinkOpenedWidgetState extends State<LinkOpenedWidget> {
     showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
       context: contextmain,
-      builder: (BuildContext context) =>
-          LinkToolbarWidget(contextmain, model, authStateModel),
+      builder: (BuildContext context) => LinkToolbarWidget(contextmain, model, authStateModel),
     );
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/model/shadow_control_model.dart';
 import 'package:owmflutter/screens/settings/profile_edit/avatar_profile_edit.dart';
 import 'package:owmflutter/screens/settings/profile_edit/background_profile_edit.dart';
 import 'package:owmflutter/screens/settings/profile_edit/info_profile_edit.dart';
 import 'package:owmflutter/screens/settings/profile_edit/password_profile_edit.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/model/shadow_control_model.dart';
 
 class ProfileEditScreen extends StatefulWidget {
   @override

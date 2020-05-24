@@ -1,7 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:image_downloader/image_downloader.dart';
-import 'package:owmflutter/model/model.dart';
+import 'package:wykop_api/model/model.dart';
 import 'package:owmflutter/models/models.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';

@@ -1,14 +1,15 @@
 import 'dart:ui';
+
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:owmflutter/api/resources/links.dart';
-import 'package:owmflutter/model/link_model.dart';
+import 'package:flutter_advanced_networkimage/provider.dart';
+import 'package:owmflutter/screens/screens.dart';
+import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/content_hidden.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:provider/provider.dart';
-import 'package:owmflutter/utils/utils.dart';
-import 'package:owmflutter/screens/screens.dart';
+import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/model/model.dart';
 
 class LinkSimpleWidget extends StatefulWidget {
   LinkSimpleWidget();
@@ -30,9 +31,7 @@ class _LinkSimpleWidgetState extends State<LinkSimpleWidget> {
               secondaryBackground: slideLeftBackground(model),
               confirmDismiss: (direction) async {
                 if (direction == DismissDirection.endToStart) {
-                  model.voteState != LinkVoteState.NONE
-                      ? model.voteRemove()
-                      : model.voteUp();
+                  model.voteState != LinkVoteState.NONE ? model.voteRemove() : model.voteUp();
                 } else {
                   model.voteState != LinkVoteState.NONE
                       ? model.voteRemove()
@@ -54,13 +53,11 @@ class _LinkSimpleWidgetState extends State<LinkSimpleWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           OWMSettingListener(
-                            rebuildOnChange: (settings) =>
-                                settings.hiddingLinkThumbStream,
+                            rebuildOnChange: (settings) => settings.hiddingLinkThumbStream,
                             builder: (context, settings) => Visibility(
                               visible: !settings.hiddingLinkThumb,
                               child: GestureDetector(
-                                onTap: () =>
-                                    Utils.launchURL(model.sourceUrl, context),
+                                onTap: () => Utils.launchURL(model.sourceUrl, context),
                                 child: _drawImage(context, model),
                               ),
                             ),
@@ -68,10 +65,7 @@ class _LinkSimpleWidgetState extends State<LinkSimpleWidget> {
                           Expanded(
                             child: GestureDetector(
                               key: Key(model.id.toString()),
-                              onTap: () => Navigator.push(
-                                  context,
-                                  Utils.getPageSlideToUp(
-                                      LinkScreen(model: model))),
+                              onTap: () => Navigator.push(context, Utils.getPageSlideToUp(LinkScreen(model: model))),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
@@ -107,18 +101,14 @@ class _LinkSimpleWidgetState extends State<LinkSimpleWidget> {
 
   Widget slideRightBackground(LinkModel model) {
     return Container(
-      color: model.voteState != LinkVoteState.NONE
-          ? Color(0xff4383af)
-          : Color(0xffc0392b),
+      color: model.voteState != LinkVoteState.NONE ? Color(0xff4383af) : Color(0xffc0392b),
       child: Align(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             SizedBox(width: 20.0),
             Icon(
-              model.voteState != LinkVoteState.NONE
-                  ? Icons.cancel
-                  : CommunityMaterialIcons.arrow_down_circle,
+              model.voteState != LinkVoteState.NONE ? Icons.cancel : CommunityMaterialIcons.arrow_down_circle,
               color: Colors.white,
             ),
             Text(
@@ -139,17 +129,13 @@ class _LinkSimpleWidgetState extends State<LinkSimpleWidget> {
 
   Widget slideLeftBackground(LinkModel model) {
     return Container(
-      color: model.voteState != LinkVoteState.NONE
-          ? Color(0xff4383af)
-          : Color(0xff3b915f),
+      color: model.voteState != LinkVoteState.NONE ? Color(0xff4383af) : Color(0xff3b915f),
       child: Align(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Icon(
-              model.voteState != LinkVoteState.NONE
-                  ? Icons.cancel
-                  : CommunityMaterialIcons.arrow_up_circle,
+              model.voteState != LinkVoteState.NONE ? Icons.cancel : CommunityMaterialIcons.arrow_up_circle,
               color: Colors.white,
             ),
             Text(
@@ -183,9 +169,7 @@ class _LinkSimpleWidgetState extends State<LinkSimpleWidget> {
               image: DecorationImage(
                 image: model.preview != null
                     ? AdvancedNetworkImage(
-                        settings.highResImageLink
-                            ? model.preview
-                            : model.preview.replaceAll(".jpg", ",q150.jpg"),
+                        settings.highResImageLink ? model.preview : model.preview.replaceAll(".jpg", ",q150.jpg"),
                         useDiskCache: true,
                       )
                     : AssetImage(
@@ -207,15 +191,11 @@ class _LinkSimpleWidgetState extends State<LinkSimpleWidget> {
                 margin: EdgeInsets.symmetric(horizontal: 7.0, vertical: 6.0),
                 padding: EdgeInsets.all(2.0),
                 decoration: BoxDecoration(
-                  color: model.voteState == LinkVoteState.DIGGED
-                      ? Color(0xff3b915f)
-                      : Color(0xffc0392b),
+                  color: model.voteState == LinkVoteState.DIGGED ? Color(0xff3b915f) : Color(0xffc0392b),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  model.voteState == LinkVoteState.DIGGED
-                      ? "Wykopane"
-                      : "Zakopane",
+                  model.voteState == LinkVoteState.DIGGED ? "Wykopane" : "Zakopane",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 12.0,
@@ -242,9 +222,7 @@ class _LinkSimpleWidgetState extends State<LinkSimpleWidget> {
         child: Text(
           model.title,
           overflow: TextOverflow.ellipsis,
-          maxLines: MediaQuery.of(context).orientation == Orientation.portrait
-              ? 2
-              : 1,
+          maxLines: MediaQuery.of(context).orientation == Orientation.portrait ? 2 : 1,
           style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
         ),
       ),
@@ -262,9 +240,7 @@ class _LinkSimpleWidgetState extends State<LinkSimpleWidget> {
         child: Text(
           model.description,
           overflow: TextOverflow.ellipsis,
-          maxLines: MediaQuery.of(context).orientation == Orientation.portrait
-              ? 1
-              : 2,
+          maxLines: MediaQuery.of(context).orientation == Orientation.portrait ? 1 : 2,
           style: TextStyle(
             fontSize: 14.0,
             color: Theme.of(context).textTheme.caption.color,
@@ -291,9 +267,7 @@ class _LinkSimpleWidgetState extends State<LinkSimpleWidget> {
                       ? CommunityMaterialIcons.arrow_up_circle
                       : CommunityMaterialIcons.arrow_down_circle,
                   size: 14.0,
-                  color: model.voteState == LinkVoteState.DIGGED
-                      ? Color(0xff3b915f)
-                      : Color(0xffc0392b),
+                  color: model.voteState == LinkVoteState.DIGGED ? Color(0xff3b915f) : Color(0xffc0392b),
                 ),
               ),
             ),

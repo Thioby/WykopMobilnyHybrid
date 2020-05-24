@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/api/resources/links.dart';
 import 'package:owmflutter/owm_glyphs.dart';
+import 'package:wykop_api/api/api.dart';
 
 class VoteCounterWidget extends StatelessWidget {
   final VoidCallback onTap;
@@ -51,8 +51,7 @@ class VoteCounterWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     color: Theme.of(context).cardColor,
                   ),
-                  child: Icon(OwmGlyphs.ic_hot,
-                      size: (size / 3.7), color: Colors.red),
+                  child: Icon(OwmGlyphs.ic_hot, size: (size / 3.7), color: Colors.red),
                 ),
               ),
             ),

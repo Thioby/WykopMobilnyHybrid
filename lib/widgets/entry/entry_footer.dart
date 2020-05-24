@@ -3,7 +3,7 @@ import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:share/share.dart';
-import 'package:owmflutter/model/model.dart';
+import 'package:wykop_api/model/model.dart';
 
 class EntryFooterWidget extends StatelessWidget {
   final EntryModel model;

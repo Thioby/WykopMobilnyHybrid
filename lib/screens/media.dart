@@ -10,7 +10,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:owmflutter/api/api.dart';
+import 'package:wykop_api/api/api.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:path/path.dart' as Path;
