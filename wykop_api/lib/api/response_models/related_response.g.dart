@@ -6,9 +6,11 @@ part of 'related_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<RelatedResponse> _$relatedResponseSerializer = new _$RelatedResponseSerializer();
+Serializer<RelatedResponse> _$relatedResponseSerializer =
+    new _$RelatedResponseSerializer();
 
-class _$RelatedResponseSerializer implements StructuredSerializer<RelatedResponse> {
+class _$RelatedResponseSerializer
+    implements StructuredSerializer<RelatedResponse> {
   @override
   final Iterable<Type> types = const [RelatedResponse, _$RelatedResponse];
   @override
@@ -21,20 +23,24 @@ class _$RelatedResponseSerializer implements StructuredSerializer<RelatedRespons
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(int)),
       'title',
-      serializers.serialize(object.title, specifiedType: const FullType(String)),
+      serializers.serialize(object.title,
+          specifiedType: const FullType(String)),
       'url',
       serializers.serialize(object.url, specifiedType: const FullType(String)),
       'vote_count',
-      serializers.serialize(object.voteCount, specifiedType: const FullType(int)),
+      serializers.serialize(object.voteCount,
+          specifiedType: const FullType(int)),
       'author',
-      serializers.serialize(object.author, specifiedType: const FullType(AuthorResponse)),
+      serializers.serialize(object.author,
+          specifiedType: const FullType(AuthorResponse)),
     ];
 
     return result;
   }
 
   @override
-  RelatedResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  RelatedResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new RelatedResponseBuilder();
 
@@ -45,20 +51,24 @@ class _$RelatedResponseSerializer implements StructuredSerializer<RelatedRespons
       final dynamic value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'title':
-          result.title = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'url':
-          result.url = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'vote_count':
-          result.voteCount = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.voteCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'author':
-          result.author
-              .replace(serializers.deserialize(value, specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
+          result.author.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
           break;
       }
     }
@@ -82,7 +92,9 @@ class _$RelatedResponse extends RelatedResponse {
   factory _$RelatedResponse([void Function(RelatedResponseBuilder) updates]) =>
       (new RelatedResponseBuilder()..update(updates)).build();
 
-  _$RelatedResponse._({this.id, this.title, this.url, this.voteCount, this.author}) : super._() {
+  _$RelatedResponse._(
+      {this.id, this.title, this.url, this.voteCount, this.author})
+      : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('RelatedResponse', 'id');
     }
@@ -101,10 +113,12 @@ class _$RelatedResponse extends RelatedResponse {
   }
 
   @override
-  RelatedResponse rebuild(void Function(RelatedResponseBuilder) updates) => (toBuilder()..update(updates)).build();
+  RelatedResponse rebuild(void Function(RelatedResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
-  RelatedResponseBuilder toBuilder() => new RelatedResponseBuilder()..replace(this);
+  RelatedResponseBuilder toBuilder() =>
+      new RelatedResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -119,8 +133,10 @@ class _$RelatedResponse extends RelatedResponse {
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc($jc($jc(0, id.hashCode), title.hashCode), url.hashCode), voteCount.hashCode), author.hashCode));
+    return $jf($jc(
+        $jc($jc($jc($jc(0, id.hashCode), title.hashCode), url.hashCode),
+            voteCount.hashCode),
+        author.hashCode));
   }
 
   @override
@@ -135,7 +151,8 @@ class _$RelatedResponse extends RelatedResponse {
   }
 }
 
-class RelatedResponseBuilder implements Builder<RelatedResponse, RelatedResponseBuilder> {
+class RelatedResponseBuilder
+    implements Builder<RelatedResponse, RelatedResponseBuilder> {
   _$RelatedResponse _$v;
 
   int _id;
@@ -155,7 +172,8 @@ class RelatedResponseBuilder implements Builder<RelatedResponse, RelatedResponse
   set voteCount(int voteCount) => _$this._voteCount = voteCount;
 
   AuthorResponseBuilder _author;
-  AuthorResponseBuilder get author => _$this._author ??= new AuthorResponseBuilder();
+  AuthorResponseBuilder get author =>
+      _$this._author ??= new AuthorResponseBuilder();
   set author(AuthorResponseBuilder author) => _$this._author = author;
 
   RelatedResponseBuilder();
@@ -189,15 +207,21 @@ class RelatedResponseBuilder implements Builder<RelatedResponse, RelatedResponse
   _$RelatedResponse build() {
     _$RelatedResponse _$result;
     try {
-      _$result =
-          _$v ?? new _$RelatedResponse._(id: id, title: title, url: url, voteCount: voteCount, author: author.build());
+      _$result = _$v ??
+          new _$RelatedResponse._(
+              id: id,
+              title: title,
+              url: url,
+              voteCount: voteCount,
+              author: author.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'author';
         author.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError('RelatedResponse', _$failedField, e.toString());
+        throw new BuiltValueNestedFieldError(
+            'RelatedResponse', _$failedField, e.toString());
       }
       rethrow;
     }

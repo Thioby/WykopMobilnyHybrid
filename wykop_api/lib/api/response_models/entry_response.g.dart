@@ -6,7 +6,8 @@ part of 'entry_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<EntryResponse> _$entryResponseSerializer = new _$EntryResponseSerializer();
+Serializer<EntryResponse> _$entryResponseSerializer =
+    new _$EntryResponseSerializer();
 
 class _$EntryResponseSerializer implements StructuredSerializer<EntryResponse> {
   @override
@@ -23,46 +24,67 @@ class _$EntryResponseSerializer implements StructuredSerializer<EntryResponse> {
       'date',
       serializers.serialize(object.date, specifiedType: const FullType(String)),
       'vote_count',
-      serializers.serialize(object.voteCount, specifiedType: const FullType(int)),
+      serializers.serialize(object.voteCount,
+          specifiedType: const FullType(int)),
       'author',
-      serializers.serialize(object.author, specifiedType: const FullType(AuthorResponse)),
+      serializers.serialize(object.author,
+          specifiedType: const FullType(AuthorResponse)),
     ];
     if (object.userVote != null) {
-      result..add('user_vote')..add(serializers.serialize(object.userVote, specifiedType: const FullType(int)));
+      result
+        ..add('user_vote')
+        ..add(serializers.serialize(object.userVote,
+            specifiedType: const FullType(int)));
     }
     if (object.comments != null) {
       result
         ..add('comments')
         ..add(serializers.serialize(object.comments,
-            specifiedType: const FullType(BuiltList, const [const FullType(EntryCommentResponse)])));
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(EntryCommentResponse)])));
     }
     if (object.body != null) {
-      result..add('body')..add(serializers.serialize(object.body, specifiedType: const FullType(String)));
+      result
+        ..add('body')
+        ..add(serializers.serialize(object.body,
+            specifiedType: const FullType(String)));
     }
     if (object.favorite != null) {
-      result..add('favorite')..add(serializers.serialize(object.favorite, specifiedType: const FullType(bool)));
+      result
+        ..add('favorite')
+        ..add(serializers.serialize(object.favorite,
+            specifiedType: const FullType(bool)));
     }
     if (object.commentsCount != null) {
       result
         ..add('comments_count')
-        ..add(serializers.serialize(object.commentsCount, specifiedType: const FullType(int)));
+        ..add(serializers.serialize(object.commentsCount,
+            specifiedType: const FullType(int)));
     }
     if (object.embed != null) {
-      result..add('embed')..add(serializers.serialize(object.embed, specifiedType: const FullType(EmbedResponse)));
+      result
+        ..add('embed')
+        ..add(serializers.serialize(object.embed,
+            specifiedType: const FullType(EmbedResponse)));
     }
     if (object.violationUrl != null) {
       result
         ..add('violation_url')
-        ..add(serializers.serialize(object.violationUrl, specifiedType: const FullType(String)));
+        ..add(serializers.serialize(object.violationUrl,
+            specifiedType: const FullType(String)));
     }
     if (object.app != null) {
-      result..add('app')..add(serializers.serialize(object.app, specifiedType: const FullType(String)));
+      result
+        ..add('app')
+        ..add(serializers.serialize(object.app,
+            specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  EntryResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  EntryResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new EntryResponseBuilder();
 
@@ -73,44 +95,54 @@ class _$EntryResponseSerializer implements StructuredSerializer<EntryResponse> {
       final dynamic value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'date':
-          result.date = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.date = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'user_vote':
-          result.userVote = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.userVote = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'comments':
           result.comments.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(BuiltList, const [const FullType(EntryCommentResponse)]))
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(EntryCommentResponse)]))
               as BuiltList<Object>);
           break;
         case 'body':
-          result.body = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.body = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'favorite':
-          result.favorite = serializers.deserialize(value, specifiedType: const FullType(bool)) as bool;
+          result.favorite = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
         case 'vote_count':
-          result.voteCount = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.voteCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'comments_count':
-          result.commentsCount = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.commentsCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'author':
-          result.author
-              .replace(serializers.deserialize(value, specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
+          result.author.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
           break;
         case 'embed':
-          result.embed
-              .replace(serializers.deserialize(value, specifiedType: const FullType(EmbedResponse)) as EmbedResponse);
+          result.embed.replace(serializers.deserialize(value,
+              specifiedType: const FullType(EmbedResponse)) as EmbedResponse);
           break;
         case 'violation_url':
-          result.violationUrl = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.violationUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'app':
-          result.app = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.app = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -177,7 +209,8 @@ class _$EntryResponse extends EntryResponse {
   }
 
   @override
-  EntryResponse rebuild(void Function(EntryResponseBuilder) updates) => (toBuilder()..update(updates)).build();
+  EntryResponse rebuild(void Function(EntryResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   EntryResponseBuilder toBuilder() => new EntryResponseBuilder()..replace(this);
@@ -210,7 +243,11 @@ class _$EntryResponse extends EntryResponse {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc($jc($jc(0, id.hashCode), date.hashCode), userVote.hashCode),
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, id.hashCode),
+                                                date.hashCode),
+                                            userVote.hashCode),
                                         comments.hashCode),
                                     body.hashCode),
                                 favorite.hashCode),
@@ -241,7 +278,8 @@ class _$EntryResponse extends EntryResponse {
   }
 }
 
-class EntryResponseBuilder implements Builder<EntryResponse, EntryResponseBuilder> {
+class EntryResponseBuilder
+    implements Builder<EntryResponse, EntryResponseBuilder> {
   _$EntryResponse _$v;
 
   int _id;
@@ -257,8 +295,10 @@ class EntryResponseBuilder implements Builder<EntryResponse, EntryResponseBuilde
   set userVote(int userVote) => _$this._userVote = userVote;
 
   ListBuilder<EntryCommentResponse> _comments;
-  ListBuilder<EntryCommentResponse> get comments => _$this._comments ??= new ListBuilder<EntryCommentResponse>();
-  set comments(ListBuilder<EntryCommentResponse> comments) => _$this._comments = comments;
+  ListBuilder<EntryCommentResponse> get comments =>
+      _$this._comments ??= new ListBuilder<EntryCommentResponse>();
+  set comments(ListBuilder<EntryCommentResponse> comments) =>
+      _$this._comments = comments;
 
   String _body;
   String get body => _$this._body;
@@ -277,11 +317,13 @@ class EntryResponseBuilder implements Builder<EntryResponse, EntryResponseBuilde
   set commentsCount(int commentsCount) => _$this._commentsCount = commentsCount;
 
   AuthorResponseBuilder _author;
-  AuthorResponseBuilder get author => _$this._author ??= new AuthorResponseBuilder();
+  AuthorResponseBuilder get author =>
+      _$this._author ??= new AuthorResponseBuilder();
   set author(AuthorResponseBuilder author) => _$this._author = author;
 
   EmbedResponseBuilder _embed;
-  EmbedResponseBuilder get embed => _$this._embed ??= new EmbedResponseBuilder();
+  EmbedResponseBuilder get embed =>
+      _$this._embed ??= new EmbedResponseBuilder();
   set embed(EmbedResponseBuilder embed) => _$this._embed = embed;
 
   String _violationUrl;
@@ -355,7 +397,8 @@ class EntryResponseBuilder implements Builder<EntryResponse, EntryResponseBuilde
         _$failedField = 'embed';
         _embed?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError('EntryResponse', _$failedField, e.toString());
+        throw new BuiltValueNestedFieldError(
+            'EntryResponse', _$failedField, e.toString());
       }
       rethrow;
     }

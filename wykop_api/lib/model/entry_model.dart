@@ -44,7 +44,7 @@ class EntryModel extends InputModel {
     _date = entry.date;
     _voteCount = entry.voteCount;
     _author = entry.author;
-    _embed = entry.embed;
+    _embed = entry.media;
     _isExpanded = entry.isExpanded;
     _comments = entry.comments.map((e) => EntryCommentModel()..setData(e)).toList();
     _isVoted = entry.isVoted;

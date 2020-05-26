@@ -6,16 +6,22 @@ part of 'profile_related_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ProfileRelatedResponse> _$profileRelatedResponseSerializer = new _$ProfileRelatedResponseSerializer();
+Serializer<ProfileRelatedResponse> _$profileRelatedResponseSerializer =
+    new _$ProfileRelatedResponseSerializer();
 
-class _$ProfileRelatedResponseSerializer implements StructuredSerializer<ProfileRelatedResponse> {
+class _$ProfileRelatedResponseSerializer
+    implements StructuredSerializer<ProfileRelatedResponse> {
   @override
-  final Iterable<Type> types = const [ProfileRelatedResponse, _$ProfileRelatedResponse];
+  final Iterable<Type> types = const [
+    ProfileRelatedResponse,
+    _$ProfileRelatedResponse
+  ];
   @override
   final String wireName = 'ProfileRelatedResponse';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, ProfileRelatedResponse object,
+  Iterable<Object> serialize(
+      Serializers serializers, ProfileRelatedResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
@@ -23,16 +29,19 @@ class _$ProfileRelatedResponseSerializer implements StructuredSerializer<Profile
       'url',
       serializers.serialize(object.url, specifiedType: const FullType(String)),
       'title',
-      serializers.serialize(object.title, specifiedType: const FullType(String)),
+      serializers.serialize(object.title,
+          specifiedType: const FullType(String)),
       'vote_count',
-      serializers.serialize(object.voteCount, specifiedType: const FullType(int)),
+      serializers.serialize(object.voteCount,
+          specifiedType: const FullType(int)),
     ];
 
     return result;
   }
 
   @override
-  ProfileRelatedResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  ProfileRelatedResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ProfileRelatedResponseBuilder();
 
@@ -43,16 +52,20 @@ class _$ProfileRelatedResponseSerializer implements StructuredSerializer<Profile
       final dynamic value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'url':
-          result.url = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'title':
-          result.title = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'vote_count':
-          result.voteCount = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.voteCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
       }
     }
@@ -71,10 +84,12 @@ class _$ProfileRelatedResponse extends ProfileRelatedResponse {
   @override
   final int voteCount;
 
-  factory _$ProfileRelatedResponse([void Function(ProfileRelatedResponseBuilder) updates]) =>
+  factory _$ProfileRelatedResponse(
+          [void Function(ProfileRelatedResponseBuilder) updates]) =>
       (new ProfileRelatedResponseBuilder()..update(updates)).build();
 
-  _$ProfileRelatedResponse._({this.id, this.url, this.title, this.voteCount}) : super._() {
+  _$ProfileRelatedResponse._({this.id, this.url, this.title, this.voteCount})
+      : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('ProfileRelatedResponse', 'id');
     }
@@ -90,11 +105,13 @@ class _$ProfileRelatedResponse extends ProfileRelatedResponse {
   }
 
   @override
-  ProfileRelatedResponse rebuild(void Function(ProfileRelatedResponseBuilder) updates) =>
+  ProfileRelatedResponse rebuild(
+          void Function(ProfileRelatedResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ProfileRelatedResponseBuilder toBuilder() => new ProfileRelatedResponseBuilder()..replace(this);
+  ProfileRelatedResponseBuilder toBuilder() =>
+      new ProfileRelatedResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -108,7 +125,8 @@ class _$ProfileRelatedResponse extends ProfileRelatedResponse {
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc($jc(0, id.hashCode), url.hashCode), title.hashCode), voteCount.hashCode));
+    return $jf($jc($jc($jc($jc(0, id.hashCode), url.hashCode), title.hashCode),
+        voteCount.hashCode));
   }
 
   @override
@@ -122,7 +140,8 @@ class _$ProfileRelatedResponse extends ProfileRelatedResponse {
   }
 }
 
-class ProfileRelatedResponseBuilder implements Builder<ProfileRelatedResponse, ProfileRelatedResponseBuilder> {
+class ProfileRelatedResponseBuilder
+    implements Builder<ProfileRelatedResponse, ProfileRelatedResponseBuilder> {
   _$ProfileRelatedResponse _$v;
 
   int _id;
@@ -169,7 +188,9 @@ class ProfileRelatedResponseBuilder implements Builder<ProfileRelatedResponse, P
 
   @override
   _$ProfileRelatedResponse build() {
-    final _$result = _$v ?? new _$ProfileRelatedResponse._(id: id, url: url, title: title, voteCount: voteCount);
+    final _$result = _$v ??
+        new _$ProfileRelatedResponse._(
+            id: id, url: url, title: title, voteCount: voteCount);
     replace(_$result);
     return _$result;
   }

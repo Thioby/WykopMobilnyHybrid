@@ -6,9 +6,11 @@ part of 'pm_message_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<PmMessageResponse> _$pmMessageResponseSerializer = new _$PmMessageResponseSerializer();
+Serializer<PmMessageResponse> _$pmMessageResponseSerializer =
+    new _$PmMessageResponseSerializer();
 
-class _$PmMessageResponseSerializer implements StructuredSerializer<PmMessageResponse> {
+class _$PmMessageResponseSerializer
+    implements StructuredSerializer<PmMessageResponse> {
   @override
   final Iterable<Type> types = const [PmMessageResponse, _$PmMessageResponse];
   @override
@@ -21,28 +23,45 @@ class _$PmMessageResponseSerializer implements StructuredSerializer<PmMessageRes
       'date',
       serializers.serialize(object.date, specifiedType: const FullType(String)),
       'direction',
-      serializers.serialize(object.direction, specifiedType: const FullType(String)),
+      serializers.serialize(object.direction,
+          specifiedType: const FullType(String)),
     ];
     if (object.body != null) {
-      result..add('body')..add(serializers.serialize(object.body, specifiedType: const FullType(String)));
+      result
+        ..add('body')
+        ..add(serializers.serialize(object.body,
+            specifiedType: const FullType(String)));
     }
     if (object.status != null) {
-      result..add('status')..add(serializers.serialize(object.status, specifiedType: const FullType(String)));
+      result
+        ..add('status')
+        ..add(serializers.serialize(object.status,
+            specifiedType: const FullType(String)));
     }
     if (object.app != null) {
-      result..add('app')..add(serializers.serialize(object.app, specifiedType: const FullType(String)));
+      result
+        ..add('app')
+        ..add(serializers.serialize(object.app,
+            specifiedType: const FullType(String)));
     }
     if (object.embed != null) {
-      result..add('embed')..add(serializers.serialize(object.embed, specifiedType: const FullType(EmbedResponse)));
+      result
+        ..add('embed')
+        ..add(serializers.serialize(object.embed,
+            specifiedType: const FullType(EmbedResponse)));
     }
     if (object.author != null) {
-      result..add('author')..add(serializers.serialize(object.author, specifiedType: const FullType(AuthorResponse)));
+      result
+        ..add('author')
+        ..add(serializers.serialize(object.author,
+            specifiedType: const FullType(AuthorResponse)));
     }
     return result;
   }
 
   @override
-  PmMessageResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  PmMessageResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new PmMessageResponseBuilder();
 
@@ -53,27 +72,32 @@ class _$PmMessageResponseSerializer implements StructuredSerializer<PmMessageRes
       final dynamic value = iterator.current;
       switch (key) {
         case 'date':
-          result.date = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.date = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'body':
-          result.body = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.body = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'status':
-          result.status = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'direction':
-          result.direction = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.direction = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'app':
-          result.app = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.app = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'embed':
-          result.embed
-              .replace(serializers.deserialize(value, specifiedType: const FullType(EmbedResponse)) as EmbedResponse);
+          result.embed.replace(serializers.deserialize(value,
+              specifiedType: const FullType(EmbedResponse)) as EmbedResponse);
           break;
         case 'author':
-          result.author
-              .replace(serializers.deserialize(value, specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
+          result.author.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
           break;
       }
     }
@@ -98,10 +122,18 @@ class _$PmMessageResponse extends PmMessageResponse {
   @override
   final AuthorResponse author;
 
-  factory _$PmMessageResponse([void Function(PmMessageResponseBuilder) updates]) =>
+  factory _$PmMessageResponse(
+          [void Function(PmMessageResponseBuilder) updates]) =>
       (new PmMessageResponseBuilder()..update(updates)).build();
 
-  _$PmMessageResponse._({this.date, this.body, this.status, this.direction, this.app, this.embed, this.author})
+  _$PmMessageResponse._(
+      {this.date,
+      this.body,
+      this.status,
+      this.direction,
+      this.app,
+      this.embed,
+      this.author})
       : super._() {
     if (date == null) {
       throw new BuiltValueNullFieldError('PmMessageResponse', 'date');
@@ -112,10 +144,12 @@ class _$PmMessageResponse extends PmMessageResponse {
   }
 
   @override
-  PmMessageResponse rebuild(void Function(PmMessageResponseBuilder) updates) => (toBuilder()..update(updates)).build();
+  PmMessageResponse rebuild(void Function(PmMessageResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
-  PmMessageResponseBuilder toBuilder() => new PmMessageResponseBuilder()..replace(this);
+  PmMessageResponseBuilder toBuilder() =>
+      new PmMessageResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -133,7 +167,13 @@ class _$PmMessageResponse extends PmMessageResponse {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc($jc($jc(0, date.hashCode), body.hashCode), status.hashCode), direction.hashCode), app.hashCode),
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, date.hashCode), body.hashCode),
+                        status.hashCode),
+                    direction.hashCode),
+                app.hashCode),
             embed.hashCode),
         author.hashCode));
   }
@@ -152,7 +192,8 @@ class _$PmMessageResponse extends PmMessageResponse {
   }
 }
 
-class PmMessageResponseBuilder implements Builder<PmMessageResponse, PmMessageResponseBuilder> {
+class PmMessageResponseBuilder
+    implements Builder<PmMessageResponse, PmMessageResponseBuilder> {
   _$PmMessageResponse _$v;
 
   String _date;
@@ -176,11 +217,13 @@ class PmMessageResponseBuilder implements Builder<PmMessageResponse, PmMessageRe
   set app(String app) => _$this._app = app;
 
   EmbedResponseBuilder _embed;
-  EmbedResponseBuilder get embed => _$this._embed ??= new EmbedResponseBuilder();
+  EmbedResponseBuilder get embed =>
+      _$this._embed ??= new EmbedResponseBuilder();
   set embed(EmbedResponseBuilder embed) => _$this._embed = embed;
 
   AuthorResponseBuilder _author;
-  AuthorResponseBuilder get author => _$this._author ??= new AuthorResponseBuilder();
+  AuthorResponseBuilder get author =>
+      _$this._author ??= new AuthorResponseBuilder();
   set author(AuthorResponseBuilder author) => _$this._author = author;
 
   PmMessageResponseBuilder();
@@ -233,7 +276,8 @@ class PmMessageResponseBuilder implements Builder<PmMessageResponse, PmMessageRe
         _$failedField = 'author';
         _author?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError('PmMessageResponse', _$failedField, e.toString());
+        throw new BuiltValueNestedFieldError(
+            'PmMessageResponse', _$failedField, e.toString());
       }
       rethrow;
     }

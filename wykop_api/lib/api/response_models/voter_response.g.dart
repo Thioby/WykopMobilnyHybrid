@@ -6,7 +6,8 @@ part of 'voter_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<VoterResponse> _$voterResponseSerializer = new _$VoterResponseSerializer();
+Serializer<VoterResponse> _$voterResponseSerializer =
+    new _$VoterResponseSerializer();
 
 class _$VoterResponseSerializer implements StructuredSerializer<VoterResponse> {
   @override
@@ -19,18 +20,21 @@ class _$VoterResponseSerializer implements StructuredSerializer<VoterResponse> {
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'author',
-      serializers.serialize(object.author, specifiedType: const FullType(AuthorResponse)),
+      serializers.serialize(object.author,
+          specifiedType: const FullType(AuthorResponse)),
       'date',
       serializers.serialize(object.date, specifiedType: const FullType(String)),
       'vote_type',
-      serializers.serialize(object.voteType, specifiedType: const FullType(String)),
+      serializers.serialize(object.voteType,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
   }
 
   @override
-  VoterResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  VoterResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new VoterResponseBuilder();
 
@@ -41,14 +45,16 @@ class _$VoterResponseSerializer implements StructuredSerializer<VoterResponse> {
       final dynamic value = iterator.current;
       switch (key) {
         case 'author':
-          result.author
-              .replace(serializers.deserialize(value, specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
+          result.author.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
           break;
         case 'date':
-          result.date = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.date = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'vote_type':
-          result.voteType = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.voteType = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -81,7 +87,8 @@ class _$VoterResponse extends VoterResponse {
   }
 
   @override
-  VoterResponse rebuild(void Function(VoterResponseBuilder) updates) => (toBuilder()..update(updates)).build();
+  VoterResponse rebuild(void Function(VoterResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   VoterResponseBuilder toBuilder() => new VoterResponseBuilder()..replace(this);
@@ -89,12 +96,16 @@ class _$VoterResponse extends VoterResponse {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is VoterResponse && author == other.author && date == other.date && voteType == other.voteType;
+    return other is VoterResponse &&
+        author == other.author &&
+        date == other.date &&
+        voteType == other.voteType;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, author.hashCode), date.hashCode), voteType.hashCode));
+    return $jf(
+        $jc($jc($jc(0, author.hashCode), date.hashCode), voteType.hashCode));
   }
 
   @override
@@ -107,11 +118,13 @@ class _$VoterResponse extends VoterResponse {
   }
 }
 
-class VoterResponseBuilder implements Builder<VoterResponse, VoterResponseBuilder> {
+class VoterResponseBuilder
+    implements Builder<VoterResponse, VoterResponseBuilder> {
   _$VoterResponse _$v;
 
   AuthorResponseBuilder _author;
-  AuthorResponseBuilder get author => _$this._author ??= new AuthorResponseBuilder();
+  AuthorResponseBuilder get author =>
+      _$this._author ??= new AuthorResponseBuilder();
   set author(AuthorResponseBuilder author) => _$this._author = author;
 
   String _date;
@@ -151,14 +164,17 @@ class VoterResponseBuilder implements Builder<VoterResponse, VoterResponseBuilde
   _$VoterResponse build() {
     _$VoterResponse _$result;
     try {
-      _$result = _$v ?? new _$VoterResponse._(author: author.build(), date: date, voteType: voteType);
+      _$result = _$v ??
+          new _$VoterResponse._(
+              author: author.build(), date: date, voteType: voteType);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'author';
         author.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError('VoterResponse', _$failedField, e.toString());
+        throw new BuiltValueNestedFieldError(
+            'VoterResponse', _$failedField, e.toString());
       }
       rethrow;
     }

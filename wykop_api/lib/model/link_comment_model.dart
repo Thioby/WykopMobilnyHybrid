@@ -41,7 +41,7 @@ class LinkCommentModel extends ChangeNotifier {
     _isExpanded = comment.isExpanded;
     _voteCount = comment.voteCount;
     _author = comment.author;
-    _embed = comment.embed;
+    _embed = comment.media;
     _parentId = comment.parentId;
     _linkId = comment.linkId;
     _voteCountPlus = comment.voteCountPlus;

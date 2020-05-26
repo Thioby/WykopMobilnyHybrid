@@ -6,16 +6,22 @@ part of 'notification_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<NotificationResponse> _$notificationResponseSerializer = new _$NotificationResponseSerializer();
+Serializer<NotificationResponse> _$notificationResponseSerializer =
+    new _$NotificationResponseSerializer();
 
-class _$NotificationResponseSerializer implements StructuredSerializer<NotificationResponse> {
+class _$NotificationResponseSerializer
+    implements StructuredSerializer<NotificationResponse> {
   @override
-  final Iterable<Type> types = const [NotificationResponse, _$NotificationResponse];
+  final Iterable<Type> types = const [
+    NotificationResponse,
+    _$NotificationResponse
+  ];
   @override
   final String wireName = 'NotificationResponse';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, NotificationResponse object,
+  Iterable<Object> serialize(
+      Serializers serializers, NotificationResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
@@ -26,25 +32,41 @@ class _$NotificationResponseSerializer implements StructuredSerializer<Notificat
       serializers.serialize(object.type, specifiedType: const FullType(String)),
     ];
     if (object.body != null) {
-      result..add('body')..add(serializers.serialize(object.body, specifiedType: const FullType(String)));
+      result
+        ..add('body')
+        ..add(serializers.serialize(object.body,
+            specifiedType: const FullType(String)));
     }
     if (object.itemId != null) {
-      result..add('item_id')..add(serializers.serialize(object.itemId, specifiedType: const FullType(String)));
+      result
+        ..add('item_id')
+        ..add(serializers.serialize(object.itemId,
+            specifiedType: const FullType(String)));
     }
     if (object.url != null) {
-      result..add('url')..add(serializers.serialize(object.url, specifiedType: const FullType(String)));
+      result
+        ..add('url')
+        ..add(serializers.serialize(object.url,
+            specifiedType: const FullType(String)));
     }
     if (object.isNew != null) {
-      result..add('new')..add(serializers.serialize(object.isNew, specifiedType: const FullType(bool)));
+      result
+        ..add('new')
+        ..add(serializers.serialize(object.isNew,
+            specifiedType: const FullType(bool)));
     }
     if (object.author != null) {
-      result..add('author')..add(serializers.serialize(object.author, specifiedType: const FullType(AuthorResponse)));
+      result
+        ..add('author')
+        ..add(serializers.serialize(object.author,
+            specifiedType: const FullType(AuthorResponse)));
     }
     return result;
   }
 
   @override
-  NotificationResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  NotificationResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new NotificationResponseBuilder();
 
@@ -55,29 +77,36 @@ class _$NotificationResponseSerializer implements StructuredSerializer<Notificat
       final dynamic value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'date':
-          result.date = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.date = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'body':
-          result.body = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.body = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'item_id':
-          result.itemId = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.itemId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'url':
-          result.url = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'type':
-          result.type = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.type = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'new':
-          result.isNew = serializers.deserialize(value, specifiedType: const FullType(bool)) as bool;
+          result.isNew = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
         case 'author':
-          result.author
-              .replace(serializers.deserialize(value, specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
+          result.author.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
           break;
       }
     }
@@ -104,10 +133,19 @@ class _$NotificationResponse extends NotificationResponse {
   @override
   final AuthorResponse author;
 
-  factory _$NotificationResponse([void Function(NotificationResponseBuilder) updates]) =>
+  factory _$NotificationResponse(
+          [void Function(NotificationResponseBuilder) updates]) =>
       (new NotificationResponseBuilder()..update(updates)).build();
 
-  _$NotificationResponse._({this.id, this.date, this.body, this.itemId, this.url, this.type, this.isNew, this.author})
+  _$NotificationResponse._(
+      {this.id,
+      this.date,
+      this.body,
+      this.itemId,
+      this.url,
+      this.type,
+      this.isNew,
+      this.author})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('NotificationResponse', 'id');
@@ -121,11 +159,13 @@ class _$NotificationResponse extends NotificationResponse {
   }
 
   @override
-  NotificationResponse rebuild(void Function(NotificationResponseBuilder) updates) =>
+  NotificationResponse rebuild(
+          void Function(NotificationResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  NotificationResponseBuilder toBuilder() => new NotificationResponseBuilder()..replace(this);
+  NotificationResponseBuilder toBuilder() =>
+      new NotificationResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -145,7 +185,13 @@ class _$NotificationResponse extends NotificationResponse {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc($jc($jc($jc(0, id.hashCode), date.hashCode), body.hashCode), itemId.hashCode), url.hashCode),
+            $jc(
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, id.hashCode), date.hashCode),
+                            body.hashCode),
+                        itemId.hashCode),
+                    url.hashCode),
                 type.hashCode),
             isNew.hashCode),
         author.hashCode));
@@ -166,7 +212,8 @@ class _$NotificationResponse extends NotificationResponse {
   }
 }
 
-class NotificationResponseBuilder implements Builder<NotificationResponse, NotificationResponseBuilder> {
+class NotificationResponseBuilder
+    implements Builder<NotificationResponse, NotificationResponseBuilder> {
   _$NotificationResponse _$v;
 
   int _id;
@@ -198,7 +245,8 @@ class NotificationResponseBuilder implements Builder<NotificationResponse, Notif
   set isNew(bool isNew) => _$this._isNew = isNew;
 
   AuthorResponseBuilder _author;
-  AuthorResponseBuilder get author => _$this._author ??= new AuthorResponseBuilder();
+  AuthorResponseBuilder get author =>
+      _$this._author ??= new AuthorResponseBuilder();
   set author(AuthorResponseBuilder author) => _$this._author = author;
 
   NotificationResponseBuilder();
@@ -251,7 +299,8 @@ class NotificationResponseBuilder implements Builder<NotificationResponse, Notif
         _$failedField = 'author';
         _author?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError('NotificationResponse', _$failedField, e.toString());
+        throw new BuiltValueNestedFieldError(
+            'NotificationResponse', _$failedField, e.toString());
       }
       rethrow;
     }

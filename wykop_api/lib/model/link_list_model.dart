@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:owmflutter/content_filters/content_filters.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/models/models.dart';
 
 class LinkListModel extends ListModel<Link, LinkModel> {

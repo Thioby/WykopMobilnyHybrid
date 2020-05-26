@@ -6,9 +6,11 @@ part of 'entry_link_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<EntryLinkResponse> _$entryLinkResponseSerializer = new _$EntryLinkResponseSerializer();
+Serializer<EntryLinkResponse> _$entryLinkResponseSerializer =
+    new _$EntryLinkResponseSerializer();
 
-class _$EntryLinkResponseSerializer implements StructuredSerializer<EntryLinkResponse> {
+class _$EntryLinkResponseSerializer
+    implements StructuredSerializer<EntryLinkResponse> {
   @override
   final Iterable<Type> types = const [EntryLinkResponse, _$EntryLinkResponse];
   @override
@@ -19,16 +21,23 @@ class _$EntryLinkResponseSerializer implements StructuredSerializer<EntryLinkRes
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.link != null) {
-      result..add('link')..add(serializers.serialize(object.link, specifiedType: const FullType(LinkResponse)));
+      result
+        ..add('link')
+        ..add(serializers.serialize(object.link,
+            specifiedType: const FullType(LinkResponse)));
     }
     if (object.entry != null) {
-      result..add('entry')..add(serializers.serialize(object.entry, specifiedType: const FullType(EntryResponse)));
+      result
+        ..add('entry')
+        ..add(serializers.serialize(object.entry,
+            specifiedType: const FullType(EntryResponse)));
     }
     return result;
   }
 
   @override
-  EntryLinkResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  EntryLinkResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new EntryLinkResponseBuilder();
 
@@ -39,12 +48,12 @@ class _$EntryLinkResponseSerializer implements StructuredSerializer<EntryLinkRes
       final dynamic value = iterator.current;
       switch (key) {
         case 'link':
-          result.link
-              .replace(serializers.deserialize(value, specifiedType: const FullType(LinkResponse)) as LinkResponse);
+          result.link.replace(serializers.deserialize(value,
+              specifiedType: const FullType(LinkResponse)) as LinkResponse);
           break;
         case 'entry':
-          result.entry
-              .replace(serializers.deserialize(value, specifiedType: const FullType(EntryResponse)) as EntryResponse);
+          result.entry.replace(serializers.deserialize(value,
+              specifiedType: const FullType(EntryResponse)) as EntryResponse);
           break;
       }
     }
@@ -59,21 +68,26 @@ class _$EntryLinkResponse extends EntryLinkResponse {
   @override
   final EntryResponse entry;
 
-  factory _$EntryLinkResponse([void Function(EntryLinkResponseBuilder) updates]) =>
+  factory _$EntryLinkResponse(
+          [void Function(EntryLinkResponseBuilder) updates]) =>
       (new EntryLinkResponseBuilder()..update(updates)).build();
 
   _$EntryLinkResponse._({this.link, this.entry}) : super._();
 
   @override
-  EntryLinkResponse rebuild(void Function(EntryLinkResponseBuilder) updates) => (toBuilder()..update(updates)).build();
+  EntryLinkResponse rebuild(void Function(EntryLinkResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
-  EntryLinkResponseBuilder toBuilder() => new EntryLinkResponseBuilder()..replace(this);
+  EntryLinkResponseBuilder toBuilder() =>
+      new EntryLinkResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is EntryLinkResponse && link == other.link && entry == other.entry;
+    return other is EntryLinkResponse &&
+        link == other.link &&
+        entry == other.entry;
   }
 
   @override
@@ -83,11 +97,15 @@ class _$EntryLinkResponse extends EntryLinkResponse {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('EntryLinkResponse')..add('link', link)..add('entry', entry)).toString();
+    return (newBuiltValueToStringHelper('EntryLinkResponse')
+          ..add('link', link)
+          ..add('entry', entry))
+        .toString();
   }
 }
 
-class EntryLinkResponseBuilder implements Builder<EntryLinkResponse, EntryLinkResponseBuilder> {
+class EntryLinkResponseBuilder
+    implements Builder<EntryLinkResponse, EntryLinkResponseBuilder> {
   _$EntryLinkResponse _$v;
 
   LinkResponseBuilder _link;
@@ -95,7 +113,8 @@ class EntryLinkResponseBuilder implements Builder<EntryLinkResponse, EntryLinkRe
   set link(LinkResponseBuilder link) => _$this._link = link;
 
   EntryResponseBuilder _entry;
-  EntryResponseBuilder get entry => _$this._entry ??= new EntryResponseBuilder();
+  EntryResponseBuilder get entry =>
+      _$this._entry ??= new EntryResponseBuilder();
   set entry(EntryResponseBuilder entry) => _$this._entry = entry;
 
   EntryLinkResponseBuilder();
@@ -126,7 +145,9 @@ class EntryLinkResponseBuilder implements Builder<EntryLinkResponse, EntryLinkRe
   _$EntryLinkResponse build() {
     _$EntryLinkResponse _$result;
     try {
-      _$result = _$v ?? new _$EntryLinkResponse._(link: _link?.build(), entry: _entry?.build());
+      _$result = _$v ??
+          new _$EntryLinkResponse._(
+              link: _link?.build(), entry: _entry?.build());
     } catch (_) {
       String _$failedField;
       try {
@@ -135,7 +156,8 @@ class EntryLinkResponseBuilder implements Builder<EntryLinkResponse, EntryLinkRe
         _$failedField = 'entry';
         _entry?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError('EntryLinkResponse', _$failedField, e.toString());
+        throw new BuiltValueNestedFieldError(
+            'EntryLinkResponse', _$failedField, e.toString());
       }
       rethrow;
     }

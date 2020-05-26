@@ -23,7 +23,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(RelatedResponse.serializer)
       ..add(TagSuggestionResponse.serializer)
       ..add(VoterResponse.serializer)
-      ..addBuilderFactory(const FullType(BuiltList, const [const FullType(EntryCommentResponse)]),
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(EntryCommentResponse)]),
           () => new ListBuilder<EntryCommentResponse>()))
     .build();
 

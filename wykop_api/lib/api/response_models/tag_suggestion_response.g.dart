@@ -6,20 +6,27 @@ part of 'tag_suggestion_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<TagSuggestionResponse> _$tagSuggestionResponseSerializer = new _$TagSuggestionResponseSerializer();
+Serializer<TagSuggestionResponse> _$tagSuggestionResponseSerializer =
+    new _$TagSuggestionResponseSerializer();
 
-class _$TagSuggestionResponseSerializer implements StructuredSerializer<TagSuggestionResponse> {
+class _$TagSuggestionResponseSerializer
+    implements StructuredSerializer<TagSuggestionResponse> {
   @override
-  final Iterable<Type> types = const [TagSuggestionResponse, _$TagSuggestionResponse];
+  final Iterable<Type> types = const [
+    TagSuggestionResponse,
+    _$TagSuggestionResponse
+  ];
   @override
   final String wireName = 'TagSuggestionResponse';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, TagSuggestionResponse object,
+  Iterable<Object> serialize(
+      Serializers serializers, TagSuggestionResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'followers',
-      serializers.serialize(object.followers, specifiedType: const FullType(String)),
+      serializers.serialize(object.followers,
+          specifiedType: const FullType(String)),
       'tag',
       serializers.serialize(object.tag, specifiedType: const FullType(String)),
     ];
@@ -28,7 +35,8 @@ class _$TagSuggestionResponseSerializer implements StructuredSerializer<TagSugge
   }
 
   @override
-  TagSuggestionResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  TagSuggestionResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new TagSuggestionResponseBuilder();
 
@@ -39,10 +47,12 @@ class _$TagSuggestionResponseSerializer implements StructuredSerializer<TagSugge
       final dynamic value = iterator.current;
       switch (key) {
         case 'followers':
-          result.followers = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.followers = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'tag':
-          result.tag = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.tag = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -57,7 +67,8 @@ class _$TagSuggestionResponse extends TagSuggestionResponse {
   @override
   final String tag;
 
-  factory _$TagSuggestionResponse([void Function(TagSuggestionResponseBuilder) updates]) =>
+  factory _$TagSuggestionResponse(
+          [void Function(TagSuggestionResponseBuilder) updates]) =>
       (new TagSuggestionResponseBuilder()..update(updates)).build();
 
   _$TagSuggestionResponse._({this.followers, this.tag}) : super._() {
@@ -70,16 +81,20 @@ class _$TagSuggestionResponse extends TagSuggestionResponse {
   }
 
   @override
-  TagSuggestionResponse rebuild(void Function(TagSuggestionResponseBuilder) updates) =>
+  TagSuggestionResponse rebuild(
+          void Function(TagSuggestionResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  TagSuggestionResponseBuilder toBuilder() => new TagSuggestionResponseBuilder()..replace(this);
+  TagSuggestionResponseBuilder toBuilder() =>
+      new TagSuggestionResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is TagSuggestionResponse && followers == other.followers && tag == other.tag;
+    return other is TagSuggestionResponse &&
+        followers == other.followers &&
+        tag == other.tag;
   }
 
   @override
@@ -89,12 +104,15 @@ class _$TagSuggestionResponse extends TagSuggestionResponse {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('TagSuggestionResponse')..add('followers', followers)..add('tag', tag))
+    return (newBuiltValueToStringHelper('TagSuggestionResponse')
+          ..add('followers', followers)
+          ..add('tag', tag))
         .toString();
   }
 }
 
-class TagSuggestionResponseBuilder implements Builder<TagSuggestionResponse, TagSuggestionResponseBuilder> {
+class TagSuggestionResponseBuilder
+    implements Builder<TagSuggestionResponse, TagSuggestionResponseBuilder> {
   _$TagSuggestionResponse _$v;
 
   String _followers;
@@ -131,7 +149,8 @@ class TagSuggestionResponseBuilder implements Builder<TagSuggestionResponse, Tag
 
   @override
   _$TagSuggestionResponse build() {
-    final _$result = _$v ?? new _$TagSuggestionResponse._(followers: followers, tag: tag);
+    final _$result =
+        _$v ?? new _$TagSuggestionResponse._(followers: followers, tag: tag);
     replace(_$result);
     return _$result;
   }

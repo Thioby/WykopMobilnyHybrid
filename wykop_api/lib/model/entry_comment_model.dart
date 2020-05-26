@@ -39,7 +39,7 @@ class EntryCommentModel extends ChangeNotifier {
     _date = comment.date;
     _voteCount = comment.voteCount;
     _author = comment.author;
-    _embed = comment.embed;
+    _embed = comment.media;
     _isVoted = comment.isVoted;
     _isExpanded = comment.isExpanded;
     _violationUrl = comment.violationUrl;

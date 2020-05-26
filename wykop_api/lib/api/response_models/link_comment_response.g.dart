@@ -6,16 +6,22 @@ part of 'link_comment_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<LinkCommentResponse> _$linkCommentResponseSerializer = new _$LinkCommentResponseSerializer();
+Serializer<LinkCommentResponse> _$linkCommentResponseSerializer =
+    new _$LinkCommentResponseSerializer();
 
-class _$LinkCommentResponseSerializer implements StructuredSerializer<LinkCommentResponse> {
+class _$LinkCommentResponseSerializer
+    implements StructuredSerializer<LinkCommentResponse> {
   @override
-  final Iterable<Type> types = const [LinkCommentResponse, _$LinkCommentResponse];
+  final Iterable<Type> types = const [
+    LinkCommentResponse,
+    _$LinkCommentResponse
+  ];
   @override
   final String wireName = 'LinkCommentResponse';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, LinkCommentResponse object,
+  Iterable<Object> serialize(
+      Serializers serializers, LinkCommentResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
@@ -25,35 +31,51 @@ class _$LinkCommentResponseSerializer implements StructuredSerializer<LinkCommen
       'date',
       serializers.serialize(object.date, specifiedType: const FullType(String)),
       'vote_count',
-      serializers.serialize(object.voteCount, specifiedType: const FullType(int)),
+      serializers.serialize(object.voteCount,
+          specifiedType: const FullType(int)),
       'vote_count_plus',
-      serializers.serialize(object.voteCountPlus, specifiedType: const FullType(int)),
+      serializers.serialize(object.voteCountPlus,
+          specifiedType: const FullType(int)),
       'parent_id',
-      serializers.serialize(object.parentId, specifiedType: const FullType(int)),
+      serializers.serialize(object.parentId,
+          specifiedType: const FullType(int)),
       'blocked',
-      serializers.serialize(object.isBlocked, specifiedType: const FullType(bool)),
+      serializers.serialize(object.isBlocked,
+          specifiedType: const FullType(bool)),
       'author',
-      serializers.serialize(object.author, specifiedType: const FullType(AuthorResponse)),
+      serializers.serialize(object.author,
+          specifiedType: const FullType(AuthorResponse)),
     ];
     if (object.body != null) {
-      result..add('body')..add(serializers.serialize(object.body, specifiedType: const FullType(String)));
+      result
+        ..add('body')
+        ..add(serializers.serialize(object.body,
+            specifiedType: const FullType(String)));
     }
     if (object.userVote != null) {
-      result..add('user_vote')..add(serializers.serialize(object.userVote, specifiedType: const FullType(int)));
+      result
+        ..add('user_vote')
+        ..add(serializers.serialize(object.userVote,
+            specifiedType: const FullType(int)));
     }
     if (object.embed != null) {
-      result..add('embed')..add(serializers.serialize(object.embed, specifiedType: const FullType(EmbedResponse)));
+      result
+        ..add('embed')
+        ..add(serializers.serialize(object.embed,
+            specifiedType: const FullType(EmbedResponse)));
     }
     if (object.violationUrl != null) {
       result
         ..add('violation_url')
-        ..add(serializers.serialize(object.violationUrl, specifiedType: const FullType(String)));
+        ..add(serializers.serialize(object.violationUrl,
+            specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  LinkCommentResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  LinkCommentResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new LinkCommentResponseBuilder();
 
@@ -64,42 +86,52 @@ class _$LinkCommentResponseSerializer implements StructuredSerializer<LinkCommen
       final dynamic value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'link_id':
-          result.link = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.link = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'date':
-          result.date = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.date = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'body':
-          result.body = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.body = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'user_vote':
-          result.userVote = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.userVote = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'vote_count':
-          result.voteCount = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.voteCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'vote_count_plus':
-          result.voteCountPlus = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.voteCountPlus = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'parent_id':
-          result.parentId = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.parentId = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'blocked':
-          result.isBlocked = serializers.deserialize(value, specifiedType: const FullType(bool)) as bool;
+          result.isBlocked = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
         case 'author':
-          result.author
-              .replace(serializers.deserialize(value, specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
+          result.author.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
           break;
         case 'embed':
-          result.embed
-              .replace(serializers.deserialize(value, specifiedType: const FullType(EmbedResponse)) as EmbedResponse);
+          result.embed.replace(serializers.deserialize(value,
+              specifiedType: const FullType(EmbedResponse)) as EmbedResponse);
           break;
         case 'violation_url':
-          result.violationUrl = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.violationUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -134,7 +166,8 @@ class _$LinkCommentResponse extends LinkCommentResponse {
   @override
   final String violationUrl;
 
-  factory _$LinkCommentResponse([void Function(LinkCommentResponseBuilder) updates]) =>
+  factory _$LinkCommentResponse(
+          [void Function(LinkCommentResponseBuilder) updates]) =>
       (new LinkCommentResponseBuilder()..update(updates)).build();
 
   _$LinkCommentResponse._(
@@ -164,7 +197,8 @@ class _$LinkCommentResponse extends LinkCommentResponse {
       throw new BuiltValueNullFieldError('LinkCommentResponse', 'voteCount');
     }
     if (voteCountPlus == null) {
-      throw new BuiltValueNullFieldError('LinkCommentResponse', 'voteCountPlus');
+      throw new BuiltValueNullFieldError(
+          'LinkCommentResponse', 'voteCountPlus');
     }
     if (parentId == null) {
       throw new BuiltValueNullFieldError('LinkCommentResponse', 'parentId');
@@ -178,11 +212,13 @@ class _$LinkCommentResponse extends LinkCommentResponse {
   }
 
   @override
-  LinkCommentResponse rebuild(void Function(LinkCommentResponseBuilder) updates) =>
+  LinkCommentResponse rebuild(
+          void Function(LinkCommentResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  LinkCommentResponseBuilder toBuilder() => new LinkCommentResponseBuilder()..replace(this);
+  LinkCommentResponseBuilder toBuilder() =>
+      new LinkCommentResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -211,7 +247,13 @@ class _$LinkCommentResponse extends LinkCommentResponse {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc($jc($jc($jc(0, id.hashCode), link.hashCode), date.hashCode), body.hashCode),
+                                $jc(
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, id.hashCode),
+                                                link.hashCode),
+                                            date.hashCode),
+                                        body.hashCode),
                                     userVote.hashCode),
                                 voteCount.hashCode),
                             voteCountPlus.hashCode),
@@ -241,7 +283,8 @@ class _$LinkCommentResponse extends LinkCommentResponse {
   }
 }
 
-class LinkCommentResponseBuilder implements Builder<LinkCommentResponse, LinkCommentResponseBuilder> {
+class LinkCommentResponseBuilder
+    implements Builder<LinkCommentResponse, LinkCommentResponseBuilder> {
   _$LinkCommentResponse _$v;
 
   int _id;
@@ -281,11 +324,13 @@ class LinkCommentResponseBuilder implements Builder<LinkCommentResponse, LinkCom
   set isBlocked(bool isBlocked) => _$this._isBlocked = isBlocked;
 
   AuthorResponseBuilder _author;
-  AuthorResponseBuilder get author => _$this._author ??= new AuthorResponseBuilder();
+  AuthorResponseBuilder get author =>
+      _$this._author ??= new AuthorResponseBuilder();
   set author(AuthorResponseBuilder author) => _$this._author = author;
 
   EmbedResponseBuilder _embed;
-  EmbedResponseBuilder get embed => _$this._embed ??= new EmbedResponseBuilder();
+  EmbedResponseBuilder get embed =>
+      _$this._embed ??= new EmbedResponseBuilder();
   set embed(EmbedResponseBuilder embed) => _$this._embed = embed;
 
   String _violationUrl;
@@ -352,7 +397,8 @@ class LinkCommentResponseBuilder implements Builder<LinkCommentResponse, LinkCom
         _$failedField = 'embed';
         _embed?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError('LinkCommentResponse', _$failedField, e.toString());
+        throw new BuiltValueNestedFieldError(
+            'LinkCommentResponse', _$failedField, e.toString());
       }
       rethrow;
     }

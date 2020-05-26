@@ -6,9 +6,11 @@ part of 'author_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<AuthorResponse> _$authorResponseSerializer = new _$AuthorResponseSerializer();
+Serializer<AuthorResponse> _$authorResponseSerializer =
+    new _$AuthorResponseSerializer();
 
-class _$AuthorResponseSerializer implements StructuredSerializer<AuthorResponse> {
+class _$AuthorResponseSerializer
+    implements StructuredSerializer<AuthorResponse> {
   @override
   final Iterable<Type> types = const [AuthorResponse, _$AuthorResponse];
   @override
@@ -21,18 +23,24 @@ class _$AuthorResponseSerializer implements StructuredSerializer<AuthorResponse>
       'color',
       serializers.serialize(object.color, specifiedType: const FullType(int)),
       'avatar',
-      serializers.serialize(object.avatar, specifiedType: const FullType(String)),
+      serializers.serialize(object.avatar,
+          specifiedType: const FullType(String)),
       'login',
-      serializers.serialize(object.login, specifiedType: const FullType(String)),
+      serializers.serialize(object.login,
+          specifiedType: const FullType(String)),
     ];
     if (object.sex != null) {
-      result..add('sex')..add(serializers.serialize(object.sex, specifiedType: const FullType(String)));
+      result
+        ..add('sex')
+        ..add(serializers.serialize(object.sex,
+            specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  AuthorResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  AuthorResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new AuthorResponseBuilder();
 
@@ -43,16 +51,20 @@ class _$AuthorResponseSerializer implements StructuredSerializer<AuthorResponse>
       final dynamic value = iterator.current;
       switch (key) {
         case 'color':
-          result.color = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.color = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'avatar':
-          result.avatar = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.avatar = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'login':
-          result.login = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.login = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'sex':
-          result.sex = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.sex = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -74,7 +86,8 @@ class _$AuthorResponse extends AuthorResponse {
   factory _$AuthorResponse([void Function(AuthorResponseBuilder) updates]) =>
       (new AuthorResponseBuilder()..update(updates)).build();
 
-  _$AuthorResponse._({this.color, this.avatar, this.login, this.sex}) : super._() {
+  _$AuthorResponse._({this.color, this.avatar, this.login, this.sex})
+      : super._() {
     if (color == null) {
       throw new BuiltValueNullFieldError('AuthorResponse', 'color');
     }
@@ -87,10 +100,12 @@ class _$AuthorResponse extends AuthorResponse {
   }
 
   @override
-  AuthorResponse rebuild(void Function(AuthorResponseBuilder) updates) => (toBuilder()..update(updates)).build();
+  AuthorResponse rebuild(void Function(AuthorResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
-  AuthorResponseBuilder toBuilder() => new AuthorResponseBuilder()..replace(this);
+  AuthorResponseBuilder toBuilder() =>
+      new AuthorResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -104,7 +119,9 @@ class _$AuthorResponse extends AuthorResponse {
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc($jc(0, color.hashCode), avatar.hashCode), login.hashCode), sex.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, color.hashCode), avatar.hashCode), login.hashCode),
+        sex.hashCode));
   }
 
   @override
@@ -118,7 +135,8 @@ class _$AuthorResponse extends AuthorResponse {
   }
 }
 
-class AuthorResponseBuilder implements Builder<AuthorResponse, AuthorResponseBuilder> {
+class AuthorResponseBuilder
+    implements Builder<AuthorResponse, AuthorResponseBuilder> {
   _$AuthorResponse _$v;
 
   int _color;
@@ -165,7 +183,9 @@ class AuthorResponseBuilder implements Builder<AuthorResponse, AuthorResponseBui
 
   @override
   _$AuthorResponse build() {
-    final _$result = _$v ?? new _$AuthorResponse._(color: color, avatar: avatar, login: login, sex: sex);
+    final _$result = _$v ??
+        new _$AuthorResponse._(
+            color: color, avatar: avatar, login: login, sex: sex);
     replace(_$result);
     return _$result;
   }

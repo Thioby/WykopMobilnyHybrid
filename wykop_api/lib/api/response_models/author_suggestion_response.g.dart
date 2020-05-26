@@ -6,31 +6,40 @@ part of 'author_suggestion_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<AuthorSuggestionResponse> _$authorSuggestionResponseSerializer = new _$AuthorSuggestionResponseSerializer();
+Serializer<AuthorSuggestionResponse> _$authorSuggestionResponseSerializer =
+    new _$AuthorSuggestionResponseSerializer();
 
-class _$AuthorSuggestionResponseSerializer implements StructuredSerializer<AuthorSuggestionResponse> {
+class _$AuthorSuggestionResponseSerializer
+    implements StructuredSerializer<AuthorSuggestionResponse> {
   @override
-  final Iterable<Type> types = const [AuthorSuggestionResponse, _$AuthorSuggestionResponse];
+  final Iterable<Type> types = const [
+    AuthorSuggestionResponse,
+    _$AuthorSuggestionResponse
+  ];
   @override
   final String wireName = 'AuthorSuggestionResponse';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, AuthorSuggestionResponse object,
+  Iterable<Object> serialize(
+      Serializers serializers, AuthorSuggestionResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'color',
       serializers.serialize(object.color, specifiedType: const FullType(int)),
       'avatar',
-      serializers.serialize(object.avatar, specifiedType: const FullType(String)),
+      serializers.serialize(object.avatar,
+          specifiedType: const FullType(String)),
       'login',
-      serializers.serialize(object.login, specifiedType: const FullType(String)),
+      serializers.serialize(object.login,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
   }
 
   @override
-  AuthorSuggestionResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  AuthorSuggestionResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new AuthorSuggestionResponseBuilder();
 
@@ -41,13 +50,16 @@ class _$AuthorSuggestionResponseSerializer implements StructuredSerializer<Autho
       final dynamic value = iterator.current;
       switch (key) {
         case 'color':
-          result.color = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.color = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'avatar':
-          result.avatar = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.avatar = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'login':
-          result.login = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.login = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -64,10 +76,12 @@ class _$AuthorSuggestionResponse extends AuthorSuggestionResponse {
   @override
   final String login;
 
-  factory _$AuthorSuggestionResponse([void Function(AuthorSuggestionResponseBuilder) updates]) =>
+  factory _$AuthorSuggestionResponse(
+          [void Function(AuthorSuggestionResponseBuilder) updates]) =>
       (new AuthorSuggestionResponseBuilder()..update(updates)).build();
 
-  _$AuthorSuggestionResponse._({this.color, this.avatar, this.login}) : super._() {
+  _$AuthorSuggestionResponse._({this.color, this.avatar, this.login})
+      : super._() {
     if (color == null) {
       throw new BuiltValueNullFieldError('AuthorSuggestionResponse', 'color');
     }
@@ -80,21 +94,27 @@ class _$AuthorSuggestionResponse extends AuthorSuggestionResponse {
   }
 
   @override
-  AuthorSuggestionResponse rebuild(void Function(AuthorSuggestionResponseBuilder) updates) =>
+  AuthorSuggestionResponse rebuild(
+          void Function(AuthorSuggestionResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  AuthorSuggestionResponseBuilder toBuilder() => new AuthorSuggestionResponseBuilder()..replace(this);
+  AuthorSuggestionResponseBuilder toBuilder() =>
+      new AuthorSuggestionResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is AuthorSuggestionResponse && color == other.color && avatar == other.avatar && login == other.login;
+    return other is AuthorSuggestionResponse &&
+        color == other.color &&
+        avatar == other.avatar &&
+        login == other.login;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, color.hashCode), avatar.hashCode), login.hashCode));
+    return $jf(
+        $jc($jc($jc(0, color.hashCode), avatar.hashCode), login.hashCode));
   }
 
   @override
@@ -107,7 +127,9 @@ class _$AuthorSuggestionResponse extends AuthorSuggestionResponse {
   }
 }
 
-class AuthorSuggestionResponseBuilder implements Builder<AuthorSuggestionResponse, AuthorSuggestionResponseBuilder> {
+class AuthorSuggestionResponseBuilder
+    implements
+        Builder<AuthorSuggestionResponse, AuthorSuggestionResponseBuilder> {
   _$AuthorSuggestionResponse _$v;
 
   int _color;
@@ -149,7 +171,9 @@ class AuthorSuggestionResponseBuilder implements Builder<AuthorSuggestionRespons
 
   @override
   _$AuthorSuggestionResponse build() {
-    final _$result = _$v ?? new _$AuthorSuggestionResponse._(color: color, avatar: avatar, login: login);
+    final _$result = _$v ??
+        new _$AuthorSuggestionResponse._(
+            color: color, avatar: avatar, login: login);
     replace(_$result);
     return _$result;
   }

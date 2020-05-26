@@ -6,34 +6,46 @@ part of 'conversation_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ConversationResponse> _$conversationResponseSerializer = new _$ConversationResponseSerializer();
+Serializer<ConversationResponse> _$conversationResponseSerializer =
+    new _$ConversationResponseSerializer();
 
-class _$ConversationResponseSerializer implements StructuredSerializer<ConversationResponse> {
+class _$ConversationResponseSerializer
+    implements StructuredSerializer<ConversationResponse> {
   @override
-  final Iterable<Type> types = const [ConversationResponse, _$ConversationResponse];
+  final Iterable<Type> types = const [
+    ConversationResponse,
+    _$ConversationResponse
+  ];
   @override
   final String wireName = 'ConversationResponse';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, ConversationResponse object,
+  Iterable<Object> serialize(
+      Serializers serializers, ConversationResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'last_update',
-      serializers.serialize(object.lastUpdate, specifiedType: const FullType(String)),
+      serializers.serialize(object.lastUpdate,
+          specifiedType: const FullType(String)),
     ];
     if (object.status != null) {
-      result..add('status')..add(serializers.serialize(object.status, specifiedType: const FullType(String)));
+      result
+        ..add('status')
+        ..add(serializers.serialize(object.status,
+            specifiedType: const FullType(String)));
     }
     if (object.receiver != null) {
       result
         ..add('receiver')
-        ..add(serializers.serialize(object.receiver, specifiedType: const FullType(AuthorResponse)));
+        ..add(serializers.serialize(object.receiver,
+            specifiedType: const FullType(AuthorResponse)));
     }
     return result;
   }
 
   @override
-  ConversationResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  ConversationResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ConversationResponseBuilder();
 
@@ -44,14 +56,16 @@ class _$ConversationResponseSerializer implements StructuredSerializer<Conversat
       final dynamic value = iterator.current;
       switch (key) {
         case 'last_update':
-          result.lastUpdate = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.lastUpdate = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'status':
-          result.status = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'receiver':
-          result.receiver
-              .replace(serializers.deserialize(value, specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
+          result.receiver.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AuthorResponse)) as AuthorResponse);
           break;
       }
     }
@@ -68,21 +82,25 @@ class _$ConversationResponse extends ConversationResponse {
   @override
   final AuthorResponse receiver;
 
-  factory _$ConversationResponse([void Function(ConversationResponseBuilder) updates]) =>
+  factory _$ConversationResponse(
+          [void Function(ConversationResponseBuilder) updates]) =>
       (new ConversationResponseBuilder()..update(updates)).build();
 
-  _$ConversationResponse._({this.lastUpdate, this.status, this.receiver}) : super._() {
+  _$ConversationResponse._({this.lastUpdate, this.status, this.receiver})
+      : super._() {
     if (lastUpdate == null) {
       throw new BuiltValueNullFieldError('ConversationResponse', 'lastUpdate');
     }
   }
 
   @override
-  ConversationResponse rebuild(void Function(ConversationResponseBuilder) updates) =>
+  ConversationResponse rebuild(
+          void Function(ConversationResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ConversationResponseBuilder toBuilder() => new ConversationResponseBuilder()..replace(this);
+  ConversationResponseBuilder toBuilder() =>
+      new ConversationResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -95,7 +113,8 @@ class _$ConversationResponse extends ConversationResponse {
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, lastUpdate.hashCode), status.hashCode), receiver.hashCode));
+    return $jf($jc(
+        $jc($jc(0, lastUpdate.hashCode), status.hashCode), receiver.hashCode));
   }
 
   @override
@@ -108,7 +127,8 @@ class _$ConversationResponse extends ConversationResponse {
   }
 }
 
-class ConversationResponseBuilder implements Builder<ConversationResponse, ConversationResponseBuilder> {
+class ConversationResponseBuilder
+    implements Builder<ConversationResponse, ConversationResponseBuilder> {
   _$ConversationResponse _$v;
 
   String _lastUpdate;
@@ -120,7 +140,8 @@ class ConversationResponseBuilder implements Builder<ConversationResponse, Conve
   set status(String status) => _$this._status = status;
 
   AuthorResponseBuilder _receiver;
-  AuthorResponseBuilder get receiver => _$this._receiver ??= new AuthorResponseBuilder();
+  AuthorResponseBuilder get receiver =>
+      _$this._receiver ??= new AuthorResponseBuilder();
   set receiver(AuthorResponseBuilder receiver) => _$this._receiver = receiver;
 
   ConversationResponseBuilder();
@@ -152,15 +173,19 @@ class ConversationResponseBuilder implements Builder<ConversationResponse, Conve
   _$ConversationResponse build() {
     _$ConversationResponse _$result;
     try {
-      _$result =
-          _$v ?? new _$ConversationResponse._(lastUpdate: lastUpdate, status: status, receiver: _receiver?.build());
+      _$result = _$v ??
+          new _$ConversationResponse._(
+              lastUpdate: lastUpdate,
+              status: status,
+              receiver: _receiver?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'receiver';
         _receiver?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError('ConversationResponse', _$failedField, e.toString());
+        throw new BuiltValueNestedFieldError(
+            'ConversationResponse', _$failedField, e.toString());
       }
       rethrow;
     }

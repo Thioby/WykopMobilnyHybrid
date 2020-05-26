@@ -1,92 +1,109 @@
-import 'package:owmflutter/models/models.dart';
 import 'package:wykop_api/api/api.dart';
 import 'package:wykop_api/api/response_models/voter_response.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/data/model/EntryDto.dart';
+import 'package:wykop_api/data/model/EntryLinkDto.dart';
+import 'package:wykop_api/data/model/LinkCommentDto.dart';
+import 'package:wykop_api/data/model/LinkDto.dart';
+import 'package:wykop_api/data/model/NotificationDto.dart';
+import 'package:wykop_api/data/model/ProfileRelatedDto.dart';
+import 'package:wykop_api/data/model/RelatedDto.dart';
+import 'package:wykop_api/data/model/VouterDto.dart';
 
 abstract class ApiResource {
   ApiClient _client;
   ApiClient get client => _client;
+  final EntryResponseToDtoMapper _entryResponseToDtoMapper;
+  final AuthorResponseToAuthorDtoMapper _authorDtoMapper;
+  final LinkResponseToLinkDtoMapper _linkDtoMapper;
+  final EntryLinkResponseToEntryLinkDtoMapper _entryLinkDtoMapper;
+  final EntryCommentResponseToEntryCommentDtoMapper _commentDtoMapper;
+  final LinkCommentResponseToLinkCommentDtoMapper _linkCommentDtoMapper;
+  final VoterResponseToVoterDtoMapper _voterResponseToVoterDtoMapper;
+  final RelatedResponseToRelatedDtoMapper _relatedDtoMapper;
+  final ProfileRelatedResponseToRelatedDtoMapper _profileRelatedResponseToRelatedDtoMapper;
+  final NotificationResponseToNotificationDtoMapper _notificationDtoMapper;
 
-  ApiResource(ApiClient client) {
+  ApiResource(
+    ApiClient client,
+    this._entryResponseToDtoMapper,
+    this._authorDtoMapper,
+    this._linkDtoMapper,
+    this._entryLinkDtoMapper,
+    this._commentDtoMapper,
+    this._linkCommentDtoMapper,
+    this._voterResponseToVoterDtoMapper,
+    this._relatedDtoMapper,
+    this._profileRelatedResponseToRelatedDtoMapper,
+    this._notificationDtoMapper,
+  ) {
     this._client = client;
   }
 
-  List<Entry> deserializeEntries(dynamic items) {
-    return _client.deserializeList(EntryResponse.serializer, items).map((e) => Entry.mapFromResponse(e)).toList();
+  List<EntryDto> deserializeEntries(dynamic items) {
+    return _client.deserializeList(EntryResponse.serializer, items).map(_entryResponseToDtoMapper.apply).toList();
   }
 
-  List<Link> deserializeLinks(dynamic items) {
-    return _client.deserializeList(LinkResponse.serializer, items).map((e) => Link.mapFromResponse(e)).toList();
+  List<LinkDto> deserializeLinks(dynamic items) {
+    return _client.deserializeList(LinkResponse.serializer, items).map(_linkDtoMapper.apply).toList();
   }
 
-  LinkComment deserializeLinkComment(dynamic item) {
-    return LinkComment.mapFromResponse(_client.deserializeElement(LinkCommentResponse.serializer, item));
+  LinkCommentDto deserializeLinkComment(dynamic item) {
+    return _linkCommentDtoMapper.apply(_client.deserializeElement(LinkCommentResponse.serializer, item));
   }
 
-  EntryComment deserializeEntryComment(dynamic item) {
-    return EntryComment.mapFromResponse(_client.deserializeElement(EntryCommentResponse.serializer, item));
+  EntryCommentDto deserializeEntryComment(dynamic item) {
+    return _commentDtoMapper.apply(_client.deserializeElement(EntryCommentResponse.serializer, item));
   }
 
-  Entry deserializeEntry(dynamic item) {
-    return Entry.mapFromResponse(_client.deserializeElement(EntryResponse.serializer, item));
+  EntryDto deserializeEntry(dynamic item) {
+    return _entryResponseToDtoMapper.apply(_client.deserializeElement(EntryResponse.serializer, item));
   }
 
-  Link deserializeLink(dynamic item) {
-    return Link.mapFromResponse(_client.deserializeElement(LinkResponse.serializer, item));
+  LinkDto deserializeLink(dynamic item) {
+    return _linkDtoMapper.apply(_client.deserializeElement(LinkResponse.serializer, item));
   }
 
-  Author deserializeAuthor(dynamic item) {
-    return Author.fromResponse(response: _client.deserializeElement(AuthorResponse.serializer, item));
+  AuthorDto deserializeAuthor(dynamic item) {
+    AuthorResponse authorResponse = _client.deserializeElement(AuthorResponse.serializer, item);
+    return _authorDtoMapper.apply(authorResponse);
   }
 
   ProfileResponse deserializeProfile(dynamic item) {
     return _client.deserializeElement(ProfileResponse.serializer, item);
   }
 
-  List<EntryLink> deserializeEntryLinks(dynamic items) {
-    return _client
-        .deserializeList(EntryLinkResponse.serializer, items)
-        .map((e) => EntryLink.mapFromResponse(e))
-        .toList();
+  List<EntryLinkDto> deserializeEntryLinks(dynamic items) {
+    return _client.deserializeList(EntryLinkResponse.serializer, items).map(_entryLinkDtoMapper.apply).toList();
   }
 
-  List<Voter> deserializeUpvoters(dynamic items) {
-    return _client
-        .deserializeList(VoterResponse.serializer, items)
-        .map((e) => Voter.fromResponse(response: e))
-        .toList();
+  List<VoterDto> deserializeUpvoters(dynamic items) {
+    return _client.deserializeList(VoterResponse.serializer, items).map(_voterResponseToVoterDtoMapper.apply).toList();
   }
 
-  List<Notification> deserializeNotifications(dynamic items) {
-    return _client
-        .deserializeList(NotificationResponse.serializer, items)
-        .map((e) => Notification.mapFromResponse(e))
-        .toList();
+  List<NotificationDto> deserializeNotifications(dynamic items) {
+    return _client.deserializeList(NotificationResponse.serializer, items).map(_notificationDtoMapper.apply).toList();
   }
 
-  List<LinkComment> deserializeLinkComments(dynamic items) {
-    return _client
-        .deserializeList(LinkCommentResponse.serializer, items)
-        .map((e) => LinkComment.mapFromResponse(e))
-        .toList();
+  List<LinkCommentDto> deserializeLinkComments(dynamic items) {
+    return _client.deserializeList(LinkCommentResponse.serializer, items).map(_linkCommentDtoMapper.apply).toList();
   }
 
-  List<EntryComment> deserializeEntryComments(dynamic items) {
-    return _client
-        .deserializeList(EntryCommentResponse.serializer, items)
-        .map((e) => EntryComment.mapFromResponse(e))
-        .toList();
+  List<EntryCommentDto> deserializeEntryComments(dynamic items) {
+    return _client.deserializeList(EntryCommentResponse.serializer, items).map(_commentDtoMapper.apply).toList();
   }
 
-  List<Related> deserializeRelatedLinks(dynamic items) {
+  List<RelatedDto> deserializeRelatedLinks(dynamic items) {
     print(items);
 
-    return _client.deserializeList(RelatedResponse.serializer, items).map((e) => Related.mapFromResponse(e)).toList();
+    return _client.deserializeList(RelatedResponse.serializer, items).map(_relatedDtoMapper.apply).toList();
   }
 
-  List<ProfileRelated> deserializeProfileRelated(dynamic items) {
+  List<ProfileRelatedDto> deserializeProfileRelated(dynamic items) {
     return _client
         .deserializeList(ProfileRelatedResponse.serializer, items)
-        .map((e) => ProfileRelated.mapFromResponse(e))
+        .map(_profileRelatedResponseToRelatedDtoMapper.apply)
         .toList();
   }
 }

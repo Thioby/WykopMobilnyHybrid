@@ -6,7 +6,8 @@ part of 'embed_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<EmbedResponse> _$embedResponseSerializer = new _$EmbedResponseSerializer();
+Serializer<EmbedResponse> _$embedResponseSerializer =
+    new _$EmbedResponseSerializer();
 
 class _$EmbedResponseSerializer implements StructuredSerializer<EmbedResponse> {
   @override
@@ -21,29 +22,44 @@ class _$EmbedResponseSerializer implements StructuredSerializer<EmbedResponse> {
       'url',
       serializers.serialize(object.url, specifiedType: const FullType(String)),
       'preview',
-      serializers.serialize(object.preview, specifiedType: const FullType(String)),
+      serializers.serialize(object.preview,
+          specifiedType: const FullType(String)),
       'type',
       serializers.serialize(object.type, specifiedType: const FullType(String)),
       'animated',
-      serializers.serialize(object.animated, specifiedType: const FullType(bool)),
+      serializers.serialize(object.animated,
+          specifiedType: const FullType(bool)),
     ];
     if (object.source != null) {
-      result..add('source')..add(serializers.serialize(object.source, specifiedType: const FullType(String)));
+      result
+        ..add('source')
+        ..add(serializers.serialize(object.source,
+            specifiedType: const FullType(String)));
     }
     if (object.size != null) {
-      result..add('size')..add(serializers.serialize(object.size, specifiedType: const FullType(String)));
+      result
+        ..add('size')
+        ..add(serializers.serialize(object.size,
+            specifiedType: const FullType(String)));
     }
     if (object.ratio != null) {
-      result..add('ratio')..add(serializers.serialize(object.ratio, specifiedType: const FullType(double)));
+      result
+        ..add('ratio')
+        ..add(serializers.serialize(object.ratio,
+            specifiedType: const FullType(double)));
     }
     if (object.plus18 != null) {
-      result..add('plus18')..add(serializers.serialize(object.plus18, specifiedType: const FullType(bool)));
+      result
+        ..add('plus18')
+        ..add(serializers.serialize(object.plus18,
+            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  EmbedResponse deserialize(Serializers serializers, Iterable<Object> serialized,
+  EmbedResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new EmbedResponseBuilder();
 
@@ -54,28 +70,36 @@ class _$EmbedResponseSerializer implements StructuredSerializer<EmbedResponse> {
       final dynamic value = iterator.current;
       switch (key) {
         case 'url':
-          result.url = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'preview':
-          result.preview = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.preview = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'type':
-          result.type = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.type = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'source':
-          result.source = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.source = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'size':
-          result.size = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.size = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'ratio':
-          result.ratio = serializers.deserialize(value, specifiedType: const FullType(double)) as double;
+          result.ratio = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
           break;
         case 'animated':
-          result.animated = serializers.deserialize(value, specifiedType: const FullType(bool)) as bool;
+          result.animated = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
         case 'plus18':
-          result.plus18 = serializers.deserialize(value, specifiedType: const FullType(bool)) as bool;
+          result.plus18 = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
       }
     }
@@ -105,7 +129,15 @@ class _$EmbedResponse extends EmbedResponse {
   factory _$EmbedResponse([void Function(EmbedResponseBuilder) updates]) =>
       (new EmbedResponseBuilder()..update(updates)).build();
 
-  _$EmbedResponse._({this.url, this.preview, this.type, this.source, this.size, this.ratio, this.animated, this.plus18})
+  _$EmbedResponse._(
+      {this.url,
+      this.preview,
+      this.type,
+      this.source,
+      this.size,
+      this.ratio,
+      this.animated,
+      this.plus18})
       : super._() {
     if (url == null) {
       throw new BuiltValueNullFieldError('EmbedResponse', 'url');
@@ -122,7 +154,8 @@ class _$EmbedResponse extends EmbedResponse {
   }
 
   @override
-  EmbedResponse rebuild(void Function(EmbedResponseBuilder) updates) => (toBuilder()..update(updates)).build();
+  EmbedResponse rebuild(void Function(EmbedResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   EmbedResponseBuilder toBuilder() => new EmbedResponseBuilder()..replace(this);
@@ -146,7 +179,11 @@ class _$EmbedResponse extends EmbedResponse {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc($jc($jc(0, url.hashCode), preview.hashCode), type.hashCode), source.hashCode),
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, url.hashCode), preview.hashCode),
+                            type.hashCode),
+                        source.hashCode),
                     size.hashCode),
                 ratio.hashCode),
             animated.hashCode),
@@ -168,7 +205,8 @@ class _$EmbedResponse extends EmbedResponse {
   }
 }
 
-class EmbedResponseBuilder implements Builder<EmbedResponse, EmbedResponseBuilder> {
+class EmbedResponseBuilder
+    implements Builder<EmbedResponse, EmbedResponseBuilder> {
   _$EmbedResponse _$v;
 
   String _url;

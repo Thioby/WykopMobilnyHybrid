@@ -5,6 +5,7 @@ import 'package:owmflutter/widgets/widgets.dart';
 
 /*
  * Works around flutter#20495
+ * https://github.com/flutter/flutter/issues/20495#issuecomment-441712268
  */
 class NotSuddenJumpPhysics extends ClampingScrollPhysics {
   @override
