@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/settings/profile_edit/input_button.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +23,7 @@ class _BackgroundProfileEditState extends State<BackgroundProfileEdit> {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
-              child: authStateModel.loggedIn &&
-                      authStateModel.backgroundUrl != null
+              child: authStateModel.loggedIn && authStateModel.backgroundUrl != null
                   ? Container(
                       height: 140.0,
                       width: MediaQuery.of(context).size.width,

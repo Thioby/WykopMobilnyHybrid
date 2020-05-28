@@ -4,8 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_downloader/image_downloader.dart';
 import 'package:mime/mime.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:owmflutter/models/models.dart';
+import 'package:owmflutter/model/input_model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +12,7 @@ import 'package:share/share.dart' as share;
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:html/parser.dart';
 import 'package:path/path.dart' as Path;
+import 'package:wykop_api/data/model/PmMessageDto.dart';
 
 class MessageWidget extends StatefulWidget {
   const MessageWidget({
@@ -20,7 +20,7 @@ class MessageWidget extends StatefulWidget {
     @required this.message,
   }) : super(key: key);
 
-  final PmMessage message;
+  final PmMessageDto message;
 
   _MessageWidgetState createState() => _MessageWidgetState();
 }
@@ -308,7 +308,7 @@ class _MessageWidgetState extends State<MessageWidget>
     );
   }
 
-  Widget _drawEmbed(PmMessage entry) {
+  Widget _drawEmbed(PmMessageDto entry) {
     return Visibility(
       visible: entry.embed != null,
       child: EmbedWidget(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:owmflutter/model/input_model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/widgets/pm/pm.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:wykop_api/model/model.dart';
 import 'package:provider/provider.dart';
 
 class PmScreen extends StatefulWidget {
@@ -12,18 +13,16 @@ class PmScreen extends StatefulWidget {
   _PmScreenState createState() => _PmScreenState();
 }
 
-class _PmScreenState extends State<PmScreen>
-    with SingleTickerProviderStateMixin {
+class _PmScreenState extends State<PmScreen> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final mqData = MediaQuery.of(context);
     final mqDataNew = mqData.copyWith(textScaleFactor: 1.0);
-    
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ShadowControlModel>(
-          create: (context) =>
-              ShadowControlModel(reverse: true, scrollDelayPixels: 0),
+          create: (context) => ShadowControlModel(reverse: true, scrollDelayPixels: 0),
         ),
         ChangeNotifierProvider<PrivateMessagesModel>(
           create: (context) => PrivateMessagesModel(receiverNickname: widget.receiver)..loadMessages(),
@@ -33,8 +32,7 @@ class _PmScreenState extends State<PmScreen>
         child: MediaQuery(
           data: mqDataNew,
           child: Consumer<PrivateMessagesModel>(
-            builder: (context, pmModel, _) =>
-                ChangeNotifierProvider<InputModel>.value(
+            builder: (context, pmModel, _) => ChangeNotifierProvider<InputModel>.value(
               value: pmModel,
               child: Scaffold(
                 bottomNavigationBar: InputBarWidget(
@@ -80,8 +78,6 @@ class _SystemPadding extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return new AnimatedContainer(
-        padding: mediaQuery.viewInsets,
-        duration: const Duration(milliseconds: 150),
-        child: child);
+        padding: mediaQuery.viewInsets, duration: const Duration(milliseconds: 150), child: child);
   }
 }

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/main.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/profile.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/screens/settings/appearance.dart';
 import 'package:owmflutter/screens/settings/profile_edit/profile_edit.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:owmflutter/models/models.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:owmflutter/main.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
 
 class MainSettingsScreen extends StatelessWidget {
-  static const platform =
-      const MethodChannel('feelfreelinux.github.io/owmhybrid');
+  static const platform = const MethodChannel('feelfreelinux.github.io/owmhybrid');
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +61,7 @@ class MainSettingsScreen extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(bottom: 40.0),
                 color: Utils.backgroundGreyOpacity(context),
-                child: authStateModel.loggedIn &&
-                        authStateModel.backgroundUrl != null
+                child: authStateModel.loggedIn && authStateModel.backgroundUrl != null
                     ? Image(
                         height: 140.0,
                         width: MediaQuery.of(context).size.width,
@@ -82,9 +80,9 @@ class MainSettingsScreen extends StatelessWidget {
                       ),
               ),
               AvatarWidget(
-                author: Author.fromAuthState(
-                    avatarUrl: authStateModel.avatarUrl ?? "",
-                    username: authStateModel.login ?? "",
+                author: AuthorDto(
+                    avatar: authStateModel.avatarUrl ?? "",
+                    login: authStateModel.login ?? "",
                     color: authStateModel.color ?? 0),
                 size: 100.0,
                 badge: Colors.transparent,
@@ -96,16 +94,13 @@ class MainSettingsScreen extends StatelessWidget {
             onTap: authStateModel.loggedIn
                 ? () {} //TODO: get profile screen
                 : () async {
-                    var result = await platform.invokeMethod('openLoginScreen',
-                        Map.from({'appKey': api.getAppKey()}));
+                    var result = await platform.invokeMethod('openLoginScreen', Map.from({'appKey': api.getAppKey()}));
                     print(result);
-                    await authStateModel.loginUser(
-                        result['login'], result['token']);
+                    await authStateModel.loginUser(result['login'], result['token']);
                     RestartWidget.restartApp(context);
                   },
             child: Container(
-              padding: EdgeInsets.only(
-                  left: 18.0, top: 12.0, right: 18.0, bottom: 14.0),
+              padding: EdgeInsets.only(left: 18.0, top: 12.0, right: 18.0, bottom: 14.0),
               child: Text(
                 authStateModel.loggedIn ? authStateModel.login : "Zaloguj się",
                 overflow: TextOverflow.ellipsis,
@@ -116,8 +111,7 @@ class MainSettingsScreen extends StatelessWidget {
           Visibility(
             visible: authStateModel.loggedIn,
             child: GestureDetector(
-              onTap: () => Navigator.push(
-                  context, Utils.getPageSlideRight(ProfileEditScreen())),
+              onTap: () => Navigator.push(context, Utils.getPageSlideRight(ProfileEditScreen())),
               child: Container(
                 margin: EdgeInsets.only(bottom: 14.0),
                 padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
@@ -165,8 +159,7 @@ class MainSettingsScreen extends StatelessWidget {
               icon: Icons.history,
               color: Colors.purple,
               title: "Historia wyszukiwania",
-              onTap: () => Navigator.push(
-                  context, Utils.getPageTransition(SearchHistoryScreen())),
+              onTap: () => Navigator.push(context, Utils.getPageTransition(SearchHistoryScreen())),
             ),
             Visibility(
               visible: authStateModel.loggedIn,
@@ -185,8 +178,7 @@ class MainSettingsScreen extends StatelessWidget {
                   icon: Icons.report,
                   color: Colors.orange,
                   title: 'Panel zgłoszeń',
-                  onTap: () =>
-                      Utils.launchURL('https://wykop.pl/naruszenia/moderated', context)),
+                  onTap: () => Utils.launchURL('https://wykop.pl/naruszenia/moderated', context)),
             ),
             _drawButton(
               context,
@@ -197,34 +189,28 @@ class MainSettingsScreen extends StatelessWidget {
                 if (authStateModel.loggedIn) {
                   authStateModel.logoutUser();
                 } else {
-                  var result = await platform.invokeMethod(
-                      'openLoginScreen', Map.from({'appKey': api.getAppKey()}));
-                  await authStateModel.loginUser(
-                      result['login'], result['token']);
+                  var result = await platform.invokeMethod('openLoginScreen', Map.from({'appKey': api.getAppKey()}));
+                  await authStateModel.loginUser(result['login'], result['token']);
                   RestartWidget.restartApp(context);
                 }
               },
             ),
-            DividerWidget(
-                height: 16, padding: EdgeInsets.symmetric(horizontal: 18.0)),
+            DividerWidget(height: 16, padding: EdgeInsets.symmetric(horizontal: 18.0)),
             _drawButton(
               context,
               icon: Icons.palette,
               color: Colors.cyan,
               title: "Wygląd",
               description: "Tryb nocny, kolor dekoracji",
-              onTap: () => Navigator.push(
-                  context, Utils.getPageTransition(AppearanceSettingScreen())),
+              onTap: () => Navigator.push(context, Utils.getPageTransition(AppearanceSettingScreen())),
             ),
             _drawButton(
               context,
               icon: Icons.image,
               color: Colors.indigo,
               title: "Obrazki i multimedia",
-              description:
-                  "Wbudowany odtwarzacz, ukrywanie i zwijanie obrazków",
-              onTap: () => Navigator.push(
-                  context, Utils.getPageTransition(PicturesSettingScreen())),
+              description: "Wbudowany odtwarzacz, ukrywanie i zwijanie obrazków",
+              onTap: () => Navigator.push(context, Utils.getPageTransition(PicturesSettingScreen())),
             ),
             _drawButton(
               context,
@@ -232,8 +218,7 @@ class MainSettingsScreen extends StatelessWidget {
               color: Colors.amber,
               title: "Tekst",
               description: "Zwijanie długich wpisów, spoilery, wielkość tekstu",
-              onTap: () => Navigator.push(
-                  context, Utils.getPageTransition(TextSettingScreen())),
+              onTap: () => Navigator.push(context, Utils.getPageTransition(TextSettingScreen())),
             ),
             _drawButton(
               context,
@@ -241,8 +226,7 @@ class MainSettingsScreen extends StatelessWidget {
               color: Colors.blueAccent,
               title: "Powiadomienia",
               description: "Przechwyć, częstotliwość sprawdzania, dźwięki",
-              onTap: () => Navigator.push(context,
-                  Utils.getPageTransition(NotificationsSettingScreen())),
+              onTap: () => Navigator.push(context, Utils.getPageTransition(NotificationsSettingScreen())),
             ),
             _drawButton(
               context,
@@ -250,11 +234,9 @@ class MainSettingsScreen extends StatelessWidget {
               color: Colors.grey,
               title: "Zachowanie",
               description: "Domyślne ekrany, ukrywanie i zwijanie teści",
-              onTap: () => Navigator.push(
-                  context, Utils.getPageTransition(BehaviorSettingScreen())),
+              onTap: () => Navigator.push(context, Utils.getPageTransition(BehaviorSettingScreen())),
             ),
-            DividerWidget(
-                height: 16, padding: EdgeInsets.symmetric(horizontal: 18.0)),
+            DividerWidget(height: 16, padding: EdgeInsets.symmetric(horizontal: 18.0)),
             _drawButton(
               context,
               icon: Icons.bug_report,
@@ -276,15 +258,13 @@ class MainSettingsScreen extends StatelessWidget {
               color: Colors.green,
               title: "Wsparcie",
               description: "Zostań patronem na patronite.pl",
-              onTap: () =>
-                  Utils.launchURL("https://patronite.pl/wykop-mobilny/", context),
+              onTap: () => Utils.launchURL("https://patronite.pl/wykop-mobilny/", context),
             ),
             _drawButton(
               context,
               icon: Icons.info,
               title: "O aplikacji",
-              onTap: () => Navigator.push(
-                  context, Utils.getPageTransition(AboutScreen())),
+              onTap: () => Navigator.push(context, Utils.getPageTransition(AboutScreen())),
             ),
             SizedBox(height: 8.0)
           ],

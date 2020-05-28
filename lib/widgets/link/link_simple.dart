@@ -3,13 +3,13 @@ import 'dart:ui';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/content_hidden.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/model/model.dart';
 
 class LinkSimpleWidget extends StatefulWidget {
   LinkSimpleWidget();

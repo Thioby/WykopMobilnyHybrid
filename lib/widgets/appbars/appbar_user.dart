@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/model/model.dart';
 
 typedef void LoginCallback(String login, String token, Completer completer);
 

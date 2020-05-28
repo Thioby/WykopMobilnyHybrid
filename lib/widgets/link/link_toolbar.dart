@@ -1,6 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 
@@ -82,8 +82,7 @@ class LinkToolbarWidget extends StatelessWidget {
                 title: "Kopiuj tekst",
                 onTap: () {
                   Navigator.pop(context);
-                  Utils.copyToClipboard(
-                      contextmain, "${model.title}\r\n${model.description}");
+                  Utils.copyToClipboard(contextmain, "${model.title}\r\n${model.description}");
                 },
               ),
               ToolbarButtonWidget(
@@ -91,8 +90,7 @@ class LinkToolbarWidget extends StatelessWidget {
                 title: "Kupiuj link",
                 onTap: () {
                   Navigator.pop(context);
-                  Utils.copyToClipboard(
-                      contextmain, "https://www.wykop.pl/link/${model.id}");
+                  Utils.copyToClipboard(contextmain, "https://www.wykop.pl/link/${model.id}");
                 },
               ),
               ToolbarButtonWidget(
@@ -108,8 +106,7 @@ class LinkToolbarWidget extends StatelessWidget {
                 title: "Wykopali (${model.voteCount})",
                 onTap: () async {
                   Navigator.pop(context); //TODO lista wykopujących
-                  Scaffold.of(contextmain).showSnackBar(
-                      SnackBar(content: Text("Niezaimplementowane")));
+                  Scaffold.of(contextmain).showSnackBar(SnackBar(content: Text("Niezaimplementowane")));
                 },
                 disabled: model.voteCount == 0,
               ),
@@ -118,8 +115,7 @@ class LinkToolbarWidget extends StatelessWidget {
                 title: "Zakopali (${model.buryCount})",
                 onTap: () async {
                   Navigator.pop(context); //TODO lista zakopujących
-                  Scaffold.of(contextmain).showSnackBar(
-                      SnackBar(content: Text("Niezaimplementowane")));
+                  Scaffold.of(contextmain).showSnackBar(SnackBar(content: Text("Niezaimplementowane")));
                 },
                 disabled: model.buryCount == 0,
               ),
@@ -130,8 +126,7 @@ class LinkToolbarWidget extends StatelessWidget {
                   Navigator.pop(context);
                   Utils.launchURL(model.violationUrl, context);
                 },
-                disabled:
-                    !authStateModel.loggedIn,
+                disabled: !authStateModel.loggedIn,
               ),
             ],
           ),

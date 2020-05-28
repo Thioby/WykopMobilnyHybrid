@@ -1,12 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:owmflutter/models/models.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:provider/provider.dart';
 import 'dart:typed_data';
+
+import 'package:wykop_api/data/model/EntryMediaDto.dart';
 
 final Uint8List kTransparentImage = new Uint8List.fromList(<int>[
   0x89,
@@ -76,7 +76,7 @@ final Uint8List kTransparentImage = new Uint8List.fromList(<int>[
 ]);
 
 class EmbedWidget extends StatefulWidget {
-  final Embed embed;
+  final EntryMediaDto embed;
   final double reducedWidth;
   final double borderRadius;
   final EdgeInsets padding;

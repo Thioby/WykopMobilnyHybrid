@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:owmflutter/widgets/widgets.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
+import 'package:owmflutter/model/model.dart';
+import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/api/api.dart';
 
 class TagScreen extends StatefulWidget {
   final String tag;
   TagScreen({this.tag});
+
   @override
   _MainCollapsingToolbarState createState() => _MainCollapsingToolbarState();
 }
@@ -45,7 +46,8 @@ class _MainCollapsingToolbarState extends State<TagScreen> {
       persistentHeaderBuilder: (context) => _drawHeader(),
       header: _drawFloatingHeader(),
       builder: (context) => EntryListModel(
-        context: context, loadNewEntries: (page) => api.tags.getEntries(widget.tag, page),
+        context: context,
+        loadNewEntries: (page) => api.tags.getEntries(widget.tag, page),
       ),
     );
   }
@@ -55,7 +57,8 @@ class _MainCollapsingToolbarState extends State<TagScreen> {
       persistentHeaderBuilder: (context) => _drawHeader(),
       header: _drawFloatingHeader(),
       builder: (context) => LinkListModel(
-        context: context, loadNewLinks: (page) => api.tags.getLinks(widget.tag, page),
+        context: context,
+        loadNewLinks: (page) => api.tags.getLinks(widget.tag, page),
       ),
     );
   }
@@ -65,7 +68,8 @@ class _MainCollapsingToolbarState extends State<TagScreen> {
       persistentHeaderBuilder: (context) => _drawHeader(),
       header: _drawFloatingHeader(),
       builder: (context) => EntryLinkListmodel(
-        context: context, loadNewEntryLinks: (page) => api.tags.getIndex(widget.tag, page),
+        context: context,
+        loadNewEntryLinks: (page) => api.tags.getIndex(widget.tag, page),
       ),
     );
   }
@@ -87,19 +91,17 @@ class _MainCollapsingToolbarState extends State<TagScreen> {
     showDialog(
         context: context,
         builder: (context) => GreatDialogWidget(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Opis tagu', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),),
+                child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Opis tagu',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Container(
                   child: HtmlWidget(
-                    textColor: Theme.of(context).textTheme.body1.color,
-                    linkColor: Theme.of(context).accentColor,
-                    textSize: 14,
-                    html: model.description,
+                    textColor: Theme.of(context).textTheme.body1.color, linkColor: Theme.of(context).accentColor,
+                    textSize: 14, html: model.description,
                     //TODO: Jakoś lepiej liczyć i ciąć tekst bo łapie html ^^^
                   ),
                 ),
@@ -162,8 +164,7 @@ class _MainCollapsingToolbarState extends State<TagScreen> {
               child: GestureDetector(
                 onTap: () => _showDialogWithBody(tagModel),
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 8.0, right: 8.0, top: 16, bottom: 16),
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 16, bottom: 16),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.5),
@@ -171,27 +172,19 @@ class _MainCollapsingToolbarState extends State<TagScreen> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Text(
-                                "#" + widget.tag,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            Text(
-                              tagModel.subHeader,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w300),
-                            ),
-                          ]),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            "#" + widget.tag,
+                            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        Text(
+                          tagModel.subHeader,
+                          style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w300),
+                        ),
+                      ]),
                     ),
                   ),
                 ),

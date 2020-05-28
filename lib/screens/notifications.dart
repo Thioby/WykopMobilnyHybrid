@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/input_model.dart';
+import 'package:owmflutter/model/model.dart';
+import 'package:owmflutter/owm_glyphs.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:owmflutter/owm_glyphs.dart';
 import 'package:provider/provider.dart';
-import 'package:owmflutter/models/models.dart' as prefix0;
+import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/data/model/NotificationDto.dart';
 
 class NotificationsScreen extends StatelessWidget {
   final int initialIndex;
   NotificationsScreen({this.initialIndex});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ShadowControlModel>(
       create: (context) => ShadowControlModel(scrollDelayPixels: 4),
       child: DefaultTabController(
         length: 3,
-        initialIndex: initialIndex ??
-            Provider.of<OWMSettings>(context, listen: false)
-                .defaultNotificationScreen,
+        initialIndex: initialIndex ?? Provider.of<OWMSettings>(context, listen: false).defaultNotificationScreen,
         child: Scaffold(
           resizeToAvoidBottomPadding: false,
           appBar: AppbarTabsWidget(
@@ -46,8 +46,7 @@ class NotificationsScreen extends StatelessWidget {
                   child: NotificationsList(
                     persistentHeaderBuilder: (newContext) => _header(),
                     builder: (context) => NotificationListModel(
-                      loadNewNotifications: (page) =>
-                          api.notifications.getNotifications(page),
+                      loadNewNotifications: (page) => api.notifications.getNotifications(page),
                     ),
                   ),
                 ),
@@ -62,11 +61,9 @@ class NotificationsScreen extends StatelessWidget {
                     builder: (context, owmSettings) => owmSettings.groupNotifs
                         ? _drawGrouppedNotifs()
                         : NotificationsList(
-                            persistentHeaderBuilder: (newContext) =>
-                                _header(shouldShowGroupButton: true),
+                            persistentHeaderBuilder: (newContext) => _header(shouldShowGroupButton: true),
                             builder: (context) => NotificationListModel(
-                              loadNewNotifications: (page) => api.notifications
-                                  .getHashtagNotifications(page),
+                              loadNewNotifications: (page) => api.notifications.getHashtagNotifications(page),
                             ),
                           ),
                   ),
@@ -80,25 +77,19 @@ class NotificationsScreen extends StatelessWidget {
   }
 
   Widget _drawGrouppedNotifs() {
-    return ChangeNotifierProvider<
-        ListModel<prefix0.Notification, NotificationModel>>(
+    return ChangeNotifierProvider<ListModel<NotificationDto, NotificationModel>>(
       create: (context) => NotificationListModel(
-        loadNewNotifications: (page) =>
-            api.notifications.getHashtagNotifications(page),
+        loadNewNotifications: (page) => api.notifications.getHashtagNotifications(page),
       )..loadGroupedTagNotifs(),
-      child: Consumer<ListModel<prefix0.Notification, NotificationModel>>(
+      child: Consumer<ListModel<NotificationDto, NotificationModel>>(
         builder: (context, notifModel, _) {
           return InfiniteList(
-            itemCount: (notifModel as NotificationListModel)
-                .grouppedNotifications
-                .length,
+            itemCount: (notifModel as NotificationListModel).grouppedNotifications.length,
             itemBuilder: (context, index) => new GrouppedTagWidget(
-              tag: (notifModel as NotificationListModel)
-                  .grouppedNotifications[index],
+              tag: (notifModel as NotificationListModel).grouppedNotifications[index],
             ),
             loadData: () {},
-            persistentHeaderBuilder: (newContext) =>
-                _header(shouldShowGroupButton: true),
+            persistentHeaderBuilder: (newContext) => _header(shouldShowGroupButton: true),
           );
         },
       ),
@@ -108,7 +99,7 @@ class NotificationsScreen extends StatelessWidget {
   Widget _header({bool shouldShowGroupButton = false}) {
     return Builder(
       builder: (context) {
-        return Consumer<ListModel<prefix0.Notification, NotificationModel>>(
+        return Consumer<ListModel<NotificationDto, NotificationModel>>(
           builder: (context, listModel, _) {
             var notifModel = listModel as NotificationListModel;
             return Container(
@@ -142,19 +133,13 @@ class NotificationsScreen extends StatelessWidget {
                       Visibility(
                         visible: shouldShowGroupButton,
                         child: OWMSettingListener(
-                          rebuildOnChange: (settings) =>
-                              settings.groupNotifsStream,
+                          rebuildOnChange: (settings) => settings.groupNotifsStream,
                           builder: (context, owmSettings) => Tooltip(
-                            message: owmSettings.groupNotifs
-                                ? "Nie grupuj powiadomień"
-                                : "Grupuj powiadomienia",
+                            message: owmSettings.groupNotifs ? "Nie grupuj powiadomień" : "Grupuj powiadomienia",
                             child: RoundIconButtonWidget(
-                              icon: owmSettings.groupNotifs
-                                  ? Icons.format_list_numbered
-                                  : Icons.format_list_bulleted,
+                              icon: owmSettings.groupNotifs ? Icons.format_list_numbered : Icons.format_list_bulleted,
                               padding: EdgeInsets.symmetric(horizontal: 12.0),
-                              onTap: () => owmSettings.groupNotifs =
-                                  !owmSettings.groupNotifs,
+                              onTap: () => owmSettings.groupNotifs = !owmSettings.groupNotifs,
                             ),
                           ),
                         ),

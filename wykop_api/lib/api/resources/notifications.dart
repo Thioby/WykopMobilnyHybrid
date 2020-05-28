@@ -1,10 +1,12 @@
-import 'package:owmflutter/models/models.dart';
 import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/data/model/NotificationDto.dart';
 
 class NotificationsApi extends ApiResource {
-  NotificationsApi(ApiClient client) : super(client);
+  final NotificationResponseToNotificationDtoMapper _notificationDtoMapper;
 
-  Future<List<Notification>> getHashtagNotifications(int page) async {
+  NotificationsApi(ApiClient client, this._notificationDtoMapper) : super(client);
+
+  Future<List<NotificationDto>> getHashtagNotifications(int page) async {
     var items = await client.request('notifications', 'HashTags', named: {'page': page.toString()});
     return deserializeNotifications(items);
   }
@@ -29,8 +31,12 @@ class NotificationsApi extends ApiResource {
     await client.request('notifications', 'ReadDirectedNotifications');
   }
 
-  Future<List<Notification>> getNotifications(int page) async {
+  Future<List<NotificationDto>> getNotifications(int page) async {
     var items = await client.request('notifications', 'Notifications', named: {'page': page.toString()});
     return deserializeNotifications(items);
+  }
+
+  List<NotificationDto> deserializeNotifications(dynamic items) {
+    return client.deserializeList(NotificationResponse.serializer, items).map(_notificationDtoMapper.apply).toList();
   }
 }

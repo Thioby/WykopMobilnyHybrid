@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:owmflutter/models/models.dart';
+import 'package:owmflutter/model/input_model.dart';
+import 'package:owmflutter/model/link_comment_vote_state.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/input.dart';
 import 'package:owmflutter/widgets/content_hidden.dart';
 import 'package:owmflutter/widgets/widgets.dart';
@@ -8,6 +9,8 @@ import 'package:owmflutter/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:html/parser.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/data/model/InputData.dart';
 
 class LinkCommentWidget extends StatefulWidget {
   final AuthorRelation relation;
@@ -375,7 +378,7 @@ class _LinkCommentWidgetState extends State<LinkCommentWidget> {
           );
   }
 
-  void _openUserDialog(BuildContext context, Author author) {
+  void _openUserDialog(BuildContext context, AuthorDto author) {
     showDialog(
       context: context,
       builder: (_) => UserDialogWidget(author: author),

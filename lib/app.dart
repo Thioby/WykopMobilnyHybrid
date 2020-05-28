@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/keys.dart';
+import 'package:owmflutter/screens/screens.dart';
+import 'package:owmflutter/themes.dart';
+import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/notifications_handler.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:pref_gen_flutter/pref_gen_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:owmflutter/screens/screens.dart';
-import 'package:owmflutter/themes.dart';
-import 'package:owmflutter/keys.dart';
-import 'package:owmflutter/utils/utils.dart';
+
+import 'model/model.dart';
+
 var owmSettings = OWMSettings(SharedPreferencesAdapter());
 
 class OwmApp extends StatelessWidget {
@@ -53,5 +54,3 @@ class OwmApp extends StatelessWidget {
     );
   }
 }
-
-

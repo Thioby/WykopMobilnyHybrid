@@ -1,59 +1,67 @@
-import 'package:owmflutter/models/models.dart';
-import 'package:owmflutter/models/voter.dart';
 import 'package:wykop_api/api/api.dart';
 import 'package:wykop_api/api/response_models/voter_response.dart';
+import 'package:wykop_api/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/data/model/EntryDto.dart';
+import 'package:wykop_api/data/model/InputData.dart';
+import 'package:wykop_api/data/model/VoterDto.dart';
 
 class EntriesApi extends ApiResource {
-  EntriesApi(ApiClient client) : super(client);
-  Future<List<Entry>> getFavorite(int page) async {
+  final EntryResponseToDtoMapper _entryResponseToDtoMapper;
+  final EntryCommentResponseToEntryCommentDtoMapper _commentDtoMapper;
+  final VoterResponseToVoterDtoMapper _voterResponseToVoterDtoMapper;
+
+  EntriesApi(ApiClient client, this._entryResponseToDtoMapper, this._commentDtoMapper, this._voterResponseToVoterDtoMapper) : super(client);
+
+
+  Future<List<EntryDto>> getFavorite(int page) async {
     var items = await client.request('entries', 'observed', named: {'page': page.toString()});
-    return client.deserializeList(EntryResponse.serializer, items).map((e) => Entry.mapFromResponse(e)).toList();
+    return client.deserializeList(EntryResponse.serializer, items).map(_entryResponseToDtoMapper.apply).toList();
   }
 
-  Future<List<Entry>> getHot(int page, String period) async {
+  Future<List<EntryDto>> getHot(int page, String period) async {
     var items = await client.request('entries', 'hot', named: {'period': period, 'page': page.toString()});
-    return client.deserializeList(EntryResponse.serializer, items).map((e) => Entry.mapFromResponse(e)).toList();
+    return client.deserializeList(EntryResponse.serializer, items).map(_entryResponseToDtoMapper.apply).toList();
   }
 
-  Future<List<Entry>> getNewest(int page) async {
+  Future<List<EntryDto>> getNewest(int page) async {
     var items = await client.request('entries', 'stream', named: {'page': page.toString()});
-    return client.deserializeList(EntryResponse.serializer, items).map((e) => Entry.mapFromResponse(e)).toList();
+    return client.deserializeList(EntryResponse.serializer, items).map(_entryResponseToDtoMapper.apply).toList();
   }
 
-  Future<List<Entry>> getActive(int page) async {
+  Future<List<EntryDto>> getActive(int page) async {
     var items = await client.request('entries', 'active', named: {'page': page.toString()});
-    return client.deserializeList(EntryResponse.serializer, items).map((e) => Entry.mapFromResponse(e)).toList();
+    return client.deserializeList(EntryResponse.serializer, items).map(_entryResponseToDtoMapper.apply).toList();
   }
 
-  Future<Entry> getEntry(int id) async {
+  Future<EntryDto> getEntry(int id) async {
     var items = await client.request('entries', 'entry', api: [id.toString()]);
-    return Entry.mapFromResponse(
+    return _entryResponseToDtoMapper.apply(
       client.deserializeElement(EntryResponse.serializer, items),
     );
   }
 
-  Future<EntryComment> addEntryComment(int entryId, InputData data) async {
+  Future<EntryCommentDto> addEntryComment(int entryId, InputData data) async {
     var comment = await client.request('entries', 'commentadd',
         api: [entryId.toString()], post: {'body': data.body}, image: data.file);
     print(comment);
     return deserializeEntryComment(comment);
   }
 
-  Future<List<Voter>> getEntryUpVoters(int entryId) async {
+  Future<List<VoterDto>> getEntryUpVoters(int entryId) async {
     var items = await client.request('entries', 'upvoters', api: [entryId.toString()]);
     print(items);
     var voters = client.deserializeList(VoterResponse.serializer, items);
-    return voters.map((e) => Voter.fromResponse(response: e)).toList();
+    return voters.map(_voterResponseToVoterDtoMapper.apply).toList();
   }
 
-  Future<List<Voter>> getEntryCommentUpVoters(int entryId) async {
+  Future<List<VoterDto>> getEntryCommentUpVoters(int entryId) async {
     var items = await client.request('entries', 'commentupvoters', api: [entryId.toString()]);
     print(items);
     var voters = client.deserializeList(VoterResponse.serializer, items);
-    return voters.map((e) => Voter.fromResponse(response: e)).toList();
+    return voters.map(_voterResponseToVoterDtoMapper.apply).toList();
   }
 
-  Future<Entry> addEntry(InputData data) async {
+  Future<EntryDto> addEntry(InputData data) async {
     var entry = await client.request('entries', 'add', post: {'body': data.body}, image: data.file);
     return deserializeEntry(entry);
   }
@@ -85,16 +93,16 @@ class EntriesApi extends ApiResource {
     await client.request('entries', 'delete', api: [id.toString()]);
   }
 
-  Future<Entry> editEntry(int id, InputData data) async {
+  Future<EntryDto> editEntry(int id, InputData data) async {
     var entry =
         await client.request('entries', 'edit', api: [id.toString()], post: {'body': data.body}, image: data.file);
-    return Entry.mapFromResponse(client.deserializeElement(EntryResponse.serializer, entry));
+    return _entryResponseToDtoMapper.apply(client.deserializeElement(EntryResponse.serializer, entry));
   }
 
-  Future<EntryComment> editEntryComment(int id, InputData data) async {
+  Future<EntryCommentDto> editEntryComment(int id, InputData data) async {
     var entry = await client.request('entries', 'CommentEdit',
         api: [id.toString()], post: {'body': data.body}, image: data.file);
-    return EntryComment.mapFromResponse(
+    return _commentDtoMapper.apply(
       client.deserializeElement(EntryCommentResponse.serializer, entry),
     );
   }
@@ -108,4 +116,13 @@ class EntriesApi extends ApiResource {
     print(voteCount);
     return int.parse(voteCount["vote_count"]);
   }
+
+  EntryDto deserializeEntry(dynamic item) {
+    return _entryResponseToDtoMapper.apply(client.deserializeElement(EntryResponse.serializer, item));
+  }
+
+  EntryCommentDto deserializeEntryComment(dynamic item) {
+    return _commentDtoMapper.apply(client.deserializeElement(EntryCommentResponse.serializer, item));
+  }
+
 }

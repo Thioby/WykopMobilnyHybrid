@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +18,7 @@ class NotificationsSettingScreen extends StatelessWidget {
           appBar: AppbarNormalWidget(
             title: "Powiadomienia",
           ),
-          body: ShadowNotificationListener(
-              child: SingleChildScrollView(child: _drawList())),
+          body: ShadowNotificationListener(child: SingleChildScrollView(child: _drawList())),
         ),
       ),
     );
@@ -35,8 +34,7 @@ class NotificationsSettingScreen extends StatelessWidget {
             return SwitchListTile(
               value: settings.useNotification,
               title: Text(settings.useNotification ? "Włączone" : "Wyłączone"),
-              onChanged: (value) =>
-                  settings.useNotification = !settings.useNotification,
+              onChanged: (value) => settings.useNotification = !settings.useNotification,
             );
           },
         ),
@@ -48,35 +46,29 @@ class NotificationsSettingScreen extends StatelessWidget {
                   children: <Widget>[
                     DividerWidget(padding: EdgeInsets.only(bottom: 8.0)),
                     OWMSettingListener(
-                      rebuildOnChange: (settings) =>
-                          settings.usePushNotificationStream,
+                      rebuildOnChange: (settings) => settings.usePushNotificationStream,
                       builder: (context, settings) {
                         return SwitchListTile(
                           value: settings.usePushNotification,
                           title: Text("Przechwyć powiadomienia Push"),
-                          subtitle: Text(
-                              "Wymaga zainstalowania oficjalnej aplikacji Wykop.pl"),
-                          onChanged: (value) => settings.usePushNotification =
-                              !settings.usePushNotification,
+                          subtitle: Text("Wymaga zainstalowania oficjalnej aplikacji Wykop.pl"),
+                          onChanged: (value) => settings.usePushNotification = !settings.usePushNotification,
                         );
                       },
                     ),
                     OWMSettingListener(
-                      rebuildOnChange: (settings) =>
-                          settings.timeCheckNotificationStream,
+                      rebuildOnChange: (settings) => settings.timeCheckNotificationStream,
                       builder: (context, settings) {
                         return ListTile(
                           title: Text("Częstotliwość sprawdzania"),
-                          subtitle: Text(_timeCheckNotificationSubtitle(
-                              settings.timeCheckNotification)),
+                          subtitle: Text(_timeCheckNotificationSubtitle(settings.timeCheckNotification)),
                           onTap: () {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) => Dialog(
                                 child: SingleChildScrollView(
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       Padding(
@@ -90,72 +82,59 @@ class NotificationsSettingScreen extends StatelessWidget {
                                         ),
                                       ),
                                       OWMSettingListener(
-                                        rebuildOnChange: (settings) => settings
-                                            .timeCheckNotificationStream,
+                                        rebuildOnChange: (settings) => settings.timeCheckNotificationStream,
                                         builder: (context, settings) {
                                           return Column(
                                             children: <Widget>[
                                               RadioListTile(
-                                                groupValue: settings
-                                                    .timeCheckNotification,
+                                                groupValue: settings.timeCheckNotification,
                                                 onChanged: (value) {
-                                                  settings.timeCheckNotification =
-                                                      value;
+                                                  settings.timeCheckNotification = value;
                                                   Navigator.of(context).pop();
                                                 },
                                                 value: 15,
                                                 title: Text("Co 15 minut"),
                                               ),
                                               RadioListTile(
-                                                groupValue: settings
-                                                    .timeCheckNotification,
+                                                groupValue: settings.timeCheckNotification,
                                                 onChanged: (value) {
-                                                  settings.timeCheckNotification =
-                                                      value;
+                                                  settings.timeCheckNotification = value;
                                                   Navigator.of(context).pop();
                                                 },
                                                 value: 30,
                                                 title: Text("Co 30 minut"),
                                               ),
                                               RadioListTile(
-                                                groupValue: settings
-                                                    .timeCheckNotification,
+                                                groupValue: settings.timeCheckNotification,
                                                 onChanged: (value) {
-                                                  settings.timeCheckNotification =
-                                                      value;
+                                                  settings.timeCheckNotification = value;
                                                   Navigator.of(context).pop();
                                                 },
                                                 value: 60,
                                                 title: Text("Co godzinę"),
                                               ),
                                               RadioListTile(
-                                                groupValue: settings
-                                                    .timeCheckNotification,
+                                                groupValue: settings.timeCheckNotification,
                                                 onChanged: (value) {
-                                                  settings.timeCheckNotification =
-                                                      value;
+                                                  settings.timeCheckNotification = value;
                                                   Navigator.of(context).pop();
                                                 },
                                                 value: 120,
                                                 title: Text("Co 2 godziny"),
                                               ),
                                               RadioListTile(
-                                                groupValue: settings
-                                                    .timeCheckNotification,
+                                                groupValue: settings.timeCheckNotification,
                                                 onChanged: (value) {
-                                                  settings.timeCheckNotification =
-                                                      value;
+                                                  settings.timeCheckNotification = value;
                                                   Navigator.of(context).pop();
                                                 },
                                                 value: 240,
                                                 title: Text("Co 4 godziny"),
                                               ),
                                               RadioListTile(
-                                                groupValue: settings
-                                                    .timeCheckNotification,
+                                                groupValue: settings.timeCheckNotification,
                                                 onChanged: (value) {
-                                                  settings.timeCheckNotification =
-                                                      value;
+                                                  settings.timeCheckNotification = value;
                                                   Navigator.of(context).pop();
                                                 },
                                                 value: 480,
@@ -176,8 +155,7 @@ class NotificationsSettingScreen extends StatelessWidget {
                       },
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
+                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
                       child: Text(
                         "Częstotliwość sprawdzania jest nieaktywna gdy włączone jest przechwytywanie powiadomień Push.",
                         style: TextStyle(color: Colors.grey),
@@ -187,27 +165,22 @@ class NotificationsSettingScreen extends StatelessWidget {
                       padding: EdgeInsets.only(top: 8.0),
                     ),
                     OWMSettingListener(
-                      rebuildOnChange: (settings) =>
-                          settings.useSoundNotificationStream,
+                      rebuildOnChange: (settings) => settings.useSoundNotificationStream,
                       builder: (context, settings) {
                         return SwitchListTile(
                           value: settings.useSoundNotification,
                           title: Text("Dźwięk"),
-                          onChanged: (value) => settings.useSoundNotification =
-                              !settings.useSoundNotification,
+                          onChanged: (value) => settings.useSoundNotification = !settings.useSoundNotification,
                         );
                       },
                     ),
                     OWMSettingListener(
-                      rebuildOnChange: (settings) =>
-                          settings.useVibrationNotificationStream,
+                      rebuildOnChange: (settings) => settings.useVibrationNotificationStream,
                       builder: (context, settings) {
                         return SwitchListTile(
                           value: settings.useVibrationNotification,
                           title: Text("Wibracje"),
-                          onChanged: (value) =>
-                              settings.useVibrationNotification =
-                                  !settings.useVibrationNotification,
+                          onChanged: (value) => settings.useVibrationNotification = !settings.useVibrationNotification,
                         );
                       },
                     ),
@@ -218,8 +191,7 @@ class NotificationsSettingScreen extends StatelessWidget {
                         return SwitchListTile(
                           value: settings.useSoundApp,
                           title: Text("Dźwięki z aplikacji"),
-                          onChanged: (value) =>
-                              settings.useSoundApp = !settings.useSoundApp,
+                          onChanged: (value) => settings.useSoundApp = !settings.useSoundApp,
                         );
                       },
                     ),

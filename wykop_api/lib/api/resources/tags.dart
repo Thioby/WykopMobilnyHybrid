@@ -1,5 +1,8 @@
-import 'package:owmflutter/models/models.dart';
 import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/data/model/EntryDto.dart';
+import 'package:wykop_api/data/model/EntryLinkDto.dart';
+import 'package:wykop_api/data/model/LinkDto.dart';
 
 class TagMeta {
   final String description;
@@ -7,7 +10,7 @@ class TagMeta {
   final int linksCount;
 
   final String backgroundUrl;
-  final Author owner;
+  final AuthorDto owner;
   final bool isOwn;
   final bool isObserved;
   final bool isBlocked;
@@ -24,21 +27,28 @@ class TagMeta {
 }
 
 class TagsApi extends ApiResource {
-  TagsApi(ApiClient client) : super(client);
+  final LinkResponseToLinkDtoMapper _linkDtoMapper;
+  final EntryResponseToDtoMapper _entryResponseToDtoMapper;
+  final AuthorResponseToAuthorDtoMapper _authorDtoMapper;
+  final EntryLinkResponseToEntryLinkDtoMapper _entryLinkDtoMapper;
 
-  Future<List<EntryLink>> getIndex(String tag, int page) async {
+  TagsApi(ApiClient client, this._linkDtoMapper, this._entryResponseToDtoMapper, this._authorDtoMapper,
+      this._entryLinkDtoMapper)
+      : super(client);
+
+  Future<List<EntryLinkDto>> getIndex(String tag, int page) async {
     var items = await client.request('tags', 'index', api: [tag], named: {'page': page.toString()});
 
     return deserializeEntryLinks(items);
   }
 
-  Future<List<Link>> getLinks(String tag, int page) async {
+  Future<List<LinkDto>> getLinks(String tag, int page) async {
     var items = await client.request('tags', 'links', api: [tag], named: {'page': page.toString()});
 
     return deserializeLinks(items);
   }
 
-  Future<List<Entry>> getEntries(String tag, int page) async {
+  Future<List<EntryDto>> getEntries(String tag, int page) async {
     var items = await client.request('tags', 'entries', api: [tag], named: {'page': page.toString()});
 
     return deserializeEntries(items);
@@ -54,7 +64,7 @@ class TagsApi extends ApiResource {
 
     var meta = data["meta"];
 
-    Author owner;
+    AuthorDto owner;
     if (meta["owner"] != null) {
       owner = deserializeAuthor(meta["owner"]);
     }
@@ -69,5 +79,22 @@ class TagsApi extends ApiResource {
       linksCount: meta["counters"]["links"],
       owner: owner,
     );
+  }
+
+  List<LinkDto> deserializeLinks(dynamic items) {
+    return client.deserializeList(LinkResponse.serializer, items).map(_linkDtoMapper.apply).toList();
+  }
+
+  List<EntryDto> deserializeEntries(dynamic items) {
+    return client.deserializeList(EntryResponse.serializer, items).map(_entryResponseToDtoMapper.apply).toList();
+  }
+
+  AuthorDto deserializeAuthor(dynamic item) {
+    AuthorResponse authorResponse = client.deserializeElement(AuthorResponse.serializer, item);
+    return _authorDtoMapper.apply(authorResponse);
+  }
+
+  List<EntryLinkDto> deserializeEntryLinks(dynamic items) {
+    return client.deserializeList(EntryLinkResponse.serializer, items).map(_entryLinkDtoMapper.apply).toList();
   }
 }

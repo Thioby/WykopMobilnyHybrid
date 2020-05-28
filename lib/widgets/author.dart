@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/models/models.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
 
 class AuthorWidget extends StatefulWidget {
-  final Author author;
+  final AuthorDto author;
   final String date;
   final double avatarSize;
   final double fontSize;

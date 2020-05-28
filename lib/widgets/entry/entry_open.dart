@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/models/models.dart';
-import 'package:owmflutter/widgets/widgets.dart';
-import 'package:owmflutter/utils/utils.dart';
-import 'package:provider/provider.dart';
-import 'package:wykop_api/model/model.dart';
 import 'package:html/parser.dart';
+import 'package:owmflutter/model/input_model.dart';
+import 'package:owmflutter/model/model.dart';
+import 'package:owmflutter/utils/utils.dart';
+import 'package:owmflutter/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:wykop_api/data/model/VoterDto.dart';
 
 class EntryOpenWidget extends StatelessWidget {
   @override
@@ -33,16 +34,14 @@ class EntryOpenWidget extends StatelessWidget {
                           onClicked: () {
                             model.voteToggle();
                           },
-                          onLongClicked: () => model.upvoters.length == 0
-                              ? null
-                              : _showVotersDialog(context, model.upvoters),
+                          onLongClicked: () =>
+                              model.upvoters.length == 0 ? null : _showVotersDialog(context, model.upvoters),
                         ),
                       ],
                     ),
                   ),
                   GestureDetector(
-                    onLongPress: () => _showActionsDialog(
-                        context, model, authStateModel, relation),
+                    onLongPress: () => _showActionsDialog(context, model, authStateModel, relation),
                     child: BodyWidget(
                       textSize: 16,
                       body: model.body,
@@ -52,8 +51,7 @@ class EntryOpenWidget extends StatelessWidget {
                   Visibility(
                     visible: model.embed != null,
                     child: GestureDetector(
-                      onLongPress: () => _showActionsDialog(
-                          context, model, authStateModel, relation),
+                      onLongPress: () => _showActionsDialog(context, model, authStateModel, relation),
                       child: EmbedWidget(
                         padding: EdgeInsets.fromLTRB(18.0, 12.0, 18.0, 2.0),
                         embed: model.embed,
@@ -78,8 +76,7 @@ class EntryOpenWidget extends StatelessWidget {
                                   many: "komentarzy",
                                   other: "komentarze",
                                 ),
-                            style: TextStyle(
-                                fontSize: 20.0, fontWeight: FontWeight.w500),
+                            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
                           ),
                           Expanded(
                             child: Container(),
@@ -87,32 +84,25 @@ class EntryOpenWidget extends StatelessWidget {
                           InkWell(
                             borderRadius: BorderRadius.circular(30),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 3.0, horizontal: 8.0),
+                              padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 8.0),
                               child: Text(
                                 "Cytuj",
                                 style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                             ),
                             onTap: () => inputModel.inputBarKey.currentState
-                                .quoteText(
-                                    parse(model.body ?? "")
-                                        .documentElement
-                                        .text,
-                                    author: model.author),
+                                .quoteText(parse(model.body ?? "").documentElement.text, author: model.author),
                           ),
                           InkWell(
                             borderRadius: BorderRadius.circular(30),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 3.0, horizontal: 8.0),
+                              padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 8.0),
                               child: Text(
                                 "Odpowiedz",
                                 style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                             ),
-                            onTap: () => inputModel.inputBarKey.currentState
-                                .replyToUser(model.author),
+                            onTap: () => inputModel.inputBarKey.currentState.replyToUser(model.author),
                           ),
                         ],
                       ),
@@ -180,9 +170,7 @@ class EntryOpenWidget extends StatelessWidget {
                 child: Text("Jeszcze nikt nie dał plusa"),
               ),
             ),
-            ...List<int>.generate(
-                    model.upvoters.length >= 6 ? 6 : model.upvoters.length,
-                    (i) => i)
+            ...List<int>.generate(model.upvoters.length >= 6 ? 6 : model.upvoters.length, (i) => i)
                 .map(
                   (e) => e == 0
                       ? AvatarWidget(
@@ -231,17 +219,16 @@ class EntryOpenWidget extends StatelessWidget {
     );
   }
 
-  void _showActionsDialog(BuildContext contextmain, EntryModel model,
-      AuthStateModel authStateModel, AuthorRelation relation) {
+  void _showActionsDialog(
+      BuildContext contextmain, EntryModel model, AuthStateModel authStateModel, AuthorRelation relation) {
     showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
       context: contextmain,
-      builder: (BuildContext context) =>
-          EntryToolbarWidget(contextmain, model, authStateModel, relation),
+      builder: (BuildContext context) => EntryToolbarWidget(contextmain, model, authStateModel, relation),
     );
   }
 
-  void _showVotersDialog(BuildContext context, List<Voter> voters) {
+  void _showVotersDialog(BuildContext context, List<VoterDto> voters) {
     showDialog(
       context: context,
       builder: (context) => EntryVotersWidget(voters),

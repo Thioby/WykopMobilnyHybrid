@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -41,32 +41,25 @@ class AboutScreen extends StatelessWidget {
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: Text("Wersja 0.0.0-hybrid"), //TODO: get build version
+          padding: EdgeInsets.symmetric(vertical: 8.0), child: Text("Wersja 0.0.0-hybrid"), //TODO: get build version
         ),
         SizedBox(height: 8.0),
         ListTile(
-          title: Text("Co nowego?"),
-          trailing: Icon(Icons.chevron_right),
-          onTap: () {}, //TODO: show whats new
+          title: Text("Co nowego?"), trailing: Icon(Icons.chevron_right), onTap: () {}, //TODO: show whats new
         ),
         ListTile(
-          title: Text("Patroni"),
-          trailing: Icon(Icons.chevron_right),
-          onTap: () {}, //TODO: show patrons
+          title: Text("Patroni"), trailing: Icon(Icons.chevron_right), onTap: () {}, //TODO: show patrons
         ),
         ListTile(
           title: Text("Obserwuj tag"),
           trailing: Icon(Icons.chevron_right),
-          onTap: () =>
-              Utils.launchURL("https://www.wykop.pl/tag/otwartywykopmobilny/", context),
+          onTap: () => Utils.launchURL("https://www.wykop.pl/tag/otwartywykopmobilny/", context),
         ),
         Divider(indent: 16.0, endIndent: 16.0),
         ListTile(
           title: Text("Github"),
           trailing: Icon(Icons.chevron_right),
-          onTap: () =>
-              Utils.launchURL("https://github.com/feelfreelinux/WykopMobilnyHybrid", context),
+          onTap: () => Utils.launchURL("https://github.com/feelfreelinux/WykopMobilnyHybrid", context),
         ),
         ListTile(
           title: Text("Discord"),
@@ -77,8 +70,7 @@ class AboutScreen extends StatelessWidget {
         ListTile(
           title: Text("Licencja MIT"),
           trailing: Icon(Icons.chevron_right),
-          onTap: () => Utils.launchURL(
-              "https://github.com/feelfreelinux/WykopMobilny/blob/master/LICENSE", context),
+          onTap: () => Utils.launchURL("https://github.com/feelfreelinux/WykopMobilny/blob/master/LICENSE", context),
         ),
         SizedBox(height: 8.0),
       ],

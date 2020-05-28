@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:owmflutter/models/models.dart';
 import 'package:owmflutter/utils/utils.dart';
+import 'package:wykop_api/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/data/model/EntryDto.dart';
+import 'package:wykop_api/data/model/EntryLinkDto.dart';
+import 'package:wykop_api/data/model/LinkCommentDto.dart';
+import 'package:wykop_api/data/model/LinkDto.dart';
+import 'package:wykop_api/data/model/ProfileRelatedDto.dart';
 
 abstract class ContentFilter<T> {
   Future<void> setup(BuildContext context, OWMSettings settings);
@@ -10,11 +15,11 @@ abstract class ContentFilter<T> {
 abstract class MultiTypeContentFilter {
   bool shouldEnable(BuildContext context, OWMSettings settings);
   
-  bool performFilterOnLink(Link entry) => true;
-  bool performFilterOnEntry(Entry entry) => true;
-  bool performFilterOnEntryLink(EntryLink entry) => true;
-  bool performFilterOnEntryComment(EntryComment entryComment) => true;
-  bool performFilterOnLinkComment(LinkComment entry) => true;
-  bool performFilterOnProfileRelated(ProfileRelated related) => true;
+  bool performFilterOnLink(LinkDto entry) => true;
+  bool performFilterOnEntry(EntryDto entry) => true;
+  bool performFilterOnEntryLink(EntryLinkDto entry) => true;
+  bool performFilterOnEntryComment(EntryCommentDto entryComment) => true;
+  bool performFilterOnLinkComment(LinkCommentDto entry) => true;
+  bool performFilterOnProfileRelated(ProfileRelatedDto related) => true;
 
 }

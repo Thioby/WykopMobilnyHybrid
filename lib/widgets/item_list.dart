@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:owmflutter/content_filters/content_filters.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +19,7 @@ class ItemList<T, D extends ChangeNotifier> extends StatefulWidget {
   }
 }
 
-class ItemListState<T, D extends ChangeNotifier> extends State<ItemList<T, D>>
-    with AutomaticKeepAliveClientMixin {
+class ItemListState<T, D extends ChangeNotifier> extends State<ItemList<T, D>> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 

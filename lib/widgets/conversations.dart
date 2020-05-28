@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:wykop_api/api/api.dart';
-import 'package:owmflutter/models/models.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/data/model/ConversationDto.dart';
 
 class ConversationsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadowNotificationListener(
-      child: FutureBuilder<List<Conversation>>(
+      child: FutureBuilder<List<ConversationDto>>(
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -25,9 +26,9 @@ class ConversationsList extends StatelessWidget {
                     );
                   },
                   child: AuthorWidget(
-                    author: Author.fromAuthState(
-                      username: conversation.author.login,
-                      avatarUrl: conversation.author.avatar,
+                    author: AuthorDto(
+                      login: conversation.author.login,
+                      avatar: conversation.author.avatar,
                       color: 5,
                       sex: conversation.author.sex,
                     ),

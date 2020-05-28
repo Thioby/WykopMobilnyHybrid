@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/input_model.dart';
 import 'package:provider/provider.dart';
 
 class FloatingTabsHeader extends StatelessWidget {

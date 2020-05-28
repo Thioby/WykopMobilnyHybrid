@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:owmflutter/widgets/widgets.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';
+import 'package:owmflutter/widgets/widgets.dart';
 import 'package:share/share.dart';
 
 class LinkFooterWidget extends StatelessWidget {
@@ -25,8 +25,7 @@ class LinkFooterWidget extends StatelessWidget {
             onTap: () => model.favoriteToggle(),
           ),
           ShareButton(
-            onTap: () => Share.share(
-                "${model.title}\r\nhttps://www.wykop.pl/link/${model.id}"),
+            onTap: () => Share.share("${model.title}\r\nhttps://www.wykop.pl/link/${model.id}"),
           ),
           CommentsButton(
             count: model.commentsCount,

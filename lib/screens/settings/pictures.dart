@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +18,7 @@ class PicturesSettingScreen extends StatelessWidget {
           appBar: AppbarNormalWidget(
             title: "Obrazki i multimedia",
           ),
-          body: ShadowNotificationListener(
-              child: SingleChildScrollView(child: _drawList())),
+          body: ShadowNotificationListener(child: SingleChildScrollView(child: _drawList())),
         ),
       ),
     );
@@ -36,8 +35,7 @@ class PicturesSettingScreen extends StatelessWidget {
               value: settings.useYoutubePlayer,
               title: Text("Wbudowany odtwarzacz YouTube"),
               subtitle: Text("Wyłącz, aby użyć aplikacji YouTube"),
-              onChanged: (value) =>
-                  settings.useYoutubePlayer = !settings.useYoutubePlayer,
+              onChanged: (value) => settings.useYoutubePlayer = !settings.useYoutubePlayer,
             );
           },
         ),
@@ -48,8 +46,7 @@ class PicturesSettingScreen extends StatelessWidget {
               value: settings.useOtherPlayer,
               title: Text("Wbudowany odtwarzacz mediów"),
               subtitle: Text("Wyłącz, aby użyć aplikacji zewnętrznych"),
-              onChanged: (value) =>
-                  settings.useOtherPlayer = !settings.useOtherPlayer,
+              onChanged: (value) => settings.useOtherPlayer = !settings.useOtherPlayer,
             );
           },
         ),
@@ -77,8 +74,7 @@ class PicturesSettingScreen extends StatelessWidget {
                         ),
                       ),
                       OWMSettingListener(
-                        rebuildOnChange: (settings) =>
-                            settings.useAutoplayStream,
+                        rebuildOnChange: (settings) => settings.useAutoplayStream,
                         builder: (context, settings) => Column(
                           children: <Widget>[
                             RadioListTile(
@@ -124,8 +120,7 @@ class PicturesSettingScreen extends StatelessWidget {
           rebuildOnChange: (settings) => settings.resolutionAvatarStream,
           builder: (context, settings) => ListTile(
             title: Text("Rozdzielczość avatarów"),
-            subtitle:
-                Text(_resolutionAvatarSubtitle(settings.resolutionAvatar)),
+            subtitle: Text(_resolutionAvatarSubtitle(settings.resolutionAvatar)),
             onTap: () => showDialog(
               context: context,
               builder: (BuildContext context) => Dialog(
@@ -145,8 +140,7 @@ class PicturesSettingScreen extends StatelessWidget {
                         ),
                       ),
                       OWMSettingListener(
-                        rebuildOnChange: (settings) =>
-                            settings.resolutionAvatarStream,
+                        rebuildOnChange: (settings) => settings.resolutionAvatarStream,
                         builder: (context, settings) => Column(
                           children: <Widget>[
                             RadioListTile(
@@ -194,8 +188,7 @@ class PicturesSettingScreen extends StatelessWidget {
               value: settings.highResImageLink,
               title: Text("Wysoka rozdzielczość miniaturek"),
               subtitle: Text("Dotyczy tylko znalezisk"),
-              onChanged: (value) =>
-                  settings.highResImageLink = !settings.highResImageLink,
+              onChanged: (value) => settings.highResImageLink = !settings.highResImageLink,
             );
           },
         ),
@@ -205,8 +198,7 @@ class PicturesSettingScreen extends StatelessWidget {
             return SwitchListTile(
               value: settings.highResImage,
               title: Text("Wysoka rozdzielczość obrazków"),
-              onChanged: (value) =>
-                  settings.highResImage = !settings.highResImage,
+              onChanged: (value) => settings.highResImage = !settings.highResImage,
             );
           },
         ),
@@ -218,8 +210,7 @@ class PicturesSettingScreen extends StatelessWidget {
               value: settings.hiddingLinkThumb,
               title: Text("Wyłącz miniaturkę znaleziska"),
               subtitle: Text("Nie będzie widoczna na liście"),
-              onChanged: (value) =>
-                  settings.hiddingLinkThumb = !settings.hiddingLinkThumb,
+              onChanged: (value) => settings.hiddingLinkThumb = !settings.hiddingLinkThumb,
             );
           },
         ),
@@ -230,8 +221,7 @@ class PicturesSettingScreen extends StatelessWidget {
               value: settings.hiddingEntryImage,
               title: Text("Ukryj obrazek wpisu"),
               subtitle: Text("Zostanie wyświetlony po kliknięciu"),
-              onChanged: (value) =>
-                  settings.hiddingEntryImage = !settings.hiddingEntryImage,
+              onChanged: (value) => settings.hiddingEntryImage = !settings.hiddingEntryImage,
             );
           },
         ),
@@ -242,8 +232,7 @@ class PicturesSettingScreen extends StatelessWidget {
               value: settings.hiddingCommentImage,
               title: Text("Ukryj obrazek w komentarzu"),
               subtitle: Text("Zostanie wyświetlony po kliknięciu"),
-              onChanged: (value) =>
-                  settings.hiddingCommentImage = !settings.hiddingCommentImage,
+              onChanged: (value) => settings.hiddingCommentImage = !settings.hiddingCommentImage,
             );
           },
         ),
@@ -255,8 +244,7 @@ class PicturesSettingScreen extends StatelessWidget {
               value: settings.shortLongPicture,
               title: Text("Zwiń długi obrazek"),
               subtitle: Text("Jeśli jest dłuższy niż połowa ekranu"),
-              onChanged: (value) =>
-                  settings.shortLongPicture = !settings.shortLongPicture,
+              onChanged: (value) => settings.shortLongPicture = !settings.shortLongPicture,
             );
           },
         ),
@@ -272,8 +260,7 @@ class PicturesSettingScreen extends StatelessWidget {
                     value: settings.skipExpandImage,
                     title: Text("Pomiń rozwijanie obrazka"),
                     subtitle: Text("Otworzy się w pełnym ekranie"),
-                    onChanged: (value) =>
-                        settings.skipExpandImage = !settings.skipExpandImage,
+                    onChanged: (value) => settings.skipExpandImage = !settings.skipExpandImage,
                   );
                 },
               ),
@@ -286,10 +273,8 @@ class PicturesSettingScreen extends StatelessWidget {
             return SwitchListTile(
               value: settings.skipShowAdultImage,
               title: Text("Pomiń odsłanianie obrazka 18+"),
-              subtitle: Text(
-                  "Otworzy się w pełnym ekranie, po wyjściu będzie zasłonięty"),
-              onChanged: (value) =>
-                  settings.skipShowAdultImage = !settings.skipShowAdultImage,
+              subtitle: Text("Otworzy się w pełnym ekranie, po wyjściu będzie zasłonięty"),
+              onChanged: (value) => settings.skipShowAdultImage = !settings.skipShowAdultImage,
             );
           },
         ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/models/models.dart';
+import 'package:owmflutter/model/author_sex.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
 
 class AvatarWidget extends StatelessWidget {
-  final Author author;
+  final AuthorDto author;
   final double size;
   final bool genderVisibility;
   final Color badge;
@@ -95,7 +96,7 @@ class AvatarWidget extends StatelessWidget {
 
   Widget _drawGender(BuildContext context) {
     return Visibility(
-      visible: genderVisibility && author.sex != AuthorSex.OTHER,
+      visible: genderVisibility && author.sex != AuthorSexDto.OTHER,
       child: Positioned(
         bottom: 0,
         right: 0,

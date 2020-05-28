@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +18,7 @@ class BehaviorSettingScreen extends StatelessWidget {
           appBar: AppbarNormalWidget(
             title: "Zachowanie aplikacji",
           ),
-          body: ShadowNotificationListener(
-              child: SingleChildScrollView(child: _drawList(context))),
+          body: ShadowNotificationListener(child: SingleChildScrollView(child: _drawList(context))),
         ),
       ),
     );
@@ -33,8 +32,7 @@ class BehaviorSettingScreen extends StatelessWidget {
           rebuildOnChange: (settings) => settings.defaultAppScreenStream,
           builder: (context, settings) => ListTile(
             title: Text("Domyślny ekran aplikacji"),
-            subtitle:
-                Text(_defaultAppScreenSubtitle(settings.defaultAppScreen)),
+            subtitle: Text(_defaultAppScreenSubtitle(settings.defaultAppScreen)),
             onTap: () {
               showDialog(
                 context: context,
@@ -55,8 +53,7 @@ class BehaviorSettingScreen extends StatelessWidget {
                           ),
                         ),
                         OWMSettingListener(
-                          rebuildOnChange: (settings) =>
-                              settings.defaultAppScreenStream,
+                          rebuildOnChange: (settings) => settings.defaultAppScreenStream,
                           builder: (context, settings) => Column(
                             children: <Widget>[
                               RadioListTile(
@@ -111,8 +108,7 @@ class BehaviorSettingScreen extends StatelessWidget {
           rebuildOnChange: (settings) => settings.defaultLinkScreenStream,
           builder: (context, settings) => ListTile(
             title: Text("Domyślny ekran znalezisk"),
-            subtitle:
-                Text(_defaultLinkScreenSubtitle(settings.defaultLinkScreen)),
+            subtitle: Text(_defaultLinkScreenSubtitle(settings.defaultLinkScreen)),
             onTap: () {
               showDialog(
                 context: context,
@@ -133,8 +129,7 @@ class BehaviorSettingScreen extends StatelessWidget {
                           ),
                         ),
                         OWMSettingListener(
-                          rebuildOnChange: (settings) =>
-                              settings.defaultLinkScreenStream,
+                          rebuildOnChange: (settings) => settings.defaultLinkScreenStream,
                           builder: (context, settings) => Column(
                             children: <Widget>[
                               RadioListTile(
@@ -189,8 +184,7 @@ class BehaviorSettingScreen extends StatelessWidget {
           rebuildOnChange: (settings) => settings.defaultEntryScreenStream,
           builder: (context, settings) => ListTile(
             title: Text("Domyślny ekran mikrobloga"),
-            subtitle:
-                Text(_defaultEntryScreenSubtitle(settings.defaultEntryScreen)),
+            subtitle: Text(_defaultEntryScreenSubtitle(settings.defaultEntryScreen)),
             onTap: () {
               showDialog(
                 context: context,
@@ -211,8 +205,7 @@ class BehaviorSettingScreen extends StatelessWidget {
                           ),
                         ),
                         OWMSettingListener(
-                          rebuildOnChange: (settings) =>
-                              settings.defaultEntryScreenStream,
+                          rebuildOnChange: (settings) => settings.defaultEntryScreenStream,
                           builder: (context, settings) => Column(
                             children: <Widget>[
                               RadioListTile(
@@ -285,8 +278,7 @@ class BehaviorSettingScreen extends StatelessWidget {
           rebuildOnChange: (settings) => settings.defaultMyWykopScreenStream,
           builder: (context, settings) => ListTile(
             title: Text("Domyślny ekran mojego wykopu"),
-            subtitle: Text(
-                _defaultMyWykopScreenSubtitle(settings.defaultMyWykopScreen)),
+            subtitle: Text(_defaultMyWykopScreenSubtitle(settings.defaultMyWykopScreen)),
             onTap: () {
               showDialog(
                 context: context,
@@ -307,8 +299,7 @@ class BehaviorSettingScreen extends StatelessWidget {
                           ),
                         ),
                         OWMSettingListener(
-                          rebuildOnChange: (settings) =>
-                              settings.defaultMyWykopScreenStream,
+                          rebuildOnChange: (settings) => settings.defaultMyWykopScreenStream,
                           builder: (context, settings) => Column(
                             children: <Widget>[
                               RadioListTile(
@@ -360,12 +351,10 @@ class BehaviorSettingScreen extends StatelessWidget {
           ),
         ),
         OWMSettingListener(
-          rebuildOnChange: (settings) =>
-              settings.defaultNotificationScreenStream,
+          rebuildOnChange: (settings) => settings.defaultNotificationScreenStream,
           builder: (context, settings) => ListTile(
             title: Text("Domyślny ekran powiadomień"),
-            subtitle: Text(_defaultNotificationScreenSubtitle(
-                settings.defaultNotificationScreen)),
+            subtitle: Text(_defaultNotificationScreenSubtitle(settings.defaultNotificationScreen)),
             onTap: () {
               showDialog(
                 context: context,
@@ -386,8 +375,7 @@ class BehaviorSettingScreen extends StatelessWidget {
                           ),
                         ),
                         OWMSettingListener(
-                          rebuildOnChange: (settings) =>
-                              settings.defaultNotificationScreenStream,
+                          rebuildOnChange: (settings) => settings.defaultNotificationScreenStream,
                           builder: (context, settings) => Column(
                             children: <Widget>[
                               RadioListTile(
@@ -437,8 +425,7 @@ class BehaviorSettingScreen extends StatelessWidget {
               value: settings.linkOpenBrowser,
               title: Text("Otwórz link w przeglądarce"),
               subtitle: Text("Użyje domyślnej przeglądarki"),
-              onChanged: (value) =>
-                  settings.linkOpenBrowser = !settings.linkOpenBrowser,
+              onChanged: (value) => settings.linkOpenBrowser = !settings.linkOpenBrowser,
             );
           },
         ),
@@ -449,8 +436,7 @@ class BehaviorSettingScreen extends StatelessWidget {
               value: settings.imageOpenBrowser,
               title: Text("Otwórz obrazek w przeglądarce"),
               subtitle: Text("Użyje domyślnej przeglądarki"),
-              onChanged: (value) =>
-                  settings.imageOpenBrowser = !settings.imageOpenBrowser,
+              onChanged: (value) => settings.imageOpenBrowser = !settings.imageOpenBrowser,
             );
           },
         ),
@@ -462,8 +448,7 @@ class BehaviorSettingScreen extends StatelessWidget {
               value: settings.hideCommentLink,
               title: Text("Zwiń komentarze w znaleziskach"),
               subtitle: Text("Odpowiedzi pokażą się po kliknięciu"),
-              onChanged: (value) =>
-                  settings.hideCommentLink = !settings.hideCommentLink,
+              onChanged: (value) => settings.hideCommentLink = !settings.hideCommentLink,
             );
           },
         ),
@@ -474,8 +459,7 @@ class BehaviorSettingScreen extends StatelessWidget {
               value: settings.splitVotesLink,
               title: Text("Rozdziel głosy w znaleziskach"),
               subtitle: Text("Pokaż osobno plusy i minusy"),
-              onChanged: (value) =>
-                  settings.splitVotesLink = !settings.splitVotesLink,
+              onChanged: (value) => settings.splitVotesLink = !settings.splitVotesLink,
             );
           },
         ),
@@ -487,8 +471,7 @@ class BehaviorSettingScreen extends StatelessWidget {
               value: settings.hideAdultImage,
               title: Text("Ukryj obrazki 18+ i #nsfw"),
               subtitle: Text("Na liście wpisów i w komentarzach"),
-              onChanged: (value) =>
-                  settings.hideAdultImage = !settings.hideAdultImage,
+              onChanged: (value) => settings.hideAdultImage = !settings.hideAdultImage,
             );
           },
         ),
@@ -498,8 +481,7 @@ class BehaviorSettingScreen extends StatelessWidget {
             return SwitchListTile(
               value: settings.expandNewbieContent,
               title: Text("Zwiń treści \"zielonek\""),
-              onChanged: (value) =>
-                  settings.expandNewbieContent = !settings.expandNewbieContent,
+              onChanged: (value) => settings.expandNewbieContent = !settings.expandNewbieContent,
             );
           },
         ),
@@ -510,8 +492,7 @@ class BehaviorSettingScreen extends StatelessWidget {
               value: settings.expandNoTagContent,
               title: Text("Zwiń treści bez tagów"),
               subtitle: Text("Dostępne tylko w mikroblogu"),
-              onChanged: (value) =>
-                  settings.expandNoTagContent = !settings.expandNoTagContent,
+              onChanged: (value) => settings.expandNoTagContent = !settings.expandNoTagContent,
             );
           },
         ),
@@ -521,8 +502,7 @@ class BehaviorSettingScreen extends StatelessWidget {
             return SwitchListTile(
               value: settings.hideExpandContent,
               title: Text("Nie wyświetlaj zwiniętych treści"),
-              onChanged: (value) =>
-                  settings.hideExpandContent = !settings.hideExpandContent,
+              onChanged: (value) => settings.hideExpandContent = !settings.hideExpandContent,
             );
           },
         ),
@@ -533,8 +513,7 @@ class BehaviorSettingScreen extends StatelessWidget {
             return SwitchListTile(
               value: settings.confirmDelete,
               title: Text("Potwierdź usunięcie"),
-              onChanged: (value) =>
-                  settings.confirmDelete = !settings.confirmDelete,
+              onChanged: (value) => settings.confirmDelete = !settings.confirmDelete,
             );
           },
         ),
@@ -544,8 +523,7 @@ class BehaviorSettingScreen extends StatelessWidget {
             return SwitchListTile(
               value: settings.confirmSend,
               title: Text("Potwierdź wysłanie"),
-              onChanged: (value) =>
-                  settings.confirmSend = !settings.confirmSend,
+              onChanged: (value) => settings.confirmSend = !settings.confirmSend,
             );
           },
         ),
@@ -555,8 +533,7 @@ class BehaviorSettingScreen extends StatelessWidget {
             return SwitchListTile(
               value: settings.confirmExitWriting,
               title: Text("Potwierdź wyjście w trakcie pisania"),
-              onChanged: (value) =>
-                  settings.confirmExitWriting = !settings.confirmExitWriting,
+              onChanged: (value) => settings.confirmExitWriting = !settings.confirmExitWriting,
             );
           },
         ),
@@ -566,8 +543,7 @@ class BehaviorSettingScreen extends StatelessWidget {
             return SwitchListTile(
               value: settings.confirmExitApp,
               title: Text("Potwierdź wyjście z aplikacji"),
-              onChanged: (value) =>
-                  settings.confirmExitApp = !settings.confirmExitApp,
+              onChanged: (value) => settings.confirmExitApp = !settings.confirmExitApp,
             );
           },
         ),

@@ -1,12 +1,13 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:owmflutter/models/models.dart';
+import 'package:owmflutter/model/input_model.dart';
+import 'package:owmflutter/model/model.dart';
+import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/content_hidden.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:owmflutter/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
 
 class EntryCommentWidget extends StatefulWidget {
   final int entryId;
@@ -64,18 +65,14 @@ class _EntryCommentWidgetState extends State<EntryCommentWidget> {
                     Stack(
                       children: <Widget>[
                         Consumer<AuthStateModel>(
-                          builder: (context, authStateModel, _) =>
-                              GestureDetector(
+                          builder: (context, authStateModel, _) => GestureDetector(
                             onLongPress: () {
-                              setState(
-                                  () => showButtonsState = !showButtonsState);
-                              _showActionsDialog(
-                                  context, model, inputModel, authStateModel);
+                              setState(() => showButtonsState = !showButtonsState);
+                              _showActionsDialog(context, model, inputModel, authStateModel);
                             },
                             child: Container(
                               constraints: BoxConstraints.loose(
-                                Size(MediaQuery.of(context).size.width - 78.0,
-                                    double.infinity),
+                                Size(MediaQuery.of(context).size.width - 78.0, double.infinity),
                               ),
                               margin: EdgeInsets.fromLTRB(8.0, 0.0, 2.0, 6.0),
                               child: Column(
@@ -83,14 +80,9 @@ class _EntryCommentWidgetState extends State<EntryCommentWidget> {
                                 children: <Widget>[
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        left: 12.0,
-                                        right: 30.0 +
-                                            _votePadding(model.voteCount),
-                                        top: 6.0,
-                                        bottom: 4.0),
+                                        left: 12.0, right: 30.0 + _votePadding(model.voteCount), top: 6.0, bottom: 4.0),
                                     child: GestureDetector(
-                                      onTap: () => _openUserDialog(
-                                          context, model.author),
+                                      onTap: () => _openUserDialog(context, model.author),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
@@ -100,31 +92,22 @@ class _EntryCommentWidgetState extends State<EntryCommentWidget> {
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontSize: 14.0,
-                                                color: Utils.getAuthorColor(
-                                                    model.author.color,
-                                                    context),
+                                                color: Utils.getAuthorColor(model.author.color, context),
                                               ),
                                             ),
                                           ),
                                           TextButton(
-                                            onTap: () => setState(() =>
-                                                showFullDate = !showFullDate),
+                                            onTap: () => setState(() => showFullDate = !showFullDate),
                                             isButton: false,
                                             textSize: 14.0,
                                             text: " • " +
                                                 (showFullDate
-                                                    ? Utils.getDateFormat(
-                                                        model.date,
-                                                        'HH:mm:ss • dd.MM.yyyy')
-                                                    : Utils.getSimpleDate(
-                                                            model.date,
-                                                            locale: "en_short")
-                                                        .replaceAll(
-                                                            "now", "teraz")
+                                                    ? Utils.getDateFormat(model.date, 'HH:mm:ss • dd.MM.yyyy')
+                                                    : Utils.getSimpleDate(model.date, locale: "en_short")
+                                                        .replaceAll("now", "teraz")
                                                         .replaceAll("h", "g")
                                                         .replaceAll("mo", "mie")
-                                                        .replaceAll(
-                                                            "~1 yr", "~1 r")
+                                                        .replaceAll("~1 yr", "~1 r")
                                                         .replaceAll("yr", "l")
                                                         .replaceAll("~", "")),
                                           ),
@@ -141,15 +124,13 @@ class _EntryCommentWidgetState extends State<EntryCommentWidget> {
                                       borderRadius: BorderRadius.circular(18.0),
                                     ),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         BodyWidget(
                                           textSize: 16.0,
                                           body: model.body,
                                           ellipsize: false,
-                                          padding: EdgeInsets.fromLTRB(
-                                              12.0, 9.0, 12.0, 9.0),
+                                          padding: EdgeInsets.fromLTRB(12.0, 9.0, 12.0, 9.0),
                                         ),
                                         Visibility(
                                           visible: model.embed != null,
@@ -179,8 +160,7 @@ class _EntryCommentWidgetState extends State<EntryCommentWidget> {
                             onClicked: () => model.toggleVote(),
                             onLongClicked: () async {
                               await model.loadUpVoters();
-                              if (model.upvoters.length != 0)
-                                _showVotersDialog(context, model);
+                              if (model.upvoters.length != 0) _showVotersDialog(context, model);
                             },
                           ),
                         ),
@@ -243,11 +223,10 @@ class _EntryCommentWidgetState extends State<EntryCommentWidget> {
         widget,
       ),
     );
-    future.then(
-        (void value) => setState(() => showButtonsState = !showButtonsState));
+    future.then((void value) => setState(() => showButtonsState = !showButtonsState));
   }
 
-  void _openUserDialog(BuildContext context, Author author) {
+  void _openUserDialog(BuildContext context, AuthorDto author) {
     showDialog(
       context: context,
       builder: (_) => UserDialogWidget(author: author),

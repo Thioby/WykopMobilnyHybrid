@@ -1,18 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:owmflutter/app.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:owmflutter/models/models.dart';
-import 'package:owmflutter/widgets/widgets.dart';
-import 'package:owmflutter/utils/utils.dart';
-import 'package:provider/provider.dart';
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:owmflutter/app.dart';
+import 'package:owmflutter/model/input_model.dart';
+import 'package:owmflutter/model/model.dart';
+import 'package:owmflutter/utils/utils.dart';
+import 'package:owmflutter/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/data/model/AuthorSuggestionDto.dart';
+import 'package:wykop_api/data/model/InputData.dart';
+import 'package:wykop_api/data/model/TagSuggestionDto.dart';
+
 import 'emoticon_button.dart';
 import 'markdown_button.dart';
 import 'media_button.dart';
-import 'send_button.dart';
 import 'selected_image.dart';
-import 'package:image_picker/image_picker.dart';
+import 'send_button.dart';
 
 typedef void SuggestCallback(String q);
 
@@ -74,12 +80,11 @@ class InputBarWidgetState extends State<InputBarWidget> {
   final FocusNode focusNode = FocusNode();
   TextEditingController textController = TextEditingController();
 
-  void replyToUser(Author author) {
+  void replyToUser(AuthorDto author) {
     _ensureFocus();
     setState(() {
       textController.text += "@" + author.login + ": ";
-      textController.selection = TextSelection.fromPosition(
-          TextPosition(offset: textController.text.length));
+      textController.selection = TextSelection.fromPosition(TextPosition(offset: textController.text.length));
     });
   }
 
@@ -94,22 +99,20 @@ class InputBarWidgetState extends State<InputBarWidget> {
     }
   }
 
-  void quoteText(String body, {Author author}) {
+  void quoteText(String body, {AuthorDto author}) {
     //TODO: formatowanie tresci
     _ensureFocus();
     setState(() {
       textController.text += author != null ? "@" + author.login + ": \n" : "";
       textController.text += "> " + body + "\n";
-      textController.selection = TextSelection.fromPosition(
-          TextPosition(offset: textController.text.length));
+      textController.selection = TextSelection.fromPosition(TextPosition(offset: textController.text.length));
     });
   }
 
   // Returns currently selected text or placeholder for markdown actions
   String getSelectedText() {
     if (textController.selection.start != textController.selection.end) {
-      return textController.text.substring(
-          textController.selection.start, textController.selection.end);
+      return textController.text.substring(textController.selection.start, textController.selection.end);
     } else {
       return "tekst";
     }
@@ -121,13 +124,11 @@ class InputBarWidgetState extends State<InputBarWidget> {
     var initialSelectionStart = textController.selection.start;
     var text = getSelectedText();
     setState(() {
-      textController.text =
-          textController.text.substring(0, textController.selection.start) +
-              prefix +
-              text +
-              suffix +
-              textController.text.substring(
-                  textController.selection.end, textController.text.length);
+      textController.text = textController.text.substring(0, textController.selection.start) +
+          prefix +
+          text +
+          suffix +
+          textController.text.substring(textController.selection.end, textController.text.length);
       textController.selection = TextSelection(
           baseOffset: initialSelectionStart + prefix.length,
           extentOffset: initialSelectionStart + text.length + prefix.length);
@@ -151,10 +152,8 @@ class InputBarWidgetState extends State<InputBarWidget> {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(
-                            shadowControlModel.showInputShadow ? 0.1 : 0.0),
-                        blurRadius:
-                            shadowControlModel.showInputShadow ? 1.0 : 0.0,
+                        color: Colors.black.withOpacity(shadowControlModel.showInputShadow ? 0.1 : 0.0),
+                        blurRadius: shadowControlModel.showInputShadow ? 1.0 : 0.0,
                       ),
                     ],
                     color: Theme.of(context).primaryColor,
@@ -207,8 +206,7 @@ class InputBarWidgetState extends State<InputBarWidget> {
             show: showMarkdownBar,
             onTap: () => setState(() {
               showMarkdownBar = showMarkdownBar ? false : true;
-              showMediaButton =
-                  showMarkdownBar ? false : clickTextField ? false : true;
+              showMediaButton = showMarkdownBar ? false : clickTextField ? false : true;
             }),
             iconColor: widget.iconsColor,
           ),
@@ -227,8 +225,7 @@ class InputBarWidgetState extends State<InputBarWidget> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    SelectedImageWidget(
-                        image: this.image, onTap: () => removeImage()),
+                    SelectedImageWidget(image: this.image, onTap: () => removeImage()),
                     Padding(
                       padding: EdgeInsets.only(left: 14.0),
                       child: Row(
@@ -241,17 +238,12 @@ class InputBarWidgetState extends State<InputBarWidget> {
                                 child: SingleChildScrollView(
                                   reverse: true,
                                   child: Consumer<SuggestionsModel>(
-                                    builder: (context, suggestionsModel, _) =>
-                                        TextField(
+                                    builder: (context, suggestionsModel, _) => TextField(
                                       focusNode: focusNode,
                                       cursorWidth: 1.5,
                                       cursorRadius: Radius.circular(20.0),
-                                      onChanged: (text) =>
-                                          suggestionsModel.loadSuggestions(
-                                              extractSuggestions()),
-                                      style: DefaultTextStyle.of(context)
-                                          .style
-                                          .merge(TextStyle(fontSize: 16.0)),
+                                      onChanged: (text) => suggestionsModel.loadSuggestions(extractSuggestions()),
+                                      style: DefaultTextStyle.of(context).style.merge(TextStyle(fontSize: 16.0)),
                                       maxLines: null,
                                       controller: this.textController,
                                       keyboardType: TextInputType.multiline,
@@ -260,8 +252,7 @@ class InputBarWidgetState extends State<InputBarWidget> {
                                         clickTextField = true;
                                       }),
                                       decoration: InputDecoration(
-                                        contentPadding:
-                                            EdgeInsets.symmetric(vertical: 8.0),
+                                        contentPadding: EdgeInsets.symmetric(vertical: 8.0),
                                         isDense: true,
                                         border: InputBorder.none,
                                         hintText: widget.hintText,
@@ -273,10 +264,10 @@ class InputBarWidgetState extends State<InputBarWidget> {
                             ),
                           ),
                           EmoticonButtonWidget(
-                            onTap: () =>
-                                Scaffold.of(context).showSnackBar(SnackBar(
+                            onTap: () => Scaffold.of(context).showSnackBar(SnackBar(
                               content: Text("Niezaimplementowane"),
-                            )), //TODO emotikony
+                            )),
+                            //TODO emotikony
                             iconColor: widget.iconsColor,
                           ),
                         ],
@@ -298,22 +289,17 @@ class InputBarWidgetState extends State<InputBarWidget> {
 
   void _insertSuggestion(String suggestion) {
     var initialSelectionStart = textController.selection.start;
-    var allNodes = textController.text
-        .substring(0, textController.selection.start)
-        .split(suggestion[0]);
+    var allNodes = textController.text.substring(0, textController.selection.start).split(suggestion[0]);
     var currentSuggestion = allNodes.last;
-    var replacedWithSuggestion = textController.text.substring(
-            0, textController.selection.start - currentSuggestion.length) +
-        suggestion.substring(1) +
-        ' ';
+    var replacedWithSuggestion =
+        textController.text.substring(0, textController.selection.start - currentSuggestion.length) +
+            suggestion.substring(1) +
+            ' ';
 
     setState(() {
-      textController.text = replacedWithSuggestion +
-          textController.text.substring(textController.selection.start);
-      textController.selection = TextSelection.fromPosition(TextPosition(
-          offset: initialSelectionStart -
-              currentSuggestion.length +
-              suggestion.length)); // quick maffs
+      textController.text = replacedWithSuggestion + textController.text.substring(textController.selection.start);
+      textController.selection = TextSelection.fromPosition(
+          TextPosition(offset: initialSelectionStart - currentSuggestion.length + suggestion.length)); // quick maffs
     });
   }
 
@@ -323,11 +309,7 @@ class InputBarWidgetState extends State<InputBarWidget> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: List()
           ..addAll(suggestionModel.authorSuggestions
-              .sublist(
-                  0,
-                  suggestionModel.authorSuggestions.length < 5
-                      ? suggestionModel.authorSuggestions.length
-                      : 5)
+              .sublist(0, suggestionModel.authorSuggestions.length < 5 ? suggestionModel.authorSuggestions.length : 5)
               .map((s) => new UserSuggestionWidget(
                     applySuggestion: () {
                       this._insertSuggestion('@' + s.login);
@@ -337,11 +319,7 @@ class InputBarWidgetState extends State<InputBarWidget> {
                   ))
               .toList())
           ..addAll(suggestionModel.tagSuggestions
-              .sublist(
-                  0,
-                  suggestionModel.tagSuggestions.length < 5
-                      ? suggestionModel.tagSuggestions.length
-                      : 5)
+              .sublist(0, suggestionModel.tagSuggestions.length < 5 ? suggestionModel.tagSuggestions.length : 5)
               .map((s) => new TagSuggestionWidget(
                     applySuggestion: () {
                       this._insertSuggestion(s.tag);
@@ -418,8 +396,7 @@ class InputBarWidgetState extends State<InputBarWidget> {
                 icon: Icons.link,
                 tooltip: "Link",
                 color: Colors.indigo,
-                onTap: () =>
-                    insertSelectedText("[", suffix: "](https://wykop.pl)"),
+                onTap: () => insertSelectedText("[", suffix: "](https://wykop.pl)"),
               ),
               _drawIconRound(
                 icon: Icons.visibility_off,
@@ -441,12 +418,8 @@ class InputBarWidgetState extends State<InputBarWidget> {
               Visibility(
                 visible: !widget.isPMScreen,
                 child: _drawIconRound(
-                  icon: hasExternalInput
-                      ? Icons.fullscreen_exit
-                      : Icons.fullscreen,
-                  tooltip: hasExternalInput
-                      ? "Przywróć do paska"
-                      : "Pisz w pełnym ekranie",
+                  icon: hasExternalInput ? Icons.fullscreen_exit : Icons.fullscreen,
+                  tooltip: hasExternalInput ? "Przywróć do paska" : "Pisz w pełnym ekranie",
                   color: Colors.brown,
                   onTap: () => Scaffold.of(context).showSnackBar(SnackBar(
                     content: Text("Niezaimplementowane"),
@@ -464,16 +437,14 @@ class InputBarWidgetState extends State<InputBarWidget> {
 
   void _sendButtonClicked(BuildContext context) async {
     if (owmSettings.confirmSend) {
-      var res = await showConfirmDialog(context,
-          widget.isPMScreen ? "Wysłać tę wiadomość?" : "Dodać ten komentarz?");
+      var res = await showConfirmDialog(context, widget.isPMScreen ? "Wysłać tę wiadomość?" : "Dodać ten komentarz?");
       if (!res) return;
     }
 
     setState(() => this.sending = true);
 
     var inputModel = Provider.of<InputModel>(context, listen: false);
-    await inputModel.onInputSubmitted(
-        InputData(body: this.textController.text, file: this.image));
+    await inputModel.onInputSubmitted(InputData(body: this.textController.text, file: this.image));
     setState(() {
       this.sending = false;
       this.textController.clear();
@@ -481,8 +452,7 @@ class InputBarWidgetState extends State<InputBarWidget> {
     removeImage();
   }
 
-  Widget _drawIconRound(
-      {IconData icon, Color color, VoidCallback onTap, String tooltip}) {
+  Widget _drawIconRound({IconData icon, Color color, VoidCallback onTap, String tooltip}) {
     return Tooltip(
       preferBelow: false,
       message: tooltip ?? "",
@@ -519,8 +489,7 @@ class InputBarWidgetState extends State<InputBarWidget> {
 
   String extractSuggestions() {
     // Get last word between cursor and space
-    var input =
-        textController.text.substring(0, textController.selection.start);
+    var input = textController.text.substring(0, textController.selection.start);
     var splitText = input.split(' ');
     var q = splitText[splitText.length - 1];
 
@@ -532,7 +501,7 @@ class InputBarWidgetState extends State<InputBarWidget> {
 }
 
 class TagSuggestionWidget extends StatelessWidget {
-  final TagSuggestion suggestion;
+  final TagSuggestionDto suggestion;
   final VoidCallback applySuggestion;
   const TagSuggestionWidget({
     this.applySuggestion,
@@ -547,10 +516,7 @@ class TagSuggestionWidget extends StatelessWidget {
       child: Container(
         child: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text(this.suggestion.tag +
-              " (" +
-              this.suggestion.followers.toString() +
-              ")"),
+          child: Text(this.suggestion.tag + " (" + this.suggestion.followers.toString() + ")"),
         ),
       ),
     );
@@ -558,7 +524,7 @@ class TagSuggestionWidget extends StatelessWidget {
 }
 
 class UserSuggestionWidget extends StatelessWidget {
-  final AuthorSuggestion suggestion;
+  final AuthorSuggestionDto suggestion;
   final VoidCallback applySuggestion;
   const UserSuggestionWidget({
     this.suggestion,
@@ -568,9 +534,9 @@ class UserSuggestionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var author = Author.fromAuthState(
-      username: suggestion.login,
-      avatarUrl: suggestion.avatar,
+    var author = AuthorDto(
+      login: suggestion.login,
+      avatar: suggestion.avatar,
       color: suggestion.color,
     );
     return InkWell(

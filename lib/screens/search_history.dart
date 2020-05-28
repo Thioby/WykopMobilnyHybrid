@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -43,14 +43,11 @@ class SearchHistoryScreenState extends State<SearchHistoryScreen> {
                 trailing: InkWell(
                   child: Icon(Icons.remove_circle),
                   onTap: () {
-                    Provider.of<OWMSettings>(context)
-                        .searchHistory
-                        .removeAt(index);
+                    Provider.of<OWMSettings>(context).searchHistory.removeAt(index);
                     setState(() {});
                   },
                 ),
-                title: Text(
-                    Provider.of<OWMSettings>(context).searchHistory[index]),
+                title: Text(Provider.of<OWMSettings>(context).searchHistory[index]),
               ),
             ),
           ),

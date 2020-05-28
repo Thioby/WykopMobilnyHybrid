@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/models/link.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/month_picker.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/model/model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:wykop_api/data/model/LinkDto.dart';
 
 class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
@@ -255,7 +255,7 @@ class _TopLinksScreenState extends State<TopLinksScreen> {
     );
   }
 
-  Future<List<Link>> getCurrentLinkEndpoint(int page) {
+  Future<List<LinkDto>> getCurrentLinkEndpoint(int page) {
     if (selectedIndex == 0) {
       return api.links.getHitsDay(page);
     }

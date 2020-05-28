@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/models/models.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/model/model.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/api/api.dart';
 
 class SearchScreen extends StatefulWidget {
   _SearchScreenState createState() => _SearchScreenState();
@@ -19,16 +18,13 @@ class _SearchScreenState extends State<SearchScreen> {
     final mqDataNew = mqData.copyWith(textScaleFactor: 1.0);
 
     final List<dynamic> _children = [
-      (query) =>
-          SearchResultPage(searchResType: SearchResultType.LINK, query: query),
-      (query) =>
-          SearchResultPage(searchResType: SearchResultType.ENTRY, query: query),
+      (query) => SearchResultPage(searchResType: SearchResultType.LINK, query: query),
+      (query) => SearchResultPage(searchResType: SearchResultType.ENTRY, query: query),
       (_) => _getHistory(),
     ];
 
     return Consumer<OWMSettings>(
-      builder: (context, settings, _) =>
-          ChangeNotifierProvider<SearchScreenModel>(
+      builder: (context, settings, _) => ChangeNotifierProvider<SearchScreenModel>(
         create: (context) => SearchScreenModel(settings: settings),
         child: ChangeNotifierProvider<ShadowControlModel>(
           create: (context) => ShadowControlModel(),
@@ -54,16 +50,11 @@ class _SearchScreenState extends State<SearchScreen> {
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           isDense: true,
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 12.0),
+                          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
                           border: InputBorder.none,
                           hintText: 'Szukaj',
                           hintStyle: TextStyle(
-                            color: Theme.of(context)
-                                .textTheme
-                                .body1
-                                .color
-                                .withOpacity(0.7),
+                            color: Theme.of(context).textTheme.body1.color.withOpacity(0.7),
                           ),
                         ),
                       ),
@@ -72,8 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 actions: <Widget>[
                   Consumer<SearchScreenModel>(
-                      builder: (context, model, _) => model
-                              .searchInputController.text.isNotEmpty
+                      builder: (context, model, _) => model.searchInputController.text.isNotEmpty
                           ? IconButtonWidget(
                               icon: Icons.close,
                               onTap: () => model.searchInputController.clear(),
@@ -82,8 +72,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ],
                 bottomHeight: 38,
                 bottom: Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 10.0, left: 18.0, right: 18.0),
+                  padding: EdgeInsets.only(bottom: 10.0, left: 18.0, right: 18.0),
                   child: Row(
                     children: <Widget>[
                       TabButtonWidget(
@@ -110,9 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               body: Consumer<SearchScreenModel>(
                 builder: (context, model, _) => ShadowNotificationListener(
-                  child: model.isEditing
-                      ? _getHistory()
-                      : _children[_currentIndex](model.query),
+                  child: model.isEditing ? _getHistory() : _children[_currentIndex](model.query),
                 ),
               ),
             ),
@@ -138,8 +125,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           Visibility(
-            visible:
-                Provider.of<OWMSettings>(context).searchHistory.length == 0,
+            visible: Provider.of<OWMSettings>(context).searchHistory.length == 0,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 18.0),
               child: Text("Tutaj pojawi się kilka ostatnich wyszukiwań"),
@@ -153,13 +139,9 @@ class _SearchScreenState extends State<SearchScreen> {
               .map((e) => Consumer<SearchScreenModel>(
                     builder: (context, model, _) {
                       var suggestion =
-                          Provider.of<OWMSettings>(context, listen: false)
-                              .searchHistory
-                              .reversed
-                              .toList()[e];
+                          Provider.of<OWMSettings>(context, listen: false).searchHistory.reversed.toList()[e];
                       return ListTile(
-                        onTap: () =>
-                            model.searchInputController.text = suggestion,
+                        onTap: () => model.searchInputController.text = suggestion,
                         leading: Icon(Icons.access_time),
                         trailing: Icon(Icons.navigate_next),
                         title: Text(suggestion),
@@ -187,8 +169,7 @@ class SearchResultPage extends StatefulWidget {
   _SearchResultPageState createState() => _SearchResultPageState();
 }
 
-class _SearchResultPageState extends State<SearchResultPage>
-    with AutomaticKeepAliveClientMixin<SearchResultPage> {
+class _SearchResultPageState extends State<SearchResultPage> with AutomaticKeepAliveClientMixin<SearchResultPage> {
   @override
   Widget build(BuildContext context) {
     if (widget.searchResType == SearchResultType.LINK) {
@@ -205,8 +186,7 @@ class _SearchResultPageState extends State<SearchResultPage>
         child: EntriesList(
           builder: (context) => EntryListModel(
             context: context,
-            loadNewEntries: (page) =>
-                api.search.searchEntries(page, widget.query),
+            loadNewEntries: (page) => api.search.searchEntries(page, widget.query),
           ),
         ),
       );

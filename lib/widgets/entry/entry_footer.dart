@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:owmflutter/model/model.dart';
+import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:owmflutter/screens/screens.dart';
 import 'package:share/share.dart';
-import 'package:wykop_api/model/model.dart';
 
 class EntryFooterWidget extends StatelessWidget {
   final EntryModel model;
@@ -33,17 +33,13 @@ class EntryFooterWidget extends StatelessWidget {
             onTap: () => model.favoriteToggle(),
           ),
           ShareButton(
-            onTap: () =>
-                Share.share("https://www.wykop.pl/wpis/" + model.id.toString()),
+            onTap: () => Share.share("https://www.wykop.pl/wpis/" + model.id.toString()),
           ),
           CommentsButton(
             count: model.commentsCount,
-            onLongPress: () =>
-                _showActionsDialog(context, model, authStateModel, relation),
+            onLongPress: () => _showActionsDialog(context, model, authStateModel, relation),
             onTap: () {
-              if (isClickable)
-                Navigator.push(
-                    context, Utils.getPageSlideToUp(EntryScreen(model: model)));
+              if (isClickable) Navigator.push(context, Utils.getPageSlideToUp(EntryScreen(model: model)));
             },
           ),
         ],
@@ -51,13 +47,12 @@ class EntryFooterWidget extends StatelessWidget {
     );
   }
 
-  void _showActionsDialog(BuildContext contextmain, EntryModel model,
-      AuthStateModel authStateModel, AuthorRelation relation) {
+  void _showActionsDialog(
+      BuildContext contextmain, EntryModel model, AuthStateModel authStateModel, AuthorRelation relation) {
     showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
       context: contextmain,
-      builder: (BuildContext context) =>
-          EntryToolbarWidget(contextmain, model, authStateModel, relation),
+      builder: (BuildContext context) => EntryToolbarWidget(contextmain, model, authStateModel, relation),
     );
   }
 }

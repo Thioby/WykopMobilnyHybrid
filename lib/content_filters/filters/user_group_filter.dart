@@ -1,7 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:owmflutter/content_filters/filters/filter.dart';
-import 'package:owmflutter/models/models.dart';
 import 'package:owmflutter/utils/utils.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/data/model/EntryDto.dart';
+import 'package:wykop_api/data/model/EntryLinkDto.dart';
+import 'package:wykop_api/data/model/LinkCommentDto.dart';
+import 'package:wykop_api/data/model/LinkDto.dart';
 
 class ExcludeNewbieContentFilter extends MultiTypeContentFilter {
   @override
@@ -10,28 +15,28 @@ class ExcludeNewbieContentFilter extends MultiTypeContentFilter {
   }
 
   @override
-  bool performFilterOnEntry(Entry entry) {
+  bool performFilterOnEntry(EntryDto entry) {
     return verifyAuthor(entry.author);
   }
 
   @override
-  bool performFilterOnEntryLink(EntryLink entryLink) {
+  bool performFilterOnEntryLink(EntryLinkDto entryLink) {
     return verifyAuthor(entryLink.hasEntry ? entryLink.entry.author : entryLink.link.author);
   }
 
   @override
-  bool performFilterOnLink(Link link) {
+  bool performFilterOnLink(LinkDto link) {
     return verifyAuthor(link.author);
   }
 
   @override
-  bool performFilterOnLinkComment(LinkComment comment) {
+  bool performFilterOnLinkComment(LinkCommentDto comment) {
     return verifyAuthor(comment.author);
   }  
   
   @override
-  bool performFilterOnEntryComment(EntryComment comment) {
+  bool performFilterOnEntryComment(EntryCommentDto comment) {
     return verifyAuthor(comment.author);
   }
-  bool verifyAuthor(Author author) => author.color != 0;
+  bool verifyAuthor(AuthorDto author) => author.color != 0;
 }

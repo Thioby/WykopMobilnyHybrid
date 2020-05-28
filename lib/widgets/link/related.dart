@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/models/models.dart' as Models;
-import 'package:owmflutter/models/models.dart';
-import 'package:owmflutter/widgets/widgets.dart';
 import 'package:owmflutter/utils/utils.dart';
+import 'package:owmflutter/widgets/widgets.dart';
 import 'package:share/share.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/data/model/RelatedDto.dart';
 
 class RelatedWidget extends StatelessWidget {
-  final Models.Related related;
+  final RelatedDto related;
   final int count;
 
   RelatedWidget({
@@ -38,8 +38,7 @@ class RelatedWidget extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       constraints: BoxConstraints.loose(
-                        Size(MediaQuery.of(context).size.width - 78.0,
-                            double.infinity),
+                        Size(MediaQuery.of(context).size.width - 78.0, double.infinity),
                       ),
                       margin: EdgeInsets.only(left: 8.0, top: 0.0, right: 2.0),
                       child: Column(
@@ -47,20 +46,15 @@ class RelatedWidget extends StatelessWidget {
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.only(
-                                left: 12.0,
-                                right: 96.0 + _votePadding(related.voteCount),
-                                top: 6.0,
-                                bottom: 4.0),
+                                left: 12.0, right: 96.0 + _votePadding(related.voteCount), top: 6.0, bottom: 4.0),
                             child: GestureDetector(
-                              onTap: () =>
-                                  _openUserDialog(context, related.author),
+                              onTap: () => _openUserDialog(context, related.author),
                               child: Text(
                                 related.author.login,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontSize: 14.0,
-                                  color: Utils.getAuthorColor(
-                                      related.author.color, context),
+                                  color: Utils.getAuthorColor(related.author.color, context),
                                 ),
                               ),
                             ),
@@ -74,8 +68,7 @@ class RelatedWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 GestureDetector(
-                                  onTap: () =>
-                                      Utils.launchURL(related.url, context),
+                                  onTap: () => Utils.launchURL(related.url, context),
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(12, 9, 12, 4),
                                     child: Text(
@@ -89,20 +82,16 @@ class RelatedWidget extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom: 8.0, left: 12.0),
+                                      padding: EdgeInsets.only(bottom: 8.0, left: 12.0),
                                       child: Text(
                                         "źródło: ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w300),
+                                        style: TextStyle(fontWeight: FontWeight.w300),
                                       ),
                                     ),
                                     GestureDetector(
-                                      onTap: () =>
-                                          Utils.launchURL(related.url, context),
+                                      onTap: () => Utils.launchURL(related.url, context),
                                       child: Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: 8.0, right: 6.0),
+                                        padding: EdgeInsets.only(bottom: 8.0, right: 6.0),
                                         child: Text(
                                           related.url
                                               .replaceAll('https://', '')
@@ -113,13 +102,9 @@ class RelatedWidget extends StatelessWidget {
                                       ),
                                     ),
                                     GestureDetector(
-                                      onTap: () => Share.share(
-                                          "${related.title}\r\n${related.url}"),
+                                      onTap: () => Share.share("${related.title}\r\n${related.url}"),
                                       child: Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: 8.0,
-                                            left: 4.0,
-                                            right: 12.0),
+                                        padding: EdgeInsets.only(bottom: 8.0, left: 4.0, right: 12.0),
                                         child: Text("Udostępnij"),
                                       ),
                                     ),
@@ -142,9 +127,7 @@ class RelatedWidget extends StatelessWidget {
                             padding: EdgeInsets.all(15.0 / 3.5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
-                              border: Border.all(
-                                  color: Theme.of(context).backgroundColor,
-                                  width: 2.0),
+                              border: Border.all(color: Theme.of(context).backgroundColor, width: 2.0),
                               color: Utils.voteBackgroundStateColor(
                                 context,
                                 isComment: true,
@@ -153,17 +136,13 @@ class RelatedWidget extends StatelessWidget {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(
-                                  right: 15.0 / 3.5, left: 15.0 / 3.5),
+                              padding: EdgeInsets.only(right: 15.0 / 3.5, left: 15.0 / 3.5),
                               child: Text(
-                                (related.voteCount > 0 ? "+" : "") +
-                                    related.voteCount.toString(),
+                                (related.voteCount > 0 ? "+" : "") + related.voteCount.toString(),
                                 style: TextStyle(
                                   color: related.voteCount > 0
                                       ? Colors.green[800]
-                                      : related.voteCount < 0
-                                          ? Colors.red[800]
-                                          : null,
+                                      : related.voteCount < 0 ? Colors.red[800] : null,
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -196,7 +175,7 @@ class RelatedWidget extends StatelessWidget {
     );
   }
 
-  void _openUserDialog(BuildContext context, Author author) {
+  void _openUserDialog(BuildContext context, AuthorDto author) {
     showDialog(
       context: context,
       builder: (_) => UserDialogWidget(author: author),

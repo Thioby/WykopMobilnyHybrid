@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/models/author.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:owmflutter/model/input_model.dart';
 
 class EntryScreen extends StatefulWidget {
   final EntryModel model;
@@ -64,9 +65,9 @@ class _EntryScreenState extends State<EntryScreen> with SingleTickerProviderStat
                               duration: Duration(milliseconds: 300),
                               child: AuthorWidget(
                                 avatarSize: 36.0,
-                                author: Author.fromAuthState(
-                                  username: model.author.login,
-                                  avatarUrl: model.author.avatar,
+                                author: AuthorDto(
+                                  login: model.author.login,
+                                  avatar: model.author.avatar,
                                   color: model.author.color,
                                   sex: model.author.sex,
                                 ),

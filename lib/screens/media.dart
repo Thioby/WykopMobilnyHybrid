@@ -1,20 +1,21 @@
 import 'dart:io';
 import 'dart:typed_data';
+
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:image_downloader/image_downloader.dart';
-import 'package:owmflutter/widgets/widgets.dart';
-import 'package:owmflutter/models/models.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
+import 'package:image_downloader/image_downloader.dart';
+import 'package:mime/mime.dart';
+import 'package:owmflutter/utils/utils.dart';
+import 'package:owmflutter/widgets/widgets.dart';
+import 'package:path/path.dart' as Path;
+import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wykop_api/api/api.dart';
-import 'package:owmflutter/utils/utils.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
-import 'package:path/path.dart' as Path;
-import 'package:mime/mime.dart';
+import 'package:wykop_api/data/model/EntryMediaDto.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MediaModel extends ChangeNotifier {
@@ -40,11 +41,9 @@ class MediaModel extends ChangeNotifier {
   YoutubePlayerController _ytController;
   YoutubePlayerController get youtubePlayerController => _ytController;
 
-  String get url => isImage
-      ? embed.isAnimated ? embed.url.replaceAll(".jpg", ".gif") : embed.url
-      : _videoUrl;
+  String get url => isImage ? embed.isAnimated ? embed.url.replaceAll(".jpg", ".gif") : embed.url : _videoUrl;
 
-  final Embed embed;
+  final EntryMediaDto embed;
   MediaModel({this.embed});
 
   void toogleIcons() {
@@ -58,8 +57,7 @@ class MediaModel extends ChangeNotifier {
     notifyListeners();
 
     if (!_isImage) {
-      if (embed.url.contains(YOUTUBE_MATCHER) ||
-          embed.url.contains(SIMPLE_YOUTUBE_MATCHER)) {
+      if (embed.url.contains(YOUTUBE_MATCHER) || embed.url.contains(SIMPLE_YOUTUBE_MATCHER)) {
         _ytController = YoutubePlayerController(
           initialVideoId: YoutubePlayer.convertUrlToId(embed.url),
           flags: YoutubePlayerFlags(
@@ -92,7 +90,7 @@ class MediaModel extends ChangeNotifier {
 }
 
 class MediaScreen extends StatefulWidget {
-  final Embed embed;
+  final EntryMediaDto embed;
 
   MediaScreen({this.embed});
 
@@ -180,8 +178,7 @@ class _MediaScreenState extends State<MediaScreen> {
                 child: RoundIconButtonWidget(
                   icon: Icons.arrow_back,
                   iconColor: Theme.of(context).iconTheme.color,
-                  roundColor:
-                      Theme.of(context).backgroundColor.withOpacity(0.4),
+                  roundColor: Theme.of(context).backgroundColor.withOpacity(0.4),
                   onTap: () => Navigator.pop(context),
                 ),
               ),
@@ -218,28 +215,21 @@ class _MediaScreenState extends State<MediaScreen> {
               child: Column(
                 children: <Widget>[
                   !mediaModel.isImage && !mediaModel.isYoutube
-                      ? VideoControlsToolbar(
-                          controller: mediaModel.videoPlayerController)
+                      ? VideoControlsToolbar(controller: mediaModel.videoPlayerController)
                       : Container(),
                   Row(
                     children: <Widget>[
                       _drawToolbarIcon(Icons.share, 'Udostępnij', () async {
                         // @TODO: Move it somewhere
-                        var request = await HttpClient()
-                            .getUrl(Uri.parse(widget.embed.url));
+                        var request = await HttpClient().getUrl(Uri.parse(widget.embed.url));
                         var response = await request.close();
-                        Uint8List bytes =
-                            await consolidateHttpClientResponseBytes(response);
-                        await Share.file(
-                            'Udostępnij obrazek',
-                            Path.basename(widget.embed.url),
-                            bytes,
+                        Uint8List bytes = await consolidateHttpClientResponseBytes(response);
+                        await Share.file('Udostępnij obrazek', Path.basename(widget.embed.url), bytes,
                             lookupMimeType(Path.basename(widget.embed.url)));
                       }),
                       _drawToolbarIcon(Icons.save, 'Zapisz', () async {
                         await ImageDownloader.downloadImage(widget.embed.url);
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text("Obrazek został zapisany")));
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Obrazek został zapisany")));
                       }),
                       Expanded(child: SizedBox()),
                       _drawToolbarIcon(
@@ -257,8 +247,7 @@ class _MediaScreenState extends State<MediaScreen> {
                                     title: Text('Otwórz w ...'),
                                     onTap: () {
                                       Navigator.pop(contextsecond);
-                                      Utils.launchURL(
-                                          widget.embed.url, context);
+                                      Utils.launchURL(widget.embed.url, context);
                                     },
                                   ),
                                   ListTile(
@@ -266,20 +255,15 @@ class _MediaScreenState extends State<MediaScreen> {
                                     title: Text('Skopiuj adres'),
                                     onTap: () {
                                       Navigator.pop(contextsecond);
-                                      Utils.copyToClipboard(
-                                          context, widget.embed.url);
+                                      Utils.copyToClipboard(context, widget.embed.url);
                                     },
                                   ),
                                   ListTile(
                                     leading: Icon(Icons.report),
                                     title: Text('Zgłoś'),
                                     onTap: () {
-                                      Navigator.pop(
-                                          contextsecond); //TODO: implement report image
-                                      Scaffold.of(context).showSnackBar(
-                                          SnackBar(
-                                              content:
-                                                  Text("Niezaimplementowane")));
+                                      Navigator.pop(contextsecond); //TODO: implement report image
+                                      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Niezaimplementowane")));
                                     },
                                   ),
                                   ListTile(
@@ -333,9 +317,7 @@ class _MediaScreenState extends State<MediaScreen> {
                   ),
                   Flexible(
                     child: Text(
-                      widget.embed.source != null
-                          ? widget.embed.source
-                          : "brak danych",
+                      widget.embed.source != null ? widget.embed.source : "brak danych",
                     ),
                   )
                 ],
@@ -350,9 +332,7 @@ class _MediaScreenState extends State<MediaScreen> {
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   Flexible(
-                    child: Text(widget.embed.size != null
-                        ? widget.embed.size
-                        : "brak danych"),
+                    child: Text(widget.embed.size != null ? widget.embed.size : "brak danych"),
                   )
                 ],
               ),
@@ -366,9 +346,7 @@ class _MediaScreenState extends State<MediaScreen> {
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   Flexible(
-                    child: Text(widget.embed.type != null
-                        ? widget.embed.type
-                        : "brak danych"),
+                    child: Text(widget.embed.type != null ? widget.embed.type : "brak danych"),
                   )
                 ],
               ),
@@ -382,9 +360,7 @@ class _MediaScreenState extends State<MediaScreen> {
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   Flexible(
-                    child: Text(widget.embed.ratio != null
-                        ? (widget.embed.ratio.toString() + ":1.0")
-                        : "brak danych"),
+                    child: Text(widget.embed.ratio != null ? (widget.embed.ratio.toString() + ":1.0") : "brak danych"),
                   )
                 ],
               ),
@@ -415,8 +391,7 @@ class _MediaScreenState extends State<MediaScreen> {
                       child: Icon(
                         icon,
                         size: 28.0,
-                        color:
-                            Theme.of(context).backgroundColor.withOpacity(0.8),
+                        color: Theme.of(context).backgroundColor.withOpacity(0.8),
                       ),
                     ),
                     Icon(
@@ -439,9 +414,7 @@ class _MediaScreenState extends State<MediaScreen> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 11.0,
-                            color: Theme.of(context)
-                                .backgroundColor
-                                .withOpacity(0.8),
+                            color: Theme.of(context).backgroundColor.withOpacity(0.8),
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -496,9 +469,7 @@ class _MediaScreenState extends State<MediaScreen> {
                   handleColor: Colors.amberAccent,
                 ),
               )
-            : EmbedVideoPlayer(
-                url: mediaModel.url,
-                controller: mediaModel.videoPlayerController),
+            : EmbedVideoPlayer(url: mediaModel.url, controller: mediaModel.videoPlayerController),
       );
     } catch (e) {
       Navigator.pop(context);

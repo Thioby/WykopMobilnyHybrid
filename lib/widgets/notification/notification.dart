@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:owmflutter/models/models.dart' as prefix0;
-import 'package:owmflutter/widgets/widgets.dart';
-import 'package:owmflutter/utils/utils.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/navigator/navigator.dart';
+import 'package:owmflutter/utils/utils.dart';
+import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/data/model/NotificationDto.dart';
 
 class NotificationWidget extends StatelessWidget {
   NotificationWidget();
@@ -17,14 +17,15 @@ class NotificationWidget extends StatelessWidget {
         child: InkWell(
           onTap: () async {
             model.markAsRead();
-            (Provider.of<ListModel<prefix0.Notification, NotificationModel>>(context, listen: false) as NotificationListModel).updateNotifCount();
+            (Provider.of<ListModel<NotificationDto, NotificationModel>>(context, listen: false)
+                    as NotificationListModel)
+                .updateNotifCount();
             WykopNavigator.handleUrl(context, model.url);
           },
           child: Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(
-                    top: 6.0, bottom: 6.0, left: 14.0, right: 18.0),
+                padding: EdgeInsets.only(top: 6.0, bottom: 6.0, left: 14.0, right: 18.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -48,33 +49,24 @@ class NotificationWidget extends StatelessWidget {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: model.body
-                                        .substring(0, model.body.indexOf(' ')),
+                                    text: model.body.substring(0, model.body.indexOf(' ')),
                                     style: TextStyle(
                                       fontSize: 15.0,
                                       height: 1.1,
                                       fontWeight: FontWeight.w500,
                                       color: model.author != null
-                                          ? Utils.getAuthorColor(
-                                              model.author.color, context)
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .headline
-                                              .color,
+                                          ? Utils.getAuthorColor(model.author.color, context)
+                                          : Theme.of(context).textTheme.headline.color,
                                     ),
                                   ),
                                   TextSpan(
                                     text: model.body
-                                        .substring(model.body.indexOf(' '),
-                                            model.body.length)
+                                        .substring(model.body.indexOf(' '), model.body.length)
                                         .replaceAll('\n', ' '),
                                     style: TextStyle(
                                       fontSize: 15.0,
                                       height: 1.1,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .headline
-                                          .color,
+                                      color: Theme.of(context).textTheme.headline.color,
                                     ),
                                   ),
                                 ],
@@ -85,8 +77,7 @@ class NotificationWidget extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 12.0,
                                 height: 1.3,
-                                color:
-                                    Theme.of(context).textTheme.caption.color,
+                                color: Theme.of(context).textTheme.caption.color,
                               ),
                             ),
                           ],
@@ -98,8 +89,7 @@ class NotificationWidget extends StatelessWidget {
                       child: Container(
                         width: 14.0,
                         height: 14.0,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.green),
+                        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.green),
                       ),
                     ),
                   ],

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:owmflutter/models/models.dart';
 import 'package:owmflutter/widgets/author_relation_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
+import 'package:wykop_api/data/model/AuthorDto.dart';
 import 'owm_settings.dart';
 export 'owm_settings.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -77,10 +77,10 @@ class Utils {
     }
   }
 
-  static Color getGenderColor(AuthorSex sex) {
-    if (sex == AuthorSex.MALE) {
+  static Color getGenderColor(AuthorSexDto sex) {
+    if (sex == AuthorSexDto.MALE) {
       return Colors.blue;
-    } else if (sex == AuthorSex.FEMALE) {
+    } else if (sex == AuthorSexDto.FEMALE) {
       return Colors.pink;
     } else {
       return Colors.transparent;

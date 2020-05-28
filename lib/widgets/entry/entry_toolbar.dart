@@ -1,13 +1,13 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
 import 'package:image_downloader/image_downloader.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:owmflutter/models/models.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:html/parser.dart';
 import 'package:share/share.dart';
+import 'package:wykop_api/data/model/InputData.dart';
 
 class EntryToolbarWidget extends StatelessWidget {
   final BuildContext contextmain;
@@ -97,8 +97,7 @@ class EntryToolbarWidget extends StatelessWidget {
                 title: "Kopiuj treść",
                 onTap: () {
                   Navigator.pop(context);
-                  Utils.copyToClipboard(contextmain,
-                      parse(model.body ?? "").documentElement.text);
+                  Utils.copyToClipboard(contextmain, parse(model.body ?? "").documentElement.text);
                 },
                 disabled: model.body == "​​​​​" || model.body == null,
               ),
@@ -108,8 +107,7 @@ class EntryToolbarWidget extends StatelessWidget {
                 onTap: () async {
                   Navigator.pop(context);
                   await model.loadUpVoters();
-                  if (model.upvoters.length != 0)
-                    _showVotersDialog(context, model);
+                  if (model.upvoters.length != 0) _showVotersDialog(context, model);
                 },
                 disabled: model.voteCount == 0,
               ),
@@ -119,8 +117,7 @@ class EntryToolbarWidget extends StatelessWidget {
                 onTap: () async {
                   Navigator.pop(context);
                   await ImageDownloader.downloadImage(model.embed.url);
-                  Scaffold.of(contextmain).showSnackBar(
-                      SnackBar(content: Text("Obrazek został zapisany")));
+                  Scaffold.of(contextmain).showSnackBar(SnackBar(content: Text("Obrazek został zapisany")));
                 },
                 disabled: model.embed == null || model.embed.type != "image",
               ),
@@ -129,8 +126,7 @@ class EntryToolbarWidget extends StatelessWidget {
                 title: "Kopiuj adres",
                 onTap: () {
                   Navigator.pop(context);
-                  Utils.copyToClipboard(
-                      contextmain, "https://www.wykop.pl/wpis/${model.id}");
+                  Utils.copyToClipboard(contextmain, "https://www.wykop.pl/wpis/${model.id}");
                 },
                 visible: relation != AuthorRelation.User,
               ),
@@ -155,14 +151,12 @@ class EntryToolbarWidget extends StatelessWidget {
                         id: model.id,
                         inputData: InputData(body: model.body),
                         inputType: InputType.ENTRY,
-                        entryEdited: (editedEntry) =>
-                            model.setData(editedEntry),
+                        entryEdited: (editedEntry) => model.setData(editedEntry),
                       ),
                     ),
                   );
                 },
-                visible:
-                    authStateModel.loggedIn && relation == AuthorRelation.User,
+                visible: authStateModel.loggedIn && relation == AuthorRelation.User,
               ),
               ToolbarButtonWidget(
                 icon: CommunityMaterialIcons.trash_can_outline,
@@ -173,8 +167,7 @@ class EntryToolbarWidget extends StatelessWidget {
                     model.delete();
                   }
                 },
-                visible:
-                    authStateModel.loggedIn && relation == AuthorRelation.User,
+                visible: authStateModel.loggedIn && relation == AuthorRelation.User,
               ),
             ],
           ),

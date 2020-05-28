@@ -1,65 +1,83 @@
+import 'dart:async';
 import 'dart:core';
 
-import 'package:owmflutter/models/entry_link.dart';
-import 'package:owmflutter/models/link.dart';
-import 'package:owmflutter/models/link_comment.dart';
-import 'package:owmflutter/models/models.dart';
 import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/data/model/EntryDto.dart';
+import 'package:wykop_api/data/model/EntryLinkDto.dart';
+import 'package:wykop_api/data/model/LinkCommentDto.dart';
+import 'package:wykop_api/data/model/LinkDto.dart';
+import 'package:wykop_api/data/model/ProfileRelatedDto.dart';
 
 class ProfilesApi extends ApiResource {
-  ProfilesApi(ApiClient client) : super(client);
+  final EntryResponseToDtoMapper _entryResponseToDtoMapper;
+  final LinkResponseToLinkDtoMapper _linkDtoMapper;
+  final EntryLinkResponseToEntryLinkDtoMapper _entryLinkDtoMapper;
+  final ProfileRelatedResponseToRelatedDtoMapper _profileRelatedResponseToRelatedDtoMapper;
+  final LinkCommentResponseToLinkCommentDtoMapper _linkCommentDtoMapper;
+  final EntryCommentResponseToEntryCommentDtoMapper _commentDtoMapper;
 
-  Future<List<EntryLink>> getActions(String username) async {
+  ProfilesApi(
+    ApiClient client,
+    this._entryResponseToDtoMapper,
+    this._linkDtoMapper,
+    this._entryLinkDtoMapper,
+    this._profileRelatedResponseToRelatedDtoMapper,
+    this._linkCommentDtoMapper,
+    this._commentDtoMapper,
+  ) : super(client);
+
+  Future<List<EntryLinkDto>> getActions(String username) async {
     var items = await client.request('profiles', 'actions', api: [username], named: {'page': '1'});
     return deserializeEntryLinks(items);
   }
 
-  Future<List<Link>> getAddedLinks(int page, String username) async {
+  Future<List<LinkDto>> getAddedLinks(int page, String username) async {
     var items = await client.request('profiles', 'added', api: [username], named: {'page': page.toString()});
     return deserializeLinks(items);
   }
 
-  Future<List<Link>> getCommentedLinks(int page, String username) async {
+  Future<List<LinkDto>> getCommentedLinks(int page, String username) async {
     var items = await client.request('profiles', 'commented', api: [username], named: {'page': page.toString()});
     return deserializeLinks(items);
   }
 
-  Future<List<Link>> getPublishedLinks(int page, String username) async {
+  Future<List<LinkDto>> getPublishedLinks(int page, String username) async {
     var items = await client.request('profiles', 'published', api: [username], named: {'page': page.toString()});
     return deserializeLinks(items);
   }
 
-  Future<List<LinkComment>> getLinkComments(int page, String username) async {
+  Future<List<LinkCommentDto>> getLinkComments(int page, String username) async {
     var items = await client.request('profiles', 'comments', api: [username], named: {'page': page.toString()});
     return deserializeLinkComments(items);
   }
 
-  Future<List<Entry>> getEntries(int page, String username) async {
+  Future<List<EntryDto>> getEntries(int page, String username) async {
     var items = await client.request('profiles', 'entries', api: [username], named: {'page': page.toString()});
     return deserializeEntries(items);
   }
 
-  Future<List<Entry>> getCommentedEntries(int page, String username) async {
+  Future<List<EntryDto>> getCommentedEntries(int page, String username) async {
     var items = await client.request('profiles', 'commentedentries', api: [username], named: {'page': page.toString()});
     return deserializeEntries(items);
   }
 
-  Future<List<EntryComment>> getEntryComments(int page, String username) async {
+  Future<List<EntryCommentDto>> getEntryComments(int page, String username) async {
     var items = await client.request('profiles', 'entriescomments', api: [username], named: {'page': page.toString()});
     return deserializeEntryComments(items);
   }
 
-  Future<List<LinkComment>> getFollowers(int page, String username) async {
+  Future<List<LinkCommentDto>> getFollowers(int page, String username) async {
     var items = await client.request('profiles', 'followers', api: [username], named: {'page': page.toString()});
     return deserializeLinkComments(items);
   }
 
-  Future<List<LinkComment>> getFollowed(int page, String username) async {
+  Future<List<LinkCommentDto>> getFollowed(int page, String username) async {
     var items = await client.request('profiles', 'followed', api: [username], named: {'page': page.toString()});
     return deserializeLinkComments(items);
   }
 
-  Future<List<ProfileRelated>> getProfileRelated(int page, String username) async {
+  Future<List<ProfileRelatedDto>> getProfileRelated(int page, String username) async {
     var items = await client.request('profiles', 'related', api: [username], named: {'page': page.toString()});
     return deserializeProfileRelated(items);
   }
@@ -70,12 +88,12 @@ class ProfilesApi extends ApiResource {
     return deserializeProfile(items);
   }
 
-  Future<List<Link>> getDigged(int page, String username) async {
+  Future<List<LinkDto>> getDigged(int page, String username) async {
     var items = await client.request('profiles', 'digged', api: [username], named: {'page': page.toString()});
     return deserializeLinks(items);
   }
 
-  Future<List<Link>> getBuried(int page, String username) async {
+  Future<List<LinkDto>> getBuried(int page, String username) async {
     var items = await client.request('profiles', 'buried', api: [username], named: {'page': page.toString()});
     return deserializeLinks(items);
   }
@@ -98,5 +116,40 @@ class ProfilesApi extends ApiResource {
   Future<bool> unblock(String username) async {
     var items = await client.request('profiles', 'unblock', api: [username]);
     return items["is_blocked"];
+  }
+
+  List<EntryDto> deserializeEntries(dynamic items) {
+    return client.deserializeList(EntryResponse.serializer, items).map(_entryResponseToDtoMapper.apply).toList();
+  }
+
+  List<LinkDto> deserializeLinks(dynamic items) {
+    return client.deserializeList(LinkResponse.serializer, items).map(_linkDtoMapper.apply).toList();
+  }
+
+  List<EntryLinkDto> deserializeEntryLinks(dynamic items) {
+    return client.deserializeList(EntryLinkResponse.serializer, items).map(_entryLinkDtoMapper.apply).toList();
+  }
+
+  List<ProfileRelatedDto> deserializeProfileRelated(dynamic items) {
+    return client
+        .deserializeList(ProfileRelatedResponse.serializer, items)
+        .map(_profileRelatedResponseToRelatedDtoMapper.apply)
+        .toList();
+  }
+
+  LinkCommentDto deserializeLinkComment(dynamic item) {
+    return _linkCommentDtoMapper.apply(client.deserializeElement(LinkCommentResponse.serializer, item));
+  }
+
+  List<LinkCommentDto> deserializeLinkComments(dynamic items) {
+    return client.deserializeList(LinkCommentResponse.serializer, items).map(_linkCommentDtoMapper.apply).toList();
+  }
+
+  ProfileResponse deserializeProfile(dynamic item) {
+    return client.deserializeElement(ProfileResponse.serializer, item);
+  }
+
+  List<EntryCommentDto> deserializeEntryComments(dynamic items) {
+    return client.deserializeList(EntryCommentResponse.serializer, items).map(_commentDtoMapper.apply).toList();
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/models/models.dart';
 import 'package:owmflutter/widgets/pm/message.dart';
 import 'package:owmflutter/widgets/widgets.dart';
+import 'package:wykop_api/data/model/PmMessageDto.dart';
 
 class PmWidget extends StatefulWidget {
-  final List<PmMessage> messages;
+  final List<PmMessageDto> messages;
 
   const PmWidget({
     @required this.messages,

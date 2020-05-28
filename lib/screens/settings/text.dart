@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
+import 'package:owmflutter/model/input_model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +19,7 @@ class TextSettingScreen extends StatelessWidget {
           appBar: AppbarNormalWidget(
             title: "Tekst",
           ),
-          body: ShadowNotificationListener(
-              child: SingleChildScrollView(child: _drawList())),
+          body: ShadowNotificationListener(child: SingleChildScrollView(child: _drawList())),
         ),
       ),
     );
@@ -36,8 +36,7 @@ class TextSettingScreen extends StatelessWidget {
               value: settings.shortLongBody,
               title: Text("Przytnij długi wpis"),
               subtitle: Text("Dostępne tylko w mikroblogu"),
-              onChanged: (value) =>
-                  settings.shortLongBody = !settings.shortLongBody,
+              onChanged: (value) => settings.shortLongBody = !settings.shortLongBody,
             );
           },
         ),
@@ -48,8 +47,7 @@ class TextSettingScreen extends StatelessWidget {
             return SwitchListTile(
               value: settings.openSpoilerDialog,
               title: Text("Otwórz spoiler w okienku"),
-              onChanged: (value) =>
-                  settings.openSpoilerDialog = !settings.openSpoilerDialog,
+              onChanged: (value) => settings.openSpoilerDialog = !settings.openSpoilerDialog,
             );
           },
         ),
@@ -63,8 +61,7 @@ class TextSettingScreen extends StatelessWidget {
                 return SwitchListTile(
                   value: settings.hideSpoilerText,
                   title: Text("Ukryj spoiler klikając w treść"),
-                  onChanged: (value) =>
-                      settings.hideSpoilerText = !settings.hideSpoilerText,
+                  onChanged: (value) => settings.hideSpoilerText = !settings.hideSpoilerText,
                 );
               },
             ),

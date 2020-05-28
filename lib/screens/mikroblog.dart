@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/model/model.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/api/api.dart';
 
 class MikroblogScreen extends StatefulWidget {
   _MikroblogScreenState createState() => _MikroblogScreenState();
@@ -14,8 +14,7 @@ class _MikroblogScreenState extends State<MikroblogScreen> {
 
   @override
   void initState() {
-    int screenIndex =
-        Provider.of<OWMSettings>(context, listen: false).defaultEntryScreen;
+    int screenIndex = Provider.of<OWMSettings>(context, listen: false).defaultEntryScreen;
 
     if (screenIndex == 3) {
       hotScreen = 12;
@@ -26,8 +25,7 @@ class _MikroblogScreenState extends State<MikroblogScreen> {
   }
 
   int _getDefaultScreenIndex(BuildContext context) {
-    int screenIndex =
-        Provider.of<OWMSettings>(context, listen: false).defaultEntryScreen;
+    int screenIndex = Provider.of<OWMSettings>(context, listen: false).defaultEntryScreen;
     if (screenIndex > 1) {
       if (screenIndex < 5) {
         return 2;
@@ -61,7 +59,8 @@ class _MikroblogScreenState extends State<MikroblogScreen> {
                 key: PageStorageKey("NEWEST"),
                 child: EntriesList(
                   builder: (context) => EntryListModel(
-                    context: context, loadNewEntries: (page) => api.entries.getNewest(page),
+                    context: context,
+                    loadNewEntries: (page) => api.entries.getNewest(page),
                   ),
                 ),
               ),
@@ -69,7 +68,8 @@ class _MikroblogScreenState extends State<MikroblogScreen> {
                 key: PageStorageKey("ACTIVE"),
                 child: EntriesList(
                   builder: (context) => EntryListModel(
-                    context: context, loadNewEntries: (page) => api.entries.getActive(page),
+                    context: context,
+                    loadNewEntries: (page) => api.entries.getActive(page),
                   ),
                 ),
               ),
@@ -99,8 +99,8 @@ class _MikroblogScreenState extends State<MikroblogScreen> {
                     ],
                   ),
                   builder: (context) => EntryListModel(
-                    context: context, loadNewEntries: (page) =>
-                        api.entries.getHot(page, hotScreen.toString()),
+                    context: context,
+                    loadNewEntries: (page) => api.entries.getHot(page, hotScreen.toString()),
                   ),
                 ),
               ),
@@ -112,7 +112,8 @@ class _MikroblogScreenState extends State<MikroblogScreen> {
                     key: PageStorageKey("FAVORITE"),
                     child: EntriesList(
                       builder: (context) => EntryListModel(
-                        context: context, loadNewEntries: (page) => api.entries.getFavorite(page),
+                        context: context,
+                        loadNewEntries: (page) => api.entries.getFavorite(page),
                       ),
                     ),
                   ),

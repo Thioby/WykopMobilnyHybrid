@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/widgets/content_hidden.dart';
-import 'package:owmflutter/widgets/widgets.dart';
+import 'package:owmflutter/model/input_model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';
+import 'package:owmflutter/widgets/content_hidden.dart';
+import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/model/model.dart';
 
 class EntryWidget extends StatelessWidget {
   final bool ellipsize;
@@ -29,8 +30,7 @@ class EntryWidget extends StatelessWidget {
                   ],
                   borderRadius: BorderRadius.circular(18),
                   color: Theme.of(context).backgroundColor,
-                  border: Border.all(
-                      color: Theme.of(context).dialogBackgroundColor),
+                  border: Border.all(color: Theme.of(context).dialogBackgroundColor),
                 ),
                 margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 14.0),
                 child: Material(
@@ -52,8 +52,7 @@ class EntryWidget extends StatelessWidget {
                                   author: model.author,
                                   date: model.date,
                                   fontSize: 15.0,
-                                  padding:
-                                      EdgeInsets.only(top: 12.0, right: 4.0),
+                                  padding: EdgeInsets.only(top: 12.0, right: 4.0),
                                 ),
                               ),
                               VoteButton(
@@ -64,26 +63,20 @@ class EntryWidget extends StatelessWidget {
                                 onClicked: () => model.voteToggle(),
                                 onLongClicked: () async {
                                   await model.loadUpVoters();
-                                  if (model.upvoters.length != 0)
-                                    _showVotersDialog(context, model);
+                                  if (model.upvoters.length != 0) _showVotersDialog(context, model);
                                 },
                               ),
                             ],
                           ),
                         ),
                         GestureDetector(
-                          onLongPress: () => _showActionsDialog(
-                              context, model, authStateModel, relation),
+                          onLongPress: () => _showActionsDialog(context, model, authStateModel, relation),
                           onTap: isClickable
-                              ? () => Navigator.of(context).push(
-                                  Utils.getPageSlideToUp(
-                                      EntryScreen(model: model)))
+                              ? () => Navigator.of(context).push(Utils.getPageSlideToUp(EntryScreen(model: model)))
                               : null,
                           child: BodyWidget(
                             body: model.body,
-                            ellipsize:
-                                Provider.of<OWMSettings>(context, listen: false)
-                                    .shortLongBody,
+                            ellipsize: Provider.of<OWMSettings>(context, listen: false).shortLongBody,
                             textSize: 16.0,
                             padding: EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 2.0),
                           ),
@@ -91,8 +84,7 @@ class EntryWidget extends StatelessWidget {
                         Visibility(
                           visible: model.embed != null,
                           child: GestureDetector(
-                            onLongPress: () => _showActionsDialog(
-                                context, model, authStateModel, relation),
+                            onLongPress: () => _showActionsDialog(context, model, authStateModel, relation),
                             child: EmbedWidget(
                               padding: EdgeInsets.only(top: 12.0, bottom: 2.0),
                               embed: model.embed,
@@ -119,13 +111,12 @@ class EntryWidget extends StatelessWidget {
     );
   }
 
-  void _showActionsDialog(BuildContext contextmain, EntryModel model,
-      AuthStateModel authStateModel, AuthorRelation relation) {
+  void _showActionsDialog(
+      BuildContext contextmain, EntryModel model, AuthStateModel authStateModel, AuthorRelation relation) {
     showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
       context: contextmain,
-      builder: (BuildContext context) =>
-          EntryToolbarWidget(contextmain, model, authStateModel, relation),
+      builder: (BuildContext context) => EntryToolbarWidget(contextmain, model, authStateModel, relation),
     );
   }
 

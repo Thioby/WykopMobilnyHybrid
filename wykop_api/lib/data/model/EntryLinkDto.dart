@@ -12,12 +12,14 @@ class EntryLinkDto implements Equatable {
   EntryLinkDto({this.entry, this.link});
 
   @override
-  // TODO: implement props
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [entry, link];
 
   @override
-  // TODO: implement stringify
-  bool get stringify => throw UnimplementedError();
+  bool get stringify => true;
+
+  bool isExpanded;
+  bool get hasEntry => entry != null;
+
 }
 
 class EntryLinkResponseToEntryLinkDtoMapper extends DataMapper<EntryLinkResponse, EntryLinkDto> {

@@ -1,0 +1,94 @@
+import 'package:flutter/foundation.dart';
+import 'package:owmflutter/model/link_comment_vote_state.dart';
+import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/data/model/EntryMediaDto.dart';
+import 'package:wykop_api/data/model/LinkCommentDto.dart';
+
+class LinkCommentModel extends ChangeNotifier {
+  int _id;
+  String _body;
+  String _date;
+  int _voteCount;
+  int _voteCountPlus;
+  AuthorDto _author;
+  EntryMediaDto _embed;
+  int _parentId;
+  bool _isExpanded;
+  String _linkId;
+  LinkCommentVoteState _voteState;
+  String _violationUrl;
+
+  int get id => _id;
+  String get body => _body;
+  String get date => _date;
+  int get parentId => _parentId;
+  int get voteCount => _voteCount;
+  int get voteCountPlus => _voteCountPlus;
+  AuthorDto get author => _author;
+  EntryMediaDto get embed => _embed;
+  bool get isExpanded => _isExpanded;
+  LinkCommentVoteState get voteState => _voteState;
+  bool get isParentComment => _id == _parentId;
+  String get violationUrl => _violationUrl;
+
+  void expand() {
+    _isExpanded = true;
+    notifyListeners();
+  }
+
+  void setData(LinkCommentDto comment) {
+    _id = comment.id;
+    _body = comment.body;
+    _date = comment.date;
+    _isExpanded = comment.isExpanded;
+    _voteCount = comment.voteCount;
+    _author = comment.author;
+    _embed = comment.embed;
+    _parentId = comment.parentId;
+    _linkId = comment.linkId;
+    _voteCountPlus = comment.voteCountPlus;
+    _voteState = LinkCommentExtension.fromInt(comment.voteState);
+    _violationUrl = comment.violationUrl;
+    notifyListeners();
+  }
+
+  Future<void> delete() async {
+    await api.links.deleteComment(_id);
+    _body = "[Komentarz usunięty]";
+    notifyListeners();
+  }
+
+  Future<void> voteUp() async {
+    if (_voteState != LinkCommentVoteState.NOT_VOTED) {
+      return voteRemove();
+    }
+
+    var res = await api.links.commentVoteUp(_id, _linkId);
+    _voteCountPlus = res.votesPlus;
+    _voteCount = res.votes;
+    _voteState = LinkCommentExtension.fromInt(res.state);
+    notifyListeners();
+  }
+
+  Future<void> voteDown() async {
+    if (_voteState != LinkCommentVoteState.NOT_VOTED) {
+      return voteRemove();
+    }
+    var res = await api.links.commentVoteDown(_id, _linkId);
+
+    _voteCountPlus = res.votesPlus;
+    _voteCount = res.votes;
+    _voteState = LinkCommentExtension.fromInt(res.state);
+    notifyListeners();
+  }
+
+  Future<void> voteRemove() async {
+    var res = await api.links.commentVoteRemove(_id, _linkId);
+
+    _voteCountPlus = res.votesPlus;
+    _voteCount = res.votes;
+    _voteState = LinkCommentExtension.fromInt(res.state);
+    notifyListeners();
+  }
+}

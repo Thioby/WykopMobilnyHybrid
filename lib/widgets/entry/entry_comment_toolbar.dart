@@ -1,13 +1,14 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
 import 'package:image_downloader/image_downloader.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:owmflutter/models/models.dart';
+import 'package:owmflutter/model/input_model.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:html/parser.dart';
 import 'package:share/share.dart';
+import 'package:wykop_api/data/model/InputData.dart';
 
 class EntryCommentToolbarWidget extends StatelessWidget {
   final BuildContext contextmain;
@@ -32,8 +33,7 @@ class EntryCommentToolbarWidget extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
         boxShadow: [BoxShadow(blurRadius: 30, color: Colors.black38)],
       ),
-      margin: MediaQuery.of(context).orientation == Orientation.landscape &&
-              !authStateModel.loggedIn
+      margin: MediaQuery.of(context).orientation == Orientation.landscape && !authStateModel.loggedIn
           ? EdgeInsets.symmetric(
               horizontal: (MediaQuery.of(context).size.width - 28) / 4,
             )
@@ -70,12 +70,8 @@ class EntryCommentToolbarWidget extends StatelessWidget {
                 ),
                 children: model.app != null
                     ? <TextSpan>[
-                        TextSpan(
-                            text: " via ",
-                            style: TextStyle(fontWeight: FontWeight.w300)),
-                        TextSpan(
-                            text: (model.app ?? ""),
-                            style: TextStyle(fontWeight: FontWeight.w600)),
+                        TextSpan(text: " via ", style: TextStyle(fontWeight: FontWeight.w300)),
+                        TextSpan(text: (model.app ?? ""), style: TextStyle(fontWeight: FontWeight.w600)),
                       ]
                     : null,
               ),
@@ -89,8 +85,7 @@ class EntryCommentToolbarWidget extends StatelessWidget {
                 title: "Udostępnij",
                 onTap: () {
                   Navigator.pop(context);
-                  Share.share(
-                      "https://www.wykop.pl/wpis/${entryWidget.entryId}/#comment-${model.id}");
+                  Share.share("https://www.wykop.pl/wpis/${entryWidget.entryId}/#comment-${model.id}");
                 },
                 disabled: entryWidget.entryId == 0,
               ),
@@ -99,8 +94,7 @@ class EntryCommentToolbarWidget extends StatelessWidget {
                 title: "Kopiuj tekst",
                 onTap: () {
                   Navigator.pop(context);
-                  Utils.copyToClipboard(contextmain,
-                      parse(model.body ?? "").documentElement.text);
+                  Utils.copyToClipboard(contextmain, parse(model.body ?? "").documentElement.text);
                 },
                 visible: model.body != "​​​​​" && model.body != null,
               ),
@@ -110,8 +104,7 @@ class EntryCommentToolbarWidget extends StatelessWidget {
                 onTap: () async {
                   Navigator.pop(context);
                   await ImageDownloader.downloadImage(model.embed.url);
-                  Scaffold.of(contextmain).showSnackBar(
-                      SnackBar(content: Text("Obrazek został zapisany")));
+                  Scaffold.of(contextmain).showSnackBar(SnackBar(content: Text("Obrazek został zapisany")));
                 },
                 visible: !(model.body != "​​​​​" && model.body != null),
               ),
@@ -121,8 +114,7 @@ class EntryCommentToolbarWidget extends StatelessWidget {
                 onTap: () async {
                   Navigator.pop(context);
                   await model.loadUpVoters();
-                  if (model.upvoters.length != 0)
-                    _showVotersDialog(context, model);
+                  if (model.upvoters.length != 0) _showVotersDialog(context, model);
                 },
                 disabled: model.voteCount == 0,
               ),
@@ -131,12 +123,11 @@ class EntryCommentToolbarWidget extends StatelessWidget {
                 title: "Cytuj",
                 onTap: () {
                   Navigator.pop(context);
-                  inputModel.inputBarKey.currentState.quoteText(
-                      parse(model.body ?? "").documentElement.text,
-                      author: model.author);
-                }, //TODO ogarnąć to w widoku profili, brakuje entryId
-                disabled: entryWidget.entryId == 0 ||
-                    !(model.body != null && model.body != "​​​​​"),
+                  inputModel.inputBarKey.currentState
+                      .quoteText(parse(model.body ?? "").documentElement.text, author: model.author);
+                },
+                //TODO ogarnąć to w widoku profili, brakuje entryId
+                disabled: entryWidget.entryId == 0 || !(model.body != null && model.body != "​​​​​"),
                 visible: authStateModel.loggedIn,
               ),
               ToolbarButtonWidget(
@@ -147,8 +138,7 @@ class EntryCommentToolbarWidget extends StatelessWidget {
                   inputModel.inputBarKey.currentState.replyToUser(model.author);
                 },
                 disabled: entryWidget.entryId == 0,
-                visible: authStateModel.loggedIn &&
-                    entryWidget.relation != AuthorRelation.User,
+                visible: authStateModel.loggedIn && entryWidget.relation != AuthorRelation.User,
               ),
               ToolbarButtonWidget(
                 icon: CommunityMaterialIcons.alert_octagon_outline,
@@ -157,8 +147,7 @@ class EntryCommentToolbarWidget extends StatelessWidget {
                   Navigator.pop(context);
                   Utils.launchURL(model.violationUrl, context);
                 },
-                visible: authStateModel.loggedIn &&
-                    entryWidget.relation != AuthorRelation.User,
+                visible: authStateModel.loggedIn && entryWidget.relation != AuthorRelation.User,
               ),
               ToolbarButtonWidget(
                 icon: CommunityMaterialIcons.square_edit_outline,
@@ -171,27 +160,23 @@ class EntryCommentToolbarWidget extends StatelessWidget {
                         id: model.id,
                         inputData: InputData(body: model.body),
                         inputType: InputType.ENTRY_COMMENT,
-                        commentEdited: (editedComment) =>
-                            model.setData(editedComment),
+                        commentEdited: (editedComment) => model.setData(editedComment),
                       ),
                     ),
                   );
                 },
-                visible: authStateModel.loggedIn &&
-                    entryWidget.relation == AuthorRelation.User,
+                visible: authStateModel.loggedIn && entryWidget.relation == AuthorRelation.User,
               ),
               ToolbarButtonWidget(
                 icon: CommunityMaterialIcons.trash_can_outline,
                 title: "Usuń",
                 onTap: () async {
                   Navigator.pop(context);
-                  if (await showConfirmDialog(
-                      context, "Usunąć ten komentarz?")) {
+                  if (await showConfirmDialog(context, "Usunąć ten komentarz?")) {
                     model.delete();
                   }
                 },
-                visible: authStateModel.loggedIn &&
-                    entryWidget.relation == AuthorRelation.User,
+                visible: authStateModel.loggedIn && entryWidget.relation == AuthorRelation.User,
               ),
             ],
           ),

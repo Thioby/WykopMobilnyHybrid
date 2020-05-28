@@ -3,14 +3,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:owmflutter/app.dart';
-import 'package:owmflutter/models/models.dart';
+import 'package:owmflutter/model/new_entry_model.dart';
+
 import 'package:owmflutter/screens/entry.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/input/selected_image.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:wykop_api/model/new_entry_model.dart';
+
+import 'package:owmflutter/model/model.dart';
+import 'package:wykop_api/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/data/model/EntryDto.dart';
+import 'package:wykop_api/data/model/InputData.dart';
+import 'package:wykop_api/data/model/LinkCommentDto.dart';
 
 enum InputType { ENTRY, ENTRY_COMMENT, LINK_COMMENT, PRIVATE_MESSAGE }
 
@@ -43,9 +48,9 @@ class EditInputScreen extends StatelessWidget {
   final InputData inputData;
   final int id;
   final InputType inputType;
-  final ValueChanged<EntryComment> commentEdited;
-  final ValueChanged<Entry> entryEdited;
-  final ValueChanged<LinkComment> linkCommentEdited;
+  final ValueChanged<EntryCommentDto> commentEdited;
+  final ValueChanged<EntryDto> entryEdited;
+  final ValueChanged<LinkCommentDto> linkCommentEdited;
 
   EditInputScreen(
       {this.inputData, this.id, this.inputType, this.commentEdited, this.entryEdited, this.linkCommentEdited});

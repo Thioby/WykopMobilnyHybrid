@@ -1,10 +1,10 @@
-import 'package:owmflutter/models/models.dart';
 import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/data/model/UserProfileDto.dart';
 
 class UsersApi extends ApiResource {
   UsersApi(ApiClient client) : super(client);
 
-  Future<UserProfile> login(String login, String accountKey) async {
+  Future<UserProfileDto> login(String login, String accountKey) async {
     print(login);
     print(accountKey);
     var result = await client.request('login', 'index', post: {'login': login, 'accountkey': accountKey});
@@ -20,7 +20,7 @@ class UsersApi extends ApiResource {
     await saveAuthCreds(credentials);
     client.credentials = credentials;
 
-    return UserProfile(
+    return UserProfileDto(
         avatarUrl: result["profile"]["avatar"],
         login: login,
         color: result["profile"]["color"],

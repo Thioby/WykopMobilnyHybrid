@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/profile_related_list.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/model/model.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import 'package:wykop_api/api/api.dart';
 
 class ProfileScreen extends StatefulWidget {
   final ProfileModel profileModel;
@@ -56,8 +55,7 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    _profileModel = (widget.profileModel ??
-        (ProfileModel.fromUsername(widget.username)..loadFullProfile()));
+    _profileModel = (widget.profileModel ?? (ProfileModel.fromUsername(widget.username)..loadFullProfile()));
 
     var username = _profileModel.author.login;
     tabs = [
@@ -255,9 +253,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           margin: margin,
           padding: EdgeInsets.all(6.0),
           decoration: BoxDecoration(
-            color: isSelected
-                ? Theme.of(context).accentColor
-                : Utils.backgroundGrey(context),
+            color: isSelected ? Theme.of(context).accentColor : Utils.backgroundGrey(context),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Theme.of(context).cardColor, width: 2.5),
           ),
@@ -267,9 +263,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             child: Text(
               text,
               style: TextStyle(
-                color: isSelected
-                    ? Colors.white
-                    : Theme.of(context).textTheme.body1.color,
+                color: isSelected ? Colors.white : Theme.of(context).textTheme.body1.color,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -302,9 +296,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 image: NetworkImage(profileModel.backgroundUrl),
                               )
                             : Container(
-                                height: profileModel.backgroundUrl == null
-                                    ? 70.0
-                                    : 140.0,
+                                height: profileModel.backgroundUrl == null ? 70.0 : 140.0,
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).accentColor,
                                   image: DecorationImage(
@@ -322,12 +314,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                         children: <Widget>[
                           Column(
                             children: <Widget>[
-                              _drawHeaderButton(
-                                  profileModel.isObserved
-                                      ? "Obserwujesz"
-                                      : "Obserwuj",
-                                  profileModel.isObserved,
-                                  () => profileModel.toggleObserve(),
+                              _drawHeaderButton(profileModel.isObserved ? "Obserwujesz" : "Obserwuj",
+                                  profileModel.isObserved, () => profileModel.toggleObserve(),
                                   isDisabled: profileModel.isBlocked),
                               _drawHeaderButton(
                                 "Odznaki",
@@ -344,12 +332,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                           ),
                           Column(
                             children: <Widget>[
-                              _drawHeaderButton(
-                                  profileModel.isBlocked
-                                      ? "Zablokowany"
-                                      : "Blokuj",
-                                  profileModel.isBlocked,
-                                  () => profileModel.toggleBlock(),
+                              _drawHeaderButton(profileModel.isBlocked ? "Zablokowany" : "Blokuj",
+                                  profileModel.isBlocked, () => profileModel.toggleBlock(),
                                   isDisabled: profileModel.isObserved),
                               _drawHeaderButton(
                                 "Szczegóły",
@@ -369,30 +353,22 @@ class ProfileScreenState extends State<ProfileScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             RoundIconButtonWidget(
-                              roundColor: Utils.backgroundRoundIconAppbarScroll(
-                                  context),
-                              iconColor:
-                                  Utils.iconColorRoundIconAppbarScroll(context),
+                              roundColor: Utils.backgroundRoundIconAppbarScroll(context),
+                              iconColor: Utils.iconColorRoundIconAppbarScroll(context),
                               icon: Icons.arrow_back,
                               onTap: () => Navigator.of(context).pop(),
                               iconSize: 26.0,
                               iconPadding: EdgeInsets.all(5.0),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
+                              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
                             ),
                             RoundIconButtonWidget(
-                              roundColor: Utils.backgroundRoundIconAppbarScroll(
-                                  context),
-                              iconColor:
-                                  Utils.iconColorRoundIconAppbarScroll(context),
+                              roundColor: Utils.backgroundRoundIconAppbarScroll(context),
+                              iconColor: Utils.iconColorRoundIconAppbarScroll(context),
                               icon: Icons.share,
                               iconSize: 20.0,
                               iconPadding: EdgeInsets.all(8.0),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
-                              onTap: () => Share.share(
-                                  'https://wykop.pl/ludzie/' +
-                                      _profileModel.author.login),
+                              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                              onTap: () => Share.share('https://wykop.pl/ludzie/' + _profileModel.author.login),
                             ),
                           ],
                         ),
@@ -406,8 +382,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                       profileModel.author.login,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: Utils.getAuthorColor(
-                            profileModel.author.color, context),
+                        color: Utils.getAuthorColor(profileModel.author.color, context),
                         fontSize: 22.0,
                         fontWeight: FontWeight.w600,
                       ),
@@ -428,9 +403,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Text(
-                          " • " +
-                              _profileModel.formattedDate.replaceAll(
-                                  "Dołączył/a ", ""), //TODO lepszy format daty
+                          " • " + _profileModel.formattedDate.replaceAll("Dołączył/a ", ""), //TODO lepszy format daty
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 13.0,
@@ -444,8 +417,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     visible: profileModel.about != null,
                     child: Container(
                       alignment: Alignment.center,
-                      padding:
-                          EdgeInsets.only(left: 18.0, right: 18.0, top: 8.0),
+                      padding: EdgeInsets.only(left: 18.0, right: 18.0, top: 8.0),
                       child: Text(
                         profileModel.about ?? "",
                         style: TextStyle(fontSize: 13.0),
@@ -503,8 +475,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.only(top: 6.0, bottom: 8.0),
                   child: Text(
                     "Więcej aktywności",
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 20.0),
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20.0),
                   ),
                 ),
                 DividerWidget(height: 6.0),
@@ -512,8 +483,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.only(top: 6.0),
                   child: Text(
                     "Znaleziska",
-                    style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
                   ),
                 ),
                 Padding(
@@ -540,8 +510,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     child: Row(
                       children: <Widget>[
                         _drawTabForIndex(7),
-                        authModel.loggedIn &&
-                                authModel.login == _profileModel.author.login
+                        authModel.loggedIn && authModel.login == _profileModel.author.login
                             ? _drawTabForIndex(8)
                             : Expanded(child: Container()),
                       ],
@@ -553,8 +522,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.only(top: 6.0),
                   child: Text(
                     "Mikroblog",
-                    style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
                   ),
                 ),
                 Consumer<AuthStateModel>(
@@ -573,8 +541,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.only(top: 6.0),
                   child: Text(
                     "Społeczność",
-                    style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
                   ),
                 ),
                 Padding(

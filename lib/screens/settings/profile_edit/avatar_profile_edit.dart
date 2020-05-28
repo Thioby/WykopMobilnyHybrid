@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wykop_api/model/model.dart';
-import 'package:owmflutter/models/models.dart';
+import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/settings/profile_edit/input_button.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/data/model/AuthorDto.dart';
 
 class AvatarProfileEdit extends StatefulWidget {
   _AvatarProfileEditState createState() => _AvatarProfileEditState();
@@ -22,9 +22,9 @@ class _AvatarProfileEditState extends State<AvatarProfileEdit> {
                   "Avatar będzie w najlepszej jakości, jeśli dodasz grafikę o minimalnych wymiarach 150×150 pixeli"),
             ),
             AvatarWidget(
-              author: Author.fromAuthState(
-                  avatarUrl: authStateModel.avatarUrl ?? "",
-                  username: authStateModel.login ?? "",
+              author: AuthorDto(
+                  avatar: authStateModel.avatarUrl ?? "",
+                  login: authStateModel.login ?? "",
                   color: authStateModel.color ?? 0),
               size: 200,
               badge: Colors.transparent,
