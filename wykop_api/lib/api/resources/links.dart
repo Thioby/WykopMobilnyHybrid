@@ -3,6 +3,7 @@ import 'package:wykop_api/data/model/InputData.dart';
 import 'package:wykop_api/data/model/LinkCommentDto.dart';
 import 'package:wykop_api/data/model/LinkDto.dart';
 import 'package:wykop_api/data/model/RelatedDto.dart';
+import 'package:wykop_api/api/client.dart';
 
 // Used for vote up, vote down and vote cancel responses
 class VoteStateResponse {

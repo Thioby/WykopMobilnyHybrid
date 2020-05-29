@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart' as crypto;
+import 'package:wykop_api/api/client.dart';
 import 'package:wykop_api/api/resources/embed.dart';
 import 'package:wykop_api/api/resources/entries.dart';
 import 'package:wykop_api/api/resources/links.dart';
@@ -15,26 +16,10 @@ import 'package:wykop_api/api/resources/search.dart';
 import 'package:wykop_api/api/resources/suggest.dart';
 import 'package:wykop_api/api/resources/tags.dart';
 import 'package:wykop_api/api/resources/users.dart';
-import 'package:wykop_api/data/mapper/mapper.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'package:wykop_api/data/model/AuthorSuggestionDto.dart';
-import 'package:wykop_api/data/model/ConversationDto.dart';
-import 'package:wykop_api/data/model/EntryCommentDto.dart';
-import 'package:wykop_api/data/model/EntryDto.dart';
-import 'package:wykop_api/data/model/EntryLinkDto.dart';
-import 'package:wykop_api/data/model/EntryMediaDto.dart';
-import 'package:wykop_api/data/model/LinkCommentDto.dart';
-import 'package:wykop_api/data/model/LinkDto.dart';
-import 'package:wykop_api/data/model/NotificationDto.dart';
-import 'package:wykop_api/data/model/PmMessageDto.dart';
-import 'package:wykop_api/data/model/ProfileRelatedDto.dart';
-import 'package:wykop_api/data/model/RelatedDto.dart';
-import 'package:wykop_api/data/model/TagSuggestionDto.dart';
-import 'package:wykop_api/data/model/VoterDto.dart';
+import 'package:wykop_api/injection/Injector.dart';
+import 'package:wykop_api/injection/api/api_injection.dart';
+import 'package:wykop_api/injection/api/mappers_injection.dart';
 
-import 'client.dart';
-
-export 'client.dart';
 export 'resources/api_resource.dart';
 export 'resources/embed.dart';
 export 'resources/entries.dart';
@@ -72,58 +57,9 @@ String generateMd5(String data) {
   return hex.encode(digest.bytes);
 }
 
-String _getIdentity<T>() => "${T.hashCode.toString()}";
-
-//todo someday there will be DI :)
-typedef T DiBuilder<T>();
-
-Map<String, DiBuilder<Object>> prepareDiMap() {
-  Map<String, DiBuilder<DataMapper>> mappers = {};
-
-  var authorMapper = AuthorResponseToAuthorDtoMapper();
-  var mediaMapper = EntryMediaResponseToEntryMediaDtoMapper();
-  var entryCommentMapper = EntryCommentResponseToEntryCommentDtoMapper(authorMapper, mediaMapper);
-  var entryMapper = EntryResponseToDtoMapper(authorMapper, mediaMapper, entryCommentMapper);
-  var linkMapper = LinkResponseToLinkDtoMapper(authorMapper);
-
-  mappers[_getIdentity<AuthorResponseToAuthorDtoMapper>()] = () => authorMapper;
-  mappers[_getIdentity<AuthorSuggestionResponseToAuthorSuggestionDtoMapper>()] =
-      () => AuthorSuggestionResponseToAuthorSuggestionDtoMapper();
-  mappers[_getIdentity<ConversationResponseToConversationDtoMapper>()] =
-      () => ConversationResponseToConversationDtoMapper(authorMapper);
-  mappers[_getIdentity<EntryCommentResponseToEntryCommentDtoMapper>()] = () => entryCommentMapper;
-  mappers[_getIdentity<EntryResponseToDtoMapper>()] = () => entryMapper;
-  mappers[_getIdentity<EntryLinkResponseToEntryLinkDtoMapper>()] =
-      () => EntryLinkResponseToEntryLinkDtoMapper(linkMapper, entryMapper);
-  mappers[_getIdentity<EntryMediaResponseToEntryMediaDtoMapper>()] = () => mediaMapper;
-  mappers[_getIdentity<LinkCommentResponseToLinkCommentDtoMapper>()] =
-      () => LinkCommentResponseToLinkCommentDtoMapper(authorMapper, mediaMapper);
-  mappers[_getIdentity<LinkResponseToLinkDtoMapper>()] = () => LinkResponseToLinkDtoMapper(authorMapper);
-  mappers[_getIdentity<NotificationResponseToNotificationDtoMapper>()] =
-      () => NotificationResponseToNotificationDtoMapper(authorMapper);
-  mappers[_getIdentity<PmMessageResponseToPmMessageDtoMapper>()] =
-      () => PmMessageResponseToPmMessageDtoMapper(mediaMapper);
-  mappers[_getIdentity<ProfileRelatedResponseToRelatedDtoMapper>()] = () => ProfileRelatedResponseToRelatedDtoMapper();
-  mappers[_getIdentity<RelatedResponseToRelatedDtoMapper>()] = () => RelatedResponseToRelatedDtoMapper(authorMapper);
-  mappers[_getIdentity<TagSuggestionResponseToTagSuggestionDtoMapper>()] =
-      () => TagSuggestionResponseToTagSuggestionDtoMapper();
-  mappers[_getIdentity<VoterResponseToVoterDtoMapper>()] = () => VoterResponseToVoterDtoMapper(authorMapper);
-
-  return mappers;
-}
-
-class ApiMapperDi {
-  final Map<String, DiBuilder<Object>> mappers = prepareDiMap();
-
-  T getMapper<T>() {
-    print("got: " + _getIdentity<T>());
-    return mappers[_getIdentity<T>()]();
-  }
-}
 
 class WykopApiClient {
-  final ApiClient _client = ApiClient();
-  final ApiMapperDi mapperInjector = ApiMapperDi();
+  final ApiClient _client;
 
   StreamController<Error> errorStreamController = StreamController();
   Stream<Error> get errorStream => errorStreamController.stream;
@@ -132,17 +68,17 @@ class WykopApiClient {
   String getAppKey() => _client.secrets.appkey;
   String getAppSecret() => _client.secrets.secret;
 
-  SearchApi search;
-  LinksApi links;
-  EntriesApi entries;
-  UsersApi users;
-  MyWykopApi mywykop;
-  TagsApi tags;
-  ProfilesApi profiles;
-  NotificationsApi notifications;
-  SuggestApi suggest;
-  EmbedApi embed;
-  PmApi pm;
+  final SearchApi search;
+  final LinksApi links;
+  final EntriesApi entries;
+  final UsersApi users;
+  final MyWykopApi mywykop;
+  final TagsApi tags;
+  final ProfilesApi profiles;
+  final NotificationsApi notifications;
+  final SuggestApi suggest;
+  final EmbedApi embed;
+  final PmApi pm;
 
   AuthCredentials get credentials => _client.credentials;
 
@@ -158,24 +94,38 @@ class WykopApiClient {
     await this._client.logoutUser();
   }
 
-  WykopApiClient() {
+  WykopApiClient(this._client, this.search, this.links, this.entries, this.users, this.mywykop, this.tags,
+      this.profiles, this.notifications, this.suggest, this.embed, this.pm) {
     _client.initialize();
-    this.entries =
-        EntriesApi(_client, mapperInjector.getMapper(), mapperInjector.getMapper(), mapperInjector.getMapper());
-    this.users = UsersApi(_client);
-    this.links = LinksApi(_client, mapperInjector.getMapper(), mapperInjector.getMapper(), mapperInjector.getMapper());
-    this.tags = TagsApi(_client, mapperInjector.getMapper(), mapperInjector.getMapper(), mapperInjector.getMapper(),
-        mapperInjector.getMapper());
-    this.pm = PmApi(_client, mapperInjector.getMapper(), mapperInjector.getMapper(), mapperInjector.getMapper());
-    this.suggest = SuggestApi(_client, mapperInjector.getMapper(), mapperInjector.getMapper());
-    this.profiles = ProfilesApi(_client, mapperInjector.getMapper(), mapperInjector.getMapper(),
-        mapperInjector.getMapper(), mapperInjector.getMapper(), mapperInjector.getMapper(), mapperInjector.getMapper());
-    this.embed = EmbedApi(_client);
-    this.search =
-        SearchApi(_client, mapperInjector.getMapper(), mapperInjector.getMapper(), mapperInjector.getMapper());
-    this.notifications = NotificationsApi(_client, mapperInjector.getMapper());
-    this.mywykop = MyWykopApi(_client, mapperInjector.getMapper());
+
   }
 }
 
-var api = WykopApiClient();
+class ApiInitializer {
+  ApiInitializer initialize(){
+    setupMappersDeps();
+    setupApiDeps();
+    return this;
+  }
+
+  WykopApiClient getApiClient() {
+    return WykopApiClient(
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+      appInjector.getDependency(),
+    );
+  }
+}
+
+
+
+var api = ApiInitializer().initialize().getApiClient();

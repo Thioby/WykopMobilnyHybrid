@@ -1,5 +1,6 @@
 import 'package:wykop_api/api/api.dart';
 import 'package:wykop_api/data/model/UserProfileDto.dart';
+import 'package:wykop_api/api/client.dart';
 
 class UsersApi extends ApiResource {
   UsersApi(ApiClient client) : super(client);

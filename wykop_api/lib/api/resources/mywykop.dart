@@ -1,5 +1,6 @@
 import 'package:wykop_api/api/api.dart';
 import 'package:wykop_api/data/model/EntryLinkDto.dart';
+import 'package:wykop_api/api/client.dart';
 
 class MyWykopApi extends ApiResource {
   final EntryLinkResponseToEntryLinkDtoMapper _entryLinkDtoMapper;

@@ -4,6 +4,7 @@ import 'package:wykop_api/data/model/EntryCommentDto.dart';
 import 'package:wykop_api/data/model/EntryDto.dart';
 import 'package:wykop_api/data/model/InputData.dart';
 import 'package:wykop_api/data/model/VoterDto.dart';
+import 'package:wykop_api/api/client.dart';
 
 class EntriesApi extends ApiResource {
   final EntryResponseToDtoMapper _entryResponseToDtoMapper;

@@ -3,6 +3,7 @@ import 'package:wykop_api/data/model/AuthorDto.dart';
 import 'package:wykop_api/data/model/EntryDto.dart';
 import 'package:wykop_api/data/model/EntryLinkDto.dart';
 import 'package:wykop_api/data/model/LinkDto.dart';
+import 'package:wykop_api/api/client.dart';
 
 class TagMeta {
   final String description;

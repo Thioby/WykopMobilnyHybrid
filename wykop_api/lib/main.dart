@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:wykop_api/injection/api/api_injection.dart';
+import 'package:wykop_api/injection/api/mappers_injection.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

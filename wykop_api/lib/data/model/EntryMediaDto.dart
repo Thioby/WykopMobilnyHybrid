@@ -15,17 +15,19 @@ class EntryMediaDto implements Equatable {
   EntryMediaDto({this.preview, this.url, this.type, this.source, this.size, this.ratio, this.isAnimated, this.plus18});
 
   @override
-  // TODO: implement props
   List<Object> get props => [url, type];
 
   @override
-  // TODO: implement stringify
   bool get stringify => true;
 }
 
 class EntryMediaResponseToEntryMediaDtoMapper implements DataMapper<EmbedResponse, EntryMediaDto> {
   @override
   EntryMediaDto apply(EmbedResponse response) {
+
+    if(response == null) {
+      return null;
+    }
     // TODO: implement apply
     return EntryMediaDto(
         preview: response.preview,

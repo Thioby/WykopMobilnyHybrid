@@ -2,6 +2,7 @@ import 'package:wykop_api/api/api.dart';
 import 'package:wykop_api/data/model/EntryDto.dart';
 import 'package:wykop_api/data/model/EntryLinkDto.dart';
 import 'package:wykop_api/data/model/LinkDto.dart';
+import 'package:wykop_api/api/client.dart';
 
 class SearchApi extends ApiResource {
   final EntryResponseToDtoMapper _entryResponseToDtoMapper;

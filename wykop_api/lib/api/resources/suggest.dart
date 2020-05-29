@@ -1,6 +1,7 @@
 import 'package:wykop_api/api/api.dart';
 import 'package:wykop_api/data/model/AuthorSuggestionDto.dart';
 import 'package:wykop_api/data/model/TagSuggestionDto.dart';
+import 'package:wykop_api/api/client.dart';
 
 class SuggestApi extends ApiResource {
   final TagSuggestionResponseToTagSuggestionDtoMapper _tagSuggestionDtoMapper;
