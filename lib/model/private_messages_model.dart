@@ -1,8 +1,6 @@
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'package:wykop_api/data/model/InputData.dart';
-import 'package:wykop_api/data/model/PmMessageDto.dart';
+import 'package:owmflutter/main.dart';
 import 'package:owmflutter/model/input_model.dart';
+import 'package:wykop_api/infrastucture/data/model/dtoModels.dart';
 
 class PrivateMessagesModel extends InputModel {
   List<PmMessageDto> _messages;

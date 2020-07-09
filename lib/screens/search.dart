@@ -3,7 +3,7 @@ import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/main.dart';
 
 class SearchScreen extends StatefulWidget {
   _SearchScreenState createState() => _SearchScreenState();

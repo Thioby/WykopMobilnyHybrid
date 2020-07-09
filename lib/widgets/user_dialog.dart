@@ -4,7 +4,7 @@ import 'package:owmflutter/screens/profile.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
 
 class UserDialogWidget extends StatefulWidget {
   final AuthorDto author;

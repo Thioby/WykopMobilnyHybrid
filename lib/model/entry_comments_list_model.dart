@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:owmflutter/content_filters/content_filters.dart';
-import 'package:wykop_api/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryCommentDto.dart';
 import 'model.dart';
 
 class EntryCommentsListModel extends ListModel<EntryCommentDto, EntryCommentModel> {

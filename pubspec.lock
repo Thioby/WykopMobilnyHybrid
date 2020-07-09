@@ -715,7 +715,7 @@ packages:
     source: hosted
     version: "1.1.6"
   url_launcher:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: url_launcher
       url: "https://pub.dartlang.org"
@@ -801,8 +801,8 @@ packages:
   wykop_api:
     dependency: "direct main"
     description:
-      path: wykop_api
-      relative: true
+      path: "/Users/anowak/Documents/Projects/wykop_api"
+      relative: false
     source: path
     version: "1.0.0+1"
   xml:

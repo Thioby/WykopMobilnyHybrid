@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:owmflutter/content_filters/content_filters.dart';
-import 'package:wykop_api/data/model/EntryLinkDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryLinkDto.dart';
 import 'model.dart';
 
 class EntryLinkListmodel extends ListModel<EntryLinkDto, dynamic> {

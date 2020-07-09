@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/model/input_model.dart';
 import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/owm_glyphs.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/data/model/NotificationDto.dart';
+import 'package:owmflutter/main.dart';
+import 'package:wykop_api/infrastucture/data/model/NotificationDto.dart';
 
 class NotificationsScreen extends StatelessWidget {
   final int initialIndex;

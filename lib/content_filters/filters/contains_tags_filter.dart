@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:owmflutter/content_filters/filters/filter.dart';
 import 'package:owmflutter/utils/utils.dart';
-import 'package:wykop_api/data/model/EntryDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryDto.dart';
 
 class EntryContainsTagsFilter extends MultiTypeContentFilter {
   var tagsRegex = RegExp("(^|\\s)(#[a-z\\d-]+)");

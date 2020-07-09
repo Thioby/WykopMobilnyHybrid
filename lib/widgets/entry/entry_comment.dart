@@ -7,7 +7,7 @@ import 'package:owmflutter/widgets/content_hidden.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
 
 class EntryCommentWidget extends StatefulWidget {
   final int entryId;

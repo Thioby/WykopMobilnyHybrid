@@ -1,9 +1,8 @@
 import 'package:owmflutter/model/link_comment_model.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/data/model/InputData.dart';
-import 'package:wykop_api/data/model/LinkDto.dart';
-import 'package:wykop_api/data/model/RelatedDto.dart';
+import 'package:owmflutter/main.dart';
+import 'package:wykop_api/infrastucture/data/model/InputData.dart';
+import 'package:wykop_api/infrastucture/data/model/dtoModels.dart';
+import 'package:wykop_api/resources/resources.dart';
 import 'input_model.dart';
 
 class LinkModel extends InputModel {

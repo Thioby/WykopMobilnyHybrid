@@ -9,8 +9,8 @@ import 'package:owmflutter/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:html/parser.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'package:wykop_api/data/model/InputData.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
+import 'package:wykop_api/infrastucture/data/model/InputData.dart';
 
 class LinkCommentWidget extends StatefulWidget {
   final AuthorRelation relation;

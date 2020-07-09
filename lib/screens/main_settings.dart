@@ -9,8 +9,8 @@ import 'package:owmflutter/screens/settings/profile_edit/profile_edit.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:owmflutter/main.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
 
 class MainSettingsScreen extends StatelessWidget {
   static const platform = const MethodChannel('feelfreelinux.github.io/owmhybrid');

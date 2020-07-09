@@ -8,23 +8,25 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:image_downloader/image_downloader.dart';
 import 'package:mime/mime.dart';
+import 'package:owmflutter/main.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:path/path.dart' as Path;
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/data/model/EntryMediaDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryMediaDto.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+const String STREAMABLE_MATCHER = "streamable.com";
+const String YOUTUBE_MATCHER = "youtube.com";
+const String SIMPLE_YOUTUBE_MATCHER = "youtu.be";
 
 class MediaModel extends ChangeNotifier {
   // Matchers for spliting domains
   static const String GFYCAT_MATCHER = "gfycat.com";
   static const String COUB_MATCHER = "coub.com";
-  static const String STREAMABLE_MATCHER = "streamable.com";
-  static const String YOUTUBE_MATCHER = "youtube.com";
-  static const String SIMPLE_YOUTUBE_MATCHER = "youtu.be";
+
 
   bool _isImage = true;
   bool _isLoading = true;

@@ -4,12 +4,12 @@ import 'package:owmflutter/content_filters/filters/contains_tags_filter.dart';
 import 'package:owmflutter/content_filters/filters/filter.dart';
 import 'package:owmflutter/content_filters/filters/user_group_filter.dart';
 import 'package:owmflutter/utils/owm_settings.dart';
-import 'package:wykop_api/data/model/EntryCommentDto.dart';
-import 'package:wykop_api/data/model/EntryDto.dart';
-import 'package:wykop_api/data/model/EntryLinkDto.dart';
-import 'package:wykop_api/data/model/LinkCommentDto.dart';
-import 'package:wykop_api/data/model/LinkDto.dart';
-import 'package:wykop_api/data/model/ProfileRelatedDto.dart';
+import 'package:wykop_api/infrastucture/data/model/ProfileRelatedDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryLinkDto.dart';
+import 'package:wykop_api/infrastucture/data/model/LinkCommentDto.dart';
+import 'package:wykop_api/infrastucture/data/model/LinkDto.dart';
 
 final List<MultiTypeContentFilter> filters = [
   EntryContainsTagsFilter(),

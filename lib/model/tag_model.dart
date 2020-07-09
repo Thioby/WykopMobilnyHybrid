@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/main.dart';
+import 'package:wykop_api/resources/tags.dart';
 
 class TagModel extends ChangeNotifier {
   final String tag;

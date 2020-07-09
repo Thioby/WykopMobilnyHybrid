@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'package:wykop_api/data/model/NotificationDto.dart';
+import 'package:wykop_api/infrastucture/data/model/dtoModels.dart';
 
 class NotificationModel extends ChangeNotifier {
   int _id;

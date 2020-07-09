@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/main.dart';
 
 class AuthStateModel extends ChangeNotifier {
   String _login;

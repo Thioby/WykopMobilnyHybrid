@@ -5,7 +5,7 @@ import 'package:owmflutter/widgets/profile_related_list.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/main.dart';
 
 class ProfileScreen extends StatefulWidget {
   final ProfileModel profileModel;

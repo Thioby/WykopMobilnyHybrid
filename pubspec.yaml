@@ -15,6 +15,7 @@ dependencies:
   image_picker: ^0.6.3+4
   flutter_advanced_networkimage: ^0.7.0
   video_player: ^0.10.8+1
+  url_launcher:
   path_provider: ^1.6.5
   timeago: ^2.0.26
   font_awesome_flutter: ^8.7.0
@@ -35,7 +36,8 @@ dependencies:
   community_material_icon: ^3.5.95
   vibration: ^1.2.4
   wykop_api:
-    path: ./wykop_api
+    git:
+      url: https://github.com/Thioby/wykop_api.git
 
 dev_dependencies:
   flutter_test:

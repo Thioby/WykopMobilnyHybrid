@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:share/share.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'package:wykop_api/data/model/RelatedDto.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
+import 'package:wykop_api/infrastucture/data/model/RelatedDto.dart';
 
 class RelatedWidget extends StatelessWidget {
   final RelatedDto related;

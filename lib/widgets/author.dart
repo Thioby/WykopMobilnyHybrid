@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
 
 class AuthorWidget extends StatefulWidget {
   final AuthorDto author;

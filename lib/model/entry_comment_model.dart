@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'package:wykop_api/data/model/EntryCommentDto.dart';
-import 'package:wykop_api/data/model/EntryMediaDto.dart';
-import 'package:wykop_api/data/model/VoterDto.dart';
+import 'package:owmflutter/main.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryMediaDto.dart';
+import 'package:wykop_api/infrastucture/data/model/VoterDto.dart';
 
 class EntryCommentModel extends ChangeNotifier {
   int _id;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:owmflutter/widgets/pm/message.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:wykop_api/data/model/PmMessageDto.dart';
+import 'package:wykop_api/infrastucture/data/model/PmMessageDto.dart';
 
 class PmWidget extends StatefulWidget {
   final List<PmMessageDto> messages;

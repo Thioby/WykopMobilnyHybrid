@@ -1,14 +1,16 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:owmflutter/model/model.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/screens/screens.dart';
+import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/content_hidden.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:provider/provider.dart';
+import 'package:wykop_api/resources/resources.dart';
+
 import 'vote_counter.dart';
-import 'package:owmflutter/utils/utils.dart';
-import 'package:owmflutter/screens/screens.dart';
 
 class LinkWidget extends StatefulWidget {
   LinkWidget();
@@ -24,13 +26,9 @@ class _NewLinkWidgetState extends State<LinkWidget> {
         builder: (context, model, _) => !model.isExpanded
             ? ContentHiddenWidget(onTap: () => model.expand())
             : GestureDetector(
-                onLongPress: () =>
-                    _showActionsDialog(context, model, authStateModel),
+                onLongPress: () => _showActionsDialog(context, model, authStateModel),
                 child: Container(
-                  height:
-                      MediaQuery.of(context).orientation == Orientation.portrait
-                          ? null
-                          : 190,
+                  height: MediaQuery.of(context).orientation == Orientation.portrait ? null : 190,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -41,16 +39,14 @@ class _NewLinkWidgetState extends State<LinkWidget> {
                     ],
                     borderRadius: BorderRadius.circular(18),
                     color: Theme.of(context).backgroundColor,
-                    border: Border.all(
-                        color: Theme.of(context).dialogBackgroundColor),
+                    border: Border.all(color: Theme.of(context).dialogBackgroundColor),
                   ),
                   margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 14.0),
                   child: Material(
                     type: MaterialType.transparency,
                     key: Key(model.id.toString()),
                     color: Theme.of(context).cardColor,
-                    child: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
+                    child: MediaQuery.of(context).orientation == Orientation.portrait
                         ? _buildVerticalLayout(model)
                         : _buildHorizontalLayout(model),
                   ),
@@ -216,8 +212,7 @@ class _NewLinkWidgetState extends State<LinkWidget> {
 
   Widget _drawPreview(LinkModel model) {
     return Visibility(
-      visible:
-          !Provider.of<OWMSettings>(context, listen: false).hiddingLinkThumb,
+      visible: !Provider.of<OWMSettings>(context, listen: false).hiddingLinkThumb,
       child: GestureDetector(
         onTap: () => Utils.launchURL(model.sourceUrl, context),
         child: Stack(
@@ -230,19 +225,14 @@ class _NewLinkWidgetState extends State<LinkWidget> {
                 bottom: 0.0,
                 right: 0.0,
                 child: Container(
-                  margin:
-                      EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                  margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
                   padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
-                    color: model.voteState == LinkVoteState.DIGGED
-                        ? Color(0xff3b915f)
-                        : Color(0xffc0392b),
+                    color: model.voteState == LinkVoteState.DIGGED ? Color(0xff3b915f) : Color(0xffc0392b),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    model.voteState == LinkVoteState.DIGGED
-                        ? "Wykopane"
-                        : "Zakopane",
+                    model.voteState == LinkVoteState.DIGGED ? "Wykopane" : "Zakopane",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 12.0,
@@ -264,9 +254,7 @@ class _NewLinkWidgetState extends State<LinkWidget> {
       width: MediaQuery.of(context).orientation == Orientation.portrait
           ? MediaQuery.of(context).size.width - 28.0
           : (MediaQuery.of(context).size.width / 2) - 28.0,
-      height: MediaQuery.of(context).orientation == Orientation.portrait
-          ? 180
-          : 188,
+      height: MediaQuery.of(context).orientation == Orientation.portrait ? 180 : 188,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(18.0),
         child: Container(
@@ -276,8 +264,7 @@ class _NewLinkWidgetState extends State<LinkWidget> {
               Center(child: CircularProgressIndicator()),
               preview != null
                   ? FadeInImage.memoryNetwork(
-                      image: Provider.of<OWMSettings>(context, listen: false)
-                              .highResImageLink
+                      image: Provider.of<OWMSettings>(context, listen: false).highResImageLink
                           ? preview
                           : preview.replaceAll(".jpg", ",w207h139.jpg"),
                       placeholder: kTransparentImage,
@@ -322,8 +309,7 @@ class _NewLinkWidgetState extends State<LinkWidget> {
                 shape: BoxShape.circle,
               ),
               child: Image(
-                image: AdvancedNetworkImage(
-                    'http://s2.googleusercontent.com/s2/favicons?domain_url=$sourceUrl'),
+                image: AdvancedNetworkImage('http://s2.googleusercontent.com/s2/favicons?domain_url=$sourceUrl'),
                 height: 10.0,
                 width: 10.0,
               ),
@@ -331,11 +317,7 @@ class _NewLinkWidgetState extends State<LinkWidget> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.0),
               child: Text(
-                sourceUrl
-                    .replaceAll('https://', '')
-                    .replaceAll('http://', '')
-                    .replaceAll('www.', '')
-                    .split('/')[0],
+                sourceUrl.replaceAll('https://', '').replaceAll('http://', '').replaceAll('www.', '').split('/')[0],
                 style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500),
               ),
             ),
@@ -351,8 +333,7 @@ class _NewLinkWidgetState extends State<LinkWidget> {
       child: Text(
         title,
         overflow: TextOverflow.ellipsis,
-        maxLines:
-            MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 2,
+        maxLines: MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 2,
         style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
       ),
     );
@@ -362,8 +343,7 @@ class _NewLinkWidgetState extends State<LinkWidget> {
     return Text(
       description,
       overflow: TextOverflow.ellipsis,
-      maxLines:
-          MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 2,
+      maxLines: MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 2,
       style: TextStyle(color: Theme.of(context).textTheme.caption.color),
     );
   }
@@ -376,8 +356,7 @@ class _NewLinkWidgetState extends State<LinkWidget> {
     showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
       context: contextmain,
-      builder: (BuildContext context) =>
-          LinkToolbarWidget(contextmain, model, authStateModel),
+      builder: (BuildContext context) => LinkToolbarWidget(contextmain, model, authStateModel),
     );
   }
 }

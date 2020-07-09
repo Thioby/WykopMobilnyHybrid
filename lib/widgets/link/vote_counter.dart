@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:owmflutter/owm_glyphs.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:wykop_api/resources/resources.dart';
 
 class VoteCounterWidget extends StatelessWidget {
   final VoidCallback onTap;

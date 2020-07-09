@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:owmflutter/model/input_model.dart';
 import 'package:owmflutter/screens/input.dart';
 
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/data/model/EntryCommentDto.dart';
-import 'package:wykop_api/data/model/EntryDto.dart';
-import 'package:wykop_api/data/model/InputData.dart';
-import 'package:wykop_api/data/model/LinkCommentDto.dart';
+import 'package:owmflutter/main.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryDto.dart';
+import 'package:wykop_api/infrastucture/data/model/InputData.dart';
+import 'package:wykop_api/infrastucture/data/model/LinkCommentDto.dart';
 
 
 typedef void EntryCreatedCallback(EntryDto entry);

@@ -6,7 +6,7 @@ import 'package:owmflutter/screens/screens.dart';
 import 'package:provider/provider.dart';
 import 'dart:typed_data';
 
-import 'package:wykop_api/data/model/EntryMediaDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryMediaDto.dart';
 
 final Uint8List kTransparentImage = new Uint8List.fromList(<int>[
   0x89,

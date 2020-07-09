@@ -12,10 +12,10 @@ import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'package:owmflutter/model/model.dart';
-import 'package:wykop_api/data/model/EntryCommentDto.dart';
-import 'package:wykop_api/data/model/EntryDto.dart';
-import 'package:wykop_api/data/model/InputData.dart';
-import 'package:wykop_api/data/model/LinkCommentDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryDto.dart';
+import 'package:wykop_api/infrastucture/data/model/InputData.dart';
+import 'package:wykop_api/infrastucture/data/model/LinkCommentDto.dart';
 
 enum InputType { ENTRY, ENTRY_COMMENT, LINK_COMMENT, PRIVATE_MESSAGE }
 

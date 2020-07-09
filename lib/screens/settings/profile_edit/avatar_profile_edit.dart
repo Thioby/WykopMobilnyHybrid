@@ -3,7 +3,7 @@ import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/screens/settings/profile_edit/input_button.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
 
 class AvatarProfileEdit extends StatefulWidget {
   _AvatarProfileEditState createState() => _AvatarProfileEditState();

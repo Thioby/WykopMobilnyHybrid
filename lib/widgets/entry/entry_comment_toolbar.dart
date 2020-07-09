@@ -8,7 +8,7 @@ import 'package:owmflutter/screens/screens.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:share/share.dart';
-import 'package:wykop_api/data/model/InputData.dart';
+import 'package:wykop_api/infrastucture/data/model/InputData.dart';
 
 class EntryCommentToolbarWidget extends StatelessWidget {
   final BuildContext contextmain;

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:wykop_api/data/model/NotificationDto.dart';
+import 'package:wykop_api/infrastucture/data/model/dtoModels.dart';
 import 'model.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/main.dart';
 
 class GroupedTagNotificationsModel extends ChangeNotifier {
   final String tag;

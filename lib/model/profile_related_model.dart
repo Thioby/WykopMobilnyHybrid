@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:wykop_api/data/model/ProfileRelatedDto.dart';
+import 'package:wykop_api/infrastucture/data/model/ProfileRelatedDto.dart';
 
 class ProfileRelatedModel extends ChangeNotifier {
   int _id;

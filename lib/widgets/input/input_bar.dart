@@ -9,10 +9,10 @@ import 'package:owmflutter/model/model.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'package:wykop_api/data/model/AuthorSuggestionDto.dart';
-import 'package:wykop_api/data/model/InputData.dart';
-import 'package:wykop_api/data/model/TagSuggestionDto.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorSuggestionDto.dart';
+import 'package:wykop_api/infrastucture/data/model/InputData.dart';
+import 'package:wykop_api/infrastucture/data/model/TagSuggestionDto.dart';
 
 import 'emoticon_button.dart';
 import 'markdown_button.dart';

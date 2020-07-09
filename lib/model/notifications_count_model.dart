@@ -1,7 +1,7 @@
 import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/foundation.dart';
 import 'package:owmflutter/widgets/notifications_handler.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/main.dart';
 
 class NotificationsCountModel extends ChangeNotifier {
   int _notificationsCount = 0;

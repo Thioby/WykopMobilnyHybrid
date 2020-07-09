@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/main.dart';
 import 'package:owmflutter/keys.dart';
 
 class ErrorHandlerWidget extends StatefulWidget {

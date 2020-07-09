@@ -12,7 +12,7 @@ import 'package:share/share.dart' as share;
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:html/parser.dart';
 import 'package:path/path.dart' as Path;
-import 'package:wykop_api/data/model/PmMessageDto.dart';
+import 'package:wykop_api/infrastucture/data/model/PmMessageDto.dart';
 
 class MessageWidget extends StatefulWidget {
   const MessageWidget({

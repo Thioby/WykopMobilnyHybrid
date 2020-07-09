@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/main.dart';
 
 class ObservedTagsModel extends ChangeNotifier {
   List<String> _tags = [];

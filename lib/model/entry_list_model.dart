@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:owmflutter/content_filters/content_filters.dart';
-import 'package:wykop_api/data/model/EntryDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryDto.dart';
 import 'model.dart';
 
 class EntryListModel extends ListModel<EntryDto, EntryModel> {

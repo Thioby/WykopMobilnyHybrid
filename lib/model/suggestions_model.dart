@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/data/model/AuthorSuggestionDto.dart';
-import 'package:wykop_api/data/model/TagSuggestionDto.dart';
+import 'package:owmflutter/main.dart';
+import 'package:wykop_api/infrastucture/data/model/dtoModels.dart';
 
 class SuggestionsModel extends ChangeNotifier {
   List<TagSuggestionDto> _tagSuggestions = [];

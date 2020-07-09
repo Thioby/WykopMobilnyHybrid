@@ -4,10 +4,11 @@ import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/month_picker.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:owmflutter/screens/screens.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/main.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:wykop_api/data/model/LinkDto.dart';
+import 'package:wykop_api/infrastucture/data/model/LinkDto.dart';
+import 'package:wykop_api/resources/links.dart';
 
 class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();

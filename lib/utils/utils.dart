@@ -1,16 +1,21 @@
-import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart' as cct;
 import 'package:intl/intl.dart';
+import 'package:owmflutter/screens/media.dart';
 import 'package:owmflutter/widgets/author_relation_builder.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart' as urlLauncher;
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'owm_settings.dart';
-export 'owm_settings.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'dart:io' show Platform;
-import 'package:flutter_custom_tabs/flutter_custom_tabs.dart' as cct;
+import 'package:url_launcher/url_launcher.dart' as urlLauncher;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
+
+import 'owm_settings.dart';
+
+export 'owm_settings.dart';
 
 void launchDefaultBrowser(String url) {
   urlLauncher.launch(url);
@@ -22,22 +27,25 @@ void launchUrl(String url, {BuildContext context}) async {
   if (owmSettings.linkOpenBrowser) {
     launchDefaultBrowser(url);
   } else {
-    await cct.launch(
-      url,
-      option: new cct.CustomTabsOption(
-        toolbarColor: Theme.of(context).primaryColor,
-        enableDefaultShare: true,
-        enableUrlBarHiding: true,
-        showPageTitle: true,
-        animation: new cct.CustomTabsAnimation.slideIn(),
-        extraCustomTabs: <String>[
-          // ref. https://play.google.com/store/apps/details?id=org.mozilla.firefox
-          'org.mozilla.firefox',
-          // ref. https://play.google.com/store/apps/details?id=com.microsoft.emmx
-          'com.microsoft.emmx',
-        ],
-      ),
-    );
+    if ((url.contains(YOUTUBE_MATCHER) || url.contains(SIMPLE_YOUTUBE_MATCHER)) && await canLaunch(url)) {
+      await launch(url);
+    } else {
+      await cct.launch(
+        url,
+        option: new cct.CustomTabsOption(
+          toolbarColor: Theme.of(context).primaryColor,
+          enableDefaultShare: true,
+          enableUrlBarHiding: true,
+          showPageTitle: true,
+          animation: new cct.CustomTabsAnimation.slideIn(),
+          extraCustomTabs: <String>[
+            // ref. https://play.google.com/store/apps/details?id=org.mozilla.firefox
+            'org.mozilla.firefox', // ref. https://play.google.com/store/apps/details?id=com.microsoft.emmx
+            'com.microsoft.emmx',
+          ],
+        ),
+      );
+    }
   }
 }
 
@@ -92,15 +100,13 @@ class Utils {
       return PageRouteBuilder(
         barrierColor: Colors.black26,
         opaque: true,
-        pageBuilder: (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
+        pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
           return screen;
         },
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position: Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset.zero)
-                .animate(CurvedAnimation(
-                    parent: animation, curve: Curves.easeInOutQuart)),
+                .animate(CurvedAnimation(parent: animation, curve: Curves.easeInOutQuart)),
             child: child,
           );
         },
@@ -116,15 +122,13 @@ class Utils {
       return PageRouteBuilder(
         barrierColor: Colors.black26,
         opaque: true,
-        pageBuilder: (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
+        pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
           return screen;
         },
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position: Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset.zero)
-                .animate(CurvedAnimation(
-                    parent: animation, curve: Curves.easeInOutQuart)),
+                .animate(CurvedAnimation(parent: animation, curve: Curves.easeInOutQuart)),
             child: child,
           );
         },
@@ -140,8 +144,7 @@ class Utils {
       // okay i know its crappy but i need to fix one thing with iOS first
       return PageRouteBuilder(
         opaque: true,
-        pageBuilder: (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
+        pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
           return screen;
         },
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -176,44 +179,35 @@ class Utils {
     }
   }
 
-  static Color voteBackgroundStateColor(BuildContext context,
-      {bool isSelected, bool isComment, bool negativeIcon}) {
+  static Color voteBackgroundStateColor(BuildContext context, {bool isSelected, bool isComment, bool negativeIcon}) {
     if (isSelected) {
       return negativeIcon ? Colors.red[800] : Colors.green[800];
     } else {
-      return isComment
-          ? backgroundCommentButton(context)
-          : backgroundGreyOpacity(context);
+      return isComment ? backgroundCommentButton(context) : backgroundGreyOpacity(context);
     }
   }
 
   static Color backgroundGreyOpacity(BuildContext context) {
-    return Theme.of(context).iconTheme.color.withOpacity(
-        Theme.of(context).brightness == Brightness.light ? 0.10 : 0.20);
+    return Theme.of(context)
+        .iconTheme
+        .color
+        .withOpacity(Theme.of(context).brightness == Brightness.light ? 0.10 : 0.20);
   }
 
   static Color backgroundGrey(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.light
-        ? Color(0xfff0f0f0)
-        : Color(0xff282828);
+    return Theme.of(context).brightness == Brightness.light ? Color(0xfff0f0f0) : Color(0xff282828);
   }
 
   static Color backgroundRoundIconAppbarScroll(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.light
-        ? Colors.white54
-        : Colors.black45;
+    return Theme.of(context).brightness == Brightness.light ? Colors.white54 : Colors.black45;
   }
 
   static Color iconColorRoundIconAppbarScroll(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.light
-        ? Colors.black
-        : Colors.white;
+    return Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white;
   }
 
   static Color backgroundCommentButton(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.light
-        ? Color(0xfff0f0f0)
-        : Color(0xff333333);
+    return Theme.of(context).brightness == Brightness.light ? Color(0xfff0f0f0) : Color(0xff333333);
   }
 
   static BoxDecoration appBarShadow(
@@ -224,9 +218,7 @@ class Utils {
     Color animatedBackgroundColor,
   }) {
     return BoxDecoration(
-      color: animatedBackground
-          ? animatedBackgroundColor.withOpacity(show ? 1.0 : 0.0)
-          : null,
+      color: animatedBackground ? animatedBackgroundColor.withOpacity(show ? 1.0 : 0.0) : null,
       boxShadow: [
         BoxShadow(
           color: Colors.black.withOpacity(show ? opacity : 0.0),
@@ -236,13 +228,10 @@ class Utils {
     );
   }
 
-  static String polishPlural(
-      {num count, String first, String many, String other}) {
+  static String polishPlural({num count, String first, String many, String other}) {
     if (count == 1) {
       return first; // komentarz
-    } else if (count % 10 >= 2 &&
-        count % 10 <= 4 &&
-        (count % 100 < 10 || count % 100 >= 20)) {
+    } else if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20)) {
       return other; // komentarze
     } else {
       return many; // komentarzy
@@ -251,8 +240,7 @@ class Utils {
 
   static void copyToClipboard(BuildContext context, String text) {
     Clipboard.setData(ClipboardData(text: text));
-    Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text("Skopiowano do schowka")));
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text("Skopiowano do schowka")));
   }
 
   static void launchURL(String url, BuildContext context) async {
@@ -266,8 +254,7 @@ Future<bool> showConfirmDialog(BuildContext context, String title) async {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         title: Text(title),
         actions: <Widget>[
           Padding(
@@ -276,8 +263,7 @@ Future<bool> showConfirmDialog(BuildContext context, String title) async {
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               color: Colors.grey.withOpacity(0.5),
               textColor: Theme.of(context).textTheme.body1.color,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
               child: Text("Anuluj"),
               onPressed: () => Navigator.of(context).pop(),
             ),
@@ -287,8 +273,7 @@ Future<bool> showConfirmDialog(BuildContext context, String title) async {
             child: FlatButton(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               color: Theme.of(context).accentColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
               child: Text("OK"),
               textColor: Colors.white,
               onPressed: () {

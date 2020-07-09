@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:owmflutter/model/author_sex.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
 
 class AvatarWidget extends StatelessWidget {
   final AuthorDto author;

@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:owmflutter/content_filters/filters/filter.dart';
 import 'package:owmflutter/utils/utils.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'package:wykop_api/data/model/EntryCommentDto.dart';
-import 'package:wykop_api/data/model/EntryDto.dart';
-import 'package:wykop_api/data/model/EntryLinkDto.dart';
-import 'package:wykop_api/data/model/LinkCommentDto.dart';
-import 'package:wykop_api/data/model/LinkDto.dart';
+import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryCommentDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryDto.dart';
+import 'package:wykop_api/infrastucture/data/model/EntryLinkDto.dart';
+import 'package:wykop_api/infrastucture/data/model/LinkCommentDto.dart';
+import 'package:wykop_api/infrastucture/data/model/LinkDto.dart';
 
 class ExcludeNewbieContentFilter extends MultiTypeContentFilter {
   @override

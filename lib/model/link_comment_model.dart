@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:owmflutter/model/link_comment_vote_state.dart';
-import 'package:wykop_api/api/api.dart';
-import 'package:wykop_api/data/model/AuthorDto.dart';
-import 'package:wykop_api/data/model/EntryMediaDto.dart';
-import 'package:wykop_api/data/model/LinkCommentDto.dart';
+import 'package:owmflutter/main.dart';
+import 'package:wykop_api/infrastucture/data/model/dtoModels.dart';
 
 class LinkCommentModel extends ChangeNotifier {
   int _id;

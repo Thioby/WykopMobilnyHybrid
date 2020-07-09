@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:owmflutter/model/auth_model.dart';
 import 'package:owmflutter/model/notifications_count_model.dart';
-import 'package:wykop_api/api/api.dart';
+import 'package:owmflutter/main.dart';
 import 'package:owmflutter/keys.dart';
 
 import 'package:background_fetch/background_fetch.dart';
@@ -10,7 +10,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:owmflutter/screens/notifications.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/data/model/NotificationDto.dart';
+import 'package:wykop_api/infrastucture/data/model/NotificationDto.dart';
 
 Future<void> sendNotification(
     {int count, NotificationDto notification}) async {

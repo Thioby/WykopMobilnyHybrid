@@ -4,7 +4,7 @@ import 'package:owmflutter/navigator/navigator.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:wykop_api/data/model/NotificationDto.dart';
+import 'package:wykop_api/infrastucture/data/model/NotificationDto.dart';
 
 class NotificationWidget extends StatelessWidget {
   NotificationWidget();
