@@ -157,7 +157,7 @@ class LinkModel extends InputModel {
     if (_voteState != LinkVoteState.NONE) {
       return voteRemove();
     }
-    var res = await api.links.voteDown(_id.toString(), reason);
+    var res = await api.links.voteBury(_id.toString(), reason);
     _buryCount = res.buries;
     _voteCount = res.digs;
     _voteState = res.state;

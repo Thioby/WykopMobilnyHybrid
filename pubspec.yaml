@@ -36,8 +36,10 @@ dependencies:
   community_material_icon: ^3.5.95
   vibration: ^1.2.4
   wykop_api:
-    git:
-      url: https://github.com/Thioby/wykop_api.git
+    path: "/Users/anowak/Documents/Projects/wykop_api"
+#  wykop_api:
+#    git:
+#      url: https://github.com/Thioby/wykop_api.git
 
 dev_dependencies:
   flutter_test:
