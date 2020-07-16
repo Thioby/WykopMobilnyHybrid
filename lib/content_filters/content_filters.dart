@@ -86,7 +86,7 @@ class OWMContentFilter {
   }
 
   static Future<List<EntryLinkDto>> filterEntryLinks(Future<List<EntryLinkDto>> future, BuildContext context) async {
-    return (await future).map((e) => performFilterOnEntryLink(e, context, owmSettings)).toList();
+    return (await future)?.map((e) => performFilterOnEntryLink(e, context, owmSettings))?.toList();
   }
 
   static ProfileRelatedDto performFilterOnProfileRelated(

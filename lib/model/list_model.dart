@@ -30,7 +30,9 @@ class ListModel<T, D> extends BaseModel {
     _isRefreshing = true;
     _isLoading = true;
     notifyListeners();
-    _items = (await loadNewItems(_page)).map((e) => mapper(e)).toList();
+
+    var loadedElements = await loadNewItems(_page) ?? [];
+    _items = (loadedElements).map((e) => mapper(e)).toList();
     if (_items.isEmpty) {
       _haveReachedEnd = true;
     }
@@ -46,7 +48,7 @@ class ListModel<T, D> extends BaseModel {
     if (!_isLoading && !_haveReachedEnd) {
       _isLoading = true;
       notifyListeners();
-      var loadedItems = await loadNewItems(_page);
+      var loadedItems = await loadNewItems(_page) ?? [];
       _items.addAll(loadedItems.map((e) => mapper(e)).toList());
       if (loadedItems.isEmpty) {
         _haveReachedEnd = true;
