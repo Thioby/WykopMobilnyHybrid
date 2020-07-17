@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:owmflutter/utils/utils.dart';
 import 'package:owmflutter/main.dart';
 import 'package:wykop_api/infrastucture/data/model/AuthorDto.dart';
-import 'package:wykop_api/infrastucture/response_models/profile_response.dart';
+import 'package:wykop_api/infrastucture/data/model/ProfileDto.dart';
 
 class ProfileModel extends ChangeNotifier {
   AuthorDto author;
@@ -14,7 +14,7 @@ class ProfileModel extends ChangeNotifier {
 
   bool _profileLoaded = false;
 
-  ProfileResponse _fullProfile;
+  ProfileDto _fullProfile;
 
   bool _isObserved = false;
   bool _isBlocked = false;
@@ -72,6 +72,7 @@ class ProfileModel extends ChangeNotifier {
         _isObserved = await api.profiles.observe(_fullProfile.login);
       }
     }
+
     notifyListeners();
   }
 
